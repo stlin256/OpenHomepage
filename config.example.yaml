@@ -1,0 +1,26 @@
+# 配置文件示例
+# 复制此文件为 config.yaml 并修改为你自己的信息
+
+# GitHub用户名（用于获取公开的仓库信息）
+github_username: "octocat"
+
+# 服务器端口号
+port: 8004
+
+# 个人博客RSS订阅源（可多个）
+rss_feeds:
+  - url: "https://example.com/blog/feed.xml"
+    name: "我的博客"
+
+# 个人简介
+bio:
+  name: "Your Name"
+  title: "Developer & Creator"
+  description: "A passionate developer building cool things."
+  avatar: "/static/avatar.png"
+
+# 社交链接
+social:
+  github: "your-github-username"
+  email: "your@email.com"
+  twitter: "your-twitter"
