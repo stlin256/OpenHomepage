@@ -6,7 +6,7 @@
     <title>{{ config.bio.name }} - 个人主页</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0a0a0a;
@@ -30,7 +30,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
@@ -165,6 +165,126 @@
             height: 1.5rem;
             background: var(--accent);
             border-radius: 2px;
+        }
+
+        /* GitHub Contribution Graph */
+        .contribution-graph {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .contribution-grid {
+            display: flex;
+            gap: 3px;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .contribution-week {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .contribution-day {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            transition: transform 0.1s;
+        }
+
+        .contribution-day:hover {
+            transform: scale(1.3);
+        }
+
+        .contribution-day.c0 {
+            background: var(--bg-tertiary) !important;
+        }
+
+        .contribution-day.c1 {
+            background: var(--accent);
+            opacity: 0.4;
+        }
+
+        .contribution-day.c2 {
+            background: var(--accent);
+            opacity: 0.55;
+        }
+
+        .contribution-day.c3 {
+            background: var(--accent);
+            opacity: 0.7;
+        }
+
+        .contribution-day.c4,
+        .contribution-day.c5,
+        .contribution-day.c6,
+        .contribution-day.c7,
+        .contribution-day.c8,
+        .contribution-day.c9,
+        .contribution-day.c10,
+        .contribution-day.c11,
+        .contribution-day.c12,
+        .contribution-day.c13,
+        .contribution-day.c14,
+        .contribution-day.c15,
+        .contribution-day.c16,
+        .contribution-day.c17,
+        .contribution-day.c18,
+        .contribution-day.c19,
+        .contribution-day.c20,
+        .contribution-day.c21,
+        .contribution-day.c22,
+        .contribution-day.c23,
+        .contribution-day.c24,
+        .contribution-day.c25,
+        .contribution-day.c26,
+        .contribution-day.c27,
+        .contribution-day.c28,
+        .contribution-day.c29,
+        .contribution-day.c30,
+        .contribution-day.c31,
+        .contribution-day.c32,
+        .contribution-day.c33,
+        .contribution-day.c34,
+        .contribution-day.c35,
+        .contribution-day.c36,
+        .contribution-day.c37,
+        .contribution-day.c38,
+        .contribution-day.c39,
+        .contribution-day.c40,
+        .contribution-day.c41,
+        .contribution-day.c42,
+        .contribution-day.c43,
+        .contribution-day.c44,
+        .contribution-day.c45,
+        .contribution-day.c46,
+        .contribution-day.c47,
+        .contribution-day.c48,
+        .contribution-day.c49,
+        .contribution-day.c50,
+        .contribution-day.c51,
+        .contribution-day.c52,
+        .contribution-day.c53,
+        .contribution-day.c54,
+        .contribution-day.c55 {
+            background: var(--accent) !important;
+        }
+
+        .contribution-legend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .contribution-legend .contribution-day {
+            width: 10px;
+            height: 10px;
         }
 
         /* Projects Grid */
@@ -390,6 +510,39 @@
             </div>
             {% endif %}
         </div>
+        {% endif %}
+
+        <!-- GitHub Contributions -->
+        {% if contributions %}
+        <section>
+            <h2 class="section-title">Contributions</h2>
+            <div class="contribution-graph">
+                {% set week_count = [] %}
+                {% for week in contributions.weeks %}
+                    {% for day in week.contributionDays %}
+                        {% if week_count.append(day) %}{% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <div class="contribution-grid">
+                    {% for week in contributions.weeks[:52] %}
+                    <div class="contribution-week">
+                        {% for day in week.contributionDays %}
+                        <div class="contribution-day c{{ min(day.contributionCount, 55) }}" data-date="{{ day.date }}" title="{{ day.date }}: {{ day.contributionCount }} contributions"></div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="contribution-legend">
+                    <span>Less</span>
+                    <div class="contribution-day c0"></div>
+                    <div class="contribution-day c1"></div>
+                    <div class="contribution-day c2"></div>
+                    <div class="contribution-day c3"></div>
+                    <div class="contribution-day c4"></div>
+                    <span>More</span>
+                </div>
+            </div>
+        </section>
         {% endif %}
 
         <!-- Projects -->

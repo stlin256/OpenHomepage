@@ -1,16 +1,18 @@
-# Claude Style Personal Homepage
+# OpenHome
 
-现代化风格的个人主页，灵感来自 Claude AI 的设计。支持展示 GitHub 仓库、博客 RSS 订阅等功能。
+现代化风格的个人主页，支持展示 GitHub 仓库、贡献图、博客 RSS 订阅等功能。
 
 ## 特性
 
-- 🎨 Claude 风格的现代化深色主题
+- 🎨 现代化深色主题
 - 🌈 **智能主题色**：自动从 GitHub 头像提取并智能调整（避免太淡或太鲜艳）
 - 💾 **颜色缓存**：主题色自动缓存 24 小时，提升加载速度
-- 📊 自动展示 GitHub 公开仓库（按 star 数排序）
+- 📊 GitHub 贡献图（heatmap 风格）
+- 📦 自动展示 GitHub 公开仓库（按 star 数排序）
 - 📰 博客 RSS 订阅同步
 - ⚙️ 完全配置文件驱动
 - 📱 响应式设计
+- 🌍 中文字体支持
 
 ## 快速开始
 
@@ -62,6 +64,16 @@ python app.py
 
 打开浏览器访问 http://localhost:8004
 
+## 环境变量
+
+可选配置代理（用于访问 GitHub API）：
+
+```bash
+export HTTP_PROXY=http://127.0.0.1:7890
+export HTTPS_PROXY=http://127.0.0.1:7890
+python app.py
+```
+
 ## 智能主题色
 
 ### 工作原理
@@ -85,7 +97,7 @@ http://localhost:8004/api/clear-cache
 ## 项目结构
 
 ```
-claude-style-homepage/
+openhome/
 ├── app.py              # 主程序
 ├── config.yaml         # 配置文件（不提交到 Git）
 ├── config.example.yaml # 配置示例

@@ -1,5 +1,10 @@
+import os
+# 代理配置（用于访问GitHub API）
+os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7890'
+os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7890'
+
 """
-Claude风格个人主页 - 主程序
+OpenHome - 个人主页
 现代化风格，可配置，支持GitHub信息爬取和RSS订阅
 """
 import yaml
@@ -183,6 +188,46 @@ def get_github_repos(username):
         print(f"Error fetching GitHub repos: {e}")
     return []
 
+# GitHub GraphQL API 获取贡献数据
+def get_github_contributions(username):
+    """使用GitHub GraphQL API获取用户的贡献数据"""
+    url = "https://api.github.com/graphql"
+    token = os.environ.get('GITHUB_TOKEN', '')
+    
+    query = """
+    {
+      user(login: "%s") {
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+            weeks {
+              contributionDays {
+                contributionCount
+                date
+              }
+            }
+          }
+        }
+      }
+    }
+    """ % username
+    
+    try:
+        if token:
+            headers = {"Authorization": f"Bearer {token}"}
+            response = requests.post(url, json={"query": query}, headers=headers, timeout=10)
+            if response.status_code == 200:
+                data = response.json()
+                if 'data' in data and data['data'].get('user'):
+                    calendar = data['data']['user']['contributionsCollection']['contributionCalendar']
+                    return {
+                        'total': calendar.get('totalContributions', 0),
+                        'weeks': calendar.get('weeks', [])
+                    }
+    except Exception as e:
+        print(f"Error fetching GitHub contributions: {e}")
+    return None
+
 # 从头像提取主题色（带智能调整和缓存）
 def get_theme_colors(avatar_url, username=''):
     """从头像图片提取主题色（智能调整 + 缓存）"""
@@ -265,6 +310,7 @@ def index():
     github_username = config.get('github_username', '')
     user_info = get_github_user(github_username) if github_username else None
     repos = get_github_repos(github_username) if github_username else []
+    contributions = get_github_contributions(github_username) if github_username else None
     
     # 提取主题色（带缓存）
     theme_colors = {'primary': '#d97706', 'secondary': '#f59e0b', 'gradient_start': '#d97706', 'gradient_end': '#dc2626', 'primary_rgb': [217, 119, 6]}
@@ -284,7 +330,8 @@ def index():
                          user_info=user_info,
                          repos=repos,
                          rss_items=rss_items[:10],
-                         theme_colors=theme_colors)
+                         theme_colors=theme_colors,
+                         contributions=contributions)
 
 @app.route('/api/repos')
 def api_repos():
