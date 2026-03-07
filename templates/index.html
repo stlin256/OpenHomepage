@@ -755,7 +755,7 @@
 
         <script>
         function showRepoModal(owner, repo, url) {
-            document.getElementById('modalTitle').textContent = repo;
+            document.getElementById('modalTitle').textContent = owner + '/' + repo;
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
             document.getElementById('modalLink').href = url;
             document.getElementById('repoModal').style.display = 'block';
