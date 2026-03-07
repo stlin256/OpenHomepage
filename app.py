@@ -18,7 +18,9 @@ import feedparser
 from io import BytesIO
 from colorthief import ColorThief
 
-app = Flask(__name__)
+# 配置静态文件夹用于README图片
+READMES_DIR = os.path.join(os.path.dirname(__file__), 'readmes')
+app = Flask(__name__, static_folder=READMES_DIR, static_url_path='/static/readmes')
 
 # 缓存配置
 CACHE_DIR = os.path.join(os.path.dirname(__file__), '.cache')
@@ -399,6 +401,16 @@ def index():
     repos = get_github_repos(github_username) if github_username else []
     contributions = get_github_contributions(github_username) if github_username else None
     
+    # 同步README到本地（启动时同步一次）
+    if repos:
+        try:
+            from readme_sync import sync_all_readmes, start_sync_scheduler
+            sync_all_readmes(repos)
+            # 启动定时同步（每小时）
+            start_sync_scheduler(repos)
+        except Exception as e:
+            print(f"README同步出错: {e}")
+    
     # 计算总star数
     total_stars = sum(r.get('stargazers_count', 0) for r in repos) if repos else 0
     
@@ -489,52 +501,38 @@ def save_scheme():
 
 @app.route('/api/readme/<owner>/<repo>')
 def get_readme(owner, repo):
-    """获取项目的README"""
-    import yaml
-    github_token = ''
-    
-    # 加载config
-    config_path = os.path.join(os.path.dirname(__file__), 'config.yaml')
-    if os.path.exists(config_path):
-        try:
-            with open(config_path, 'r') as f:
-                app_config = yaml.safe_load(f)
-                github_token = app_config.get('github_token', '') if app_config else ''
-        except Exception as e:
-            print(f"Error loading config: {e}")
-    
-    print(f"DEBUG get_readme: owner={owner}, repo={repo}, token={github_token[:10] if github_token else 'none'}")
-    
-    # 尝试获取 README（支持多种格式）
-    debug_info = []
-    for filename in ['README.md', 'readme.md', 'README.rst', 'README']:
-        url = f"https://api.github.com/repos/{owner}/{repo}/contents/{filename}"
-        headers = {}
-        if github_token:
-            headers['Authorization'] = f"Bearer {github_token}"
+    """获取项目的README（从本地缓存）"""
+    # 导入README同步模块
+    try:
+        from readme_sync import get_local_readme, sync_readme
         
-        try:
-            response = requests.get(url, headers=headers, timeout=10)
-            debug_info.append(f"{filename}: {response.status_code}")
-            if response.status_code == 200:
-                data = response.json()
-                import base64
-                content = base64.b64decode(data['content']).decode('utf-8')
-                
-                # 转换Markdown为HTML
-                import markdown
-                html_content = markdown.markdown(content, extensions=['extra', 'tables', 'nl2br'])
-                
-                return jsonify({
-                    'status': 'ok',
-                    'name': repo,
-                    'html': html_content,
-                    'url': data['html_url']
-                })
-        except Exception as e:
-            debug_info.append(f"{filename}: {e}")
-    
-    return jsonify({'status': 'error', 'message': 'README not found'})
+        # 尝试从本地获取
+        local_data = get_local_readme(owner, repo)
+        
+        if local_data:
+            return jsonify({
+                'status': 'ok',
+                'name': local_data.get('name', repo),
+                'html': local_data.get('html', ''),
+                'url': local_data.get('html_url', f'https://github.com/{owner}/{repo}')
+            })
+        
+        # 本地没有则同步一次
+        sync_readme(owner, repo)
+        local_data = get_local_readme(owner, repo)
+        
+        if local_data:
+            return jsonify({
+                'status': 'ok',
+                'name': local_data.get('name', repo),
+                'html': local_data.get('html', ''),
+                'url': local_data.get('html_url', f'https://github.com/{owner}/{repo}')
+            })
+        
+        return jsonify({'status': 'error', 'message': 'README not found'})
+    except Exception as e:
+        print(f"Error getting README: {e}")
+        return jsonify({'status': 'error', 'message': str(e)})
 
 if __name__ == '__main__':
     port = config.get('port', 8004)

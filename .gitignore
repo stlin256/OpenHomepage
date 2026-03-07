@@ -4,6 +4,9 @@ config.yaml
 # 缓存目录
 .cache/
 
+# README本地缓存（自动生成）
+readmes/
+
 # Python
 __pycache__/
 *.py[cod]
