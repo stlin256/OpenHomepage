@@ -766,6 +766,7 @@
             document.getElementById('modalTitle').textContent = owner + '/' + repo;
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
             document.getElementById('modalLink').href = url;
+            document.getElementById('modalLink').textContent = 'View on GitHub →';
             document.getElementById('repoModal').style.display = 'block';
             
             fetch('/api/readme/' + owner + '/' + repo)
