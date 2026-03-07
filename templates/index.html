@@ -384,14 +384,17 @@
 
         .rss-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
             margin-bottom: 0.5rem;
         }
 
         .rss-title {
             font-weight: 600;
             color: var(--text-primary);
+            flex: 1;
+            min-width: 200px;
         }
 
         .rss-source {
@@ -400,6 +403,7 @@
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
             font-size: 0.75rem;
+            white-space: nowrap;
         }
 
         .rss-summary {
@@ -602,8 +606,10 @@
         <!-- Footer --><!-- Modal for Project README -->
         <div id="repoModal" class="modal">
             <div class="modal-content">
-                <span class="modal-close" onclick="closeModal()">&times;</span>
-                <h2 id="modalTitle" class="modal-title"></h2>
+                <div class="modal-header">
+                    <h2 id="modalTitle" class="modal-title"></h2>
+                    <span class="modal-close" onclick="closeModal()">&times;</span>
+                </div>
                 <div id="modalBody" class="modal-body">
                     <div class="loading">Loading...</div>
                 </div>
@@ -648,9 +654,17 @@
             color: var(--accent);
         }
         .modal-title {
-            padding: 20px 20px 10px;
+            padding: 0;
             margin: 0;
             color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
         }
         .modal-body {
             padding: 15px 20px;
