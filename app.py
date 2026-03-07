@@ -539,6 +539,48 @@ def get_readme(owner, repo):
         print(f"Error getting README: {e}")
         return jsonify({'status': 'error', 'message': str(e)})
 
+@app.route('/api/rss/<path:url>')
+def get_rss_content(url):
+    """获取RSS文章内容"""
+    import urllib.parse
+    from bs4 import BeautifulSoup
+    
+    # 解码URL
+    url = urllib.parse.unquote(url)
+    
+    try:
+        response = requests.get(url, timeout=10)
+        response.encoding = 'utf-8'
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # 尝试获取文章内容
+        article = soup.find('article') or soup.find('main') or soup.find('div', class_='content')
+        
+        if article:
+            # 清理脚本和样式
+            for tag in article.find_all(['script', 'style', 'nav', 'footer', 'header']):
+                tag.decompose()
+            html_content = str(article)
+        else:
+            # 如果没找到，返回整个body
+            body = soup.find('body')
+            if body:
+                for tag in body.find_all(['script', 'style', 'nav', 'footer', 'header']):
+                    tag.decompose()
+                html_content = str(body)
+            else:
+                html_content = response.text[:5000]
+        
+        return jsonify({
+            'status': 'ok',
+            'title': soup.title.string if soup.title else url,
+            'html': html_content,
+            'url': url
+        })
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
 if __name__ == '__main__':
     port = config.get('port', 8004)
     print(f"🚀 启动Claude风格个人主页: http://localhost:{port}")

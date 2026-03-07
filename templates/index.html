@@ -375,6 +375,7 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            cursor: pointer;
         }
 
         .rss-item:hover {
@@ -590,14 +591,14 @@
             <h2 class="section-title">Blog Feed</h2>
             <div class="rss-list">
                 {% for item in rss_items %}
-                <a href="{{ item.link }}" target="_blank" class="rss-item">
+                <div class="rss-item" onclick="showRssModal('{{ item.link|urlencode }}')">
                     <div class="rss-header">
                         <span class="rss-title">{{ item.title }}</span>
                         <span class="rss-source">{{ item.source }}</span>
                     </div>
                     <div class="rss-summary">{{ item.summary }}</div>
                     <div class="rss-date">{{ item.published[:10] if item.published else '' }}</div>
-                </a>
+                </div>
                 {% endfor %}
             </div>
         </section>
@@ -784,6 +785,32 @@
         
         function closeModal() {
             document.getElementById('repoModal').style.display = 'none';
+        }
+        
+        // RSS Modal
+        function showRssModal(link) {
+            document.getElementById('modalTitle').textContent = '加载中...';
+            document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
+            document.getElementById('modalLink').href = link;
+            document.getElementById('modalLink').textContent = '在浏览器中打开 →';
+            document.getElementById('repoModal').style.display = 'block';
+            
+            fetch('/api/rss/' + encodeURIComponent(link))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        document.getElementById('modalTitle').textContent = data.title || 'Blog';
+                        document.getElementById('modalBody').innerHTML = data.html;
+                        if (typeof mermaid !== 'undefined') {
+                            mermaid.run();
+                        }
+                    } else {
+                        document.getElementById('modalBody').innerHTML = '<p>无法加载内容</p><p><a href="' + link + '" target="_blank">在浏览器中打开 →</a></p>';
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('modalBody').innerHTML = '<p>加载失败: ' + err + '</p><p><a href="' + link + '" target="_blank">在浏览器中打开 →</a></p>';
+                });
         }
         
         window.onclick = function(event) {
