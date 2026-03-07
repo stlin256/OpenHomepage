@@ -20,6 +20,8 @@ os.environ['https_proxy'] = ''
 # 创建session with better retry logic
 session = requests.Session()
 session.mount('https://', HTTPAdapter(max_retries=Retry(total=2, backoff_factor=0.5)))
+# 显式设置不使用代理
+session.trust_env = False
 import hashlib
 from datetime import datetime
 from threading import Thread
@@ -87,22 +89,34 @@ def get_readme_content(owner, repo):
 
 def download_image(url, owner, repo):
     """下载图片到本地"""
+    import urllib.parse
     if not url or url.startswith('data:') or url.startswith('#'):
         return None
     
+    # 保存原始URL用于hash
+    original_url = url
+    
     # 转换相对路径为绝对路径
     if not url.startswith('http://') and not url.startswith('https://'):
+        # URL编码中文路径
+        url_encoded = urllib.parse.quote(url, safe='/')
         # 尝试 main 和 master 分支（保留完整路径，如 images/xxx.png）
         for branch in ['main', 'master']:
-            test_url = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{url}"
-            response = session.get(test_url, timeout=10)
-            if response.status_code == 200:
-                url = test_url
-                break
+            test_url = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{url_encoded}"
+            try:
+                response = session.get(test_url, timeout=5)
+                if response.status_code == 200:
+                    url = test_url
+                    break
+            except:
+                continue
     
     # 生成唯一文件名
-    url_hash = hashlib.md5(url.encode()).hexdigest()[:10]
-    ext = os.path.splitext(url.split('?')[0])[-1] or '.png'
+    url_hash = hashlib.md5(original_url.encode()).hexdigest()[:10]
+    ext = os.path.splitext(original_url.split('?')[0])[-1] or '.png'
+    # 清理文件名中的非法字符
+    import re
+    ext = re.sub(r'[^a-zA-Z0-9.]', '', ext)
     filename = f"{url_hash}{ext}"
     filepath = os.path.join(IMAGES_DIR, filename)
     
