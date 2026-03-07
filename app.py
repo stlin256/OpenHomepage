@@ -490,8 +490,20 @@ def save_scheme():
 @app.route('/api/readme/<owner>/<repo>')
 def get_readme(owner, repo):
     """获取项目的README"""
-    import urllib.parse
-    github_token = config.get('github_token', '')
+    import yaml
+    github_token = ''
+    
+    # 加载config
+    config_path = os.path.join(os.path.dirname(__file__), 'config.yaml')
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, 'r') as f:
+                app_config = yaml.safe_load(f)
+                github_token = app_config.get('github_token', '') if app_config else ''
+        except Exception as e:
+            print(f"Error loading config: {e}")
+    
+    print(f"DEBUG get_readme: owner={owner}, repo={repo}, token={github_token[:10] if github_token else 'none'}")
     
     # 尝试获取 README（支持多种格式）
     for filename in ['README.md', 'readme.md', 'README.rst', 'README']:
