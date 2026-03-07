@@ -1,7 +1,7 @@
 import os
-# 代理配置（用于访问GitHub API）
-os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7890'
-os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7890'
+# 代理配置（用于访问GitHub API）- 留空则直连
+os.environ['HTTP_PROXY'] = ''
+os.environ['HTTPS_PROXY'] = ''
 
 """
 OpenHome - 个人主页
@@ -506,6 +506,7 @@ def get_readme(owner, repo):
     print(f"DEBUG get_readme: owner={owner}, repo={repo}, token={github_token[:10] if github_token else 'none'}")
     
     # 尝试获取 README（支持多种格式）
+    debug_info = []
     for filename in ['README.md', 'readme.md', 'README.rst', 'README']:
         url = f"https://api.github.com/repos/{owner}/{repo}/contents/{filename}"
         headers = {}
@@ -514,6 +515,7 @@ def get_readme(owner, repo):
         
         try:
             response = requests.get(url, headers=headers, timeout=10)
+            debug_info.append(f"{filename}: {response.status_code}")
             if response.status_code == 200:
                 data = response.json()
                 import base64
@@ -530,7 +532,7 @@ def get_readme(owner, repo):
                     'url': data['html_url']
                 })
         except Exception as e:
-            continue
+            debug_info.append(f"{filename}: {e}")
     
     return jsonify({'status': 'error', 'message': 'README not found'})
 
