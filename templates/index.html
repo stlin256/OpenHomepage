@@ -613,6 +613,10 @@
                 <div id="modalBody" class="modal-body">
                     <div class="loading">Loading...</div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+                <script>
+                    mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+                </script>
                 <div class="modal-footer">
                     <a id="modalLink" href="#" target="_blank" class="modal-btn">在 GitHub 上查看 →</a>
                 </div>
@@ -765,6 +769,10 @@
                 .then(data => {
                     if (data.status === 'ok') {
                         document.getElementById('modalBody').innerHTML = data.html;
+                        // 渲染 mermaid 图表
+                        if (typeof mermaid !== 'undefined') {
+                            mermaid.run();
+                        }
                     } else {
                         document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p>';
                     }

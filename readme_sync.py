@@ -155,15 +155,24 @@ def process_readme_images(content, owner, repo):
     
     content = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', replace_markdown_image, content)
     
-    # 匹配HTML图片: <img src="url">
+    # 匹配HTML图片: <img src="url" width="24%">
     def replace_html_image(match):
-        url = match.group(1)
+        # 获取完整标签，保留其他属性
+        full_tag = match.group(0)
+        # 提取src属性
+        import re as re2
+        src_match = re2.search(r'src=["\']([^"\']+)["\']', full_tag)
+        if not src_match:
+            return full_tag
+        url = src_match.group(1)
         local_url = download_image(url, owner, repo)
         if local_url:
-            return f'<img src="{local_url}">'
-        return match.group(0)
+            # 替换src但保留其他属性
+            return full_tag.replace(url, local_url)
+        return full_tag
     
-    content = re.sub(r'<img\s+src=["\']([^"\']+)["\']', replace_html_image, content)
+    # 更灵活的img匹配
+    content = re.sub(r'<img\s+[^>]*src=["\']([^"\']+)["\'][^>]*>', replace_html_image, content)
     
     return content
 
@@ -202,7 +211,7 @@ def sync_readme(owner, repo):
     # 保存到本地
     import json
     import markdown
-    html_content = markdown.markdown(content, extensions=['extra', 'tables', 'nl2br'])
+    html_content = markdown.markdown(content, extensions=['extra', 'tables', 'nl2br', 'fenced_code'])
     
     cache_data = {
         'owner': owner,
