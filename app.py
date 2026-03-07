@@ -405,9 +405,12 @@ def index():
     if repos:
         try:
             from readme_sync import sync_all_readmes, start_sync_scheduler
-            sync_all_readmes(repos)
-            # 启动定时同步（每小时）
-            start_sync_scheduler(repos)
+            import threading
+            # 后台同步（不阻塞页面加载）
+            def background_sync():
+                sync_all_readmes(repos)
+                start_sync_scheduler(repos)
+            threading.Thread(target=background_sync, daemon=True).start()
         except Exception as e:
             print(f"README同步出错: {e}")
     
