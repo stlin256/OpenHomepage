@@ -793,13 +793,15 @@
         
         // RSS Modal
         function showRssModal(link) {
-            document.getElementById('modalTitle').textContent = '加载中...';
+            // 解码URL（模板已经urlencode了一次）
+            var decodedLink = decodeURIComponent(link);
+            document.getElementById('modalTitle').textContent = 'Loading...';
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
-            document.getElementById('modalLink').href = link;
+            document.getElementById('modalLink').href = decodedLink;
             document.getElementById('modalLink').textContent = 'Open in Browser →';
             document.getElementById('repoModal').style.display = 'block';
             
-            fetch('/api/rss/' + encodeURIComponent(link))
+            fetch('/api/rss/' + encodeURIComponent(decodedLink))
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'ok') {
@@ -809,11 +811,11 @@
                             mermaid.run();
                         }
                     } else {
-                        document.getElementById('modalBody').innerHTML = '<p>无法加载内容</p><p><a href="' + link + '" target="_blank">Open in Browser →</a></p>';
+                        document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open in Browser →</a></p>';
                     }
                 })
                 .catch(err => {
-                    document.getElementById('modalBody').innerHTML = '<p>加载失败: ' + err + '</p><p><a href="' + link + '" target="_blank">Open in Browser →</a></p>';
+                    document.getElementById('modalBody').innerHTML = '<p>Load failed: ' + err + '</p><p><a href="' + decodedLink + '" target="_blank">Open in Browser →</a></p>';
                 });
         }
         
