@@ -487,6 +487,41 @@ def save_scheme():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
 
+@app.route('/api/readme/<owner>/<repo>')
+def get_readme(owner, repo):
+    """获取项目的README"""
+    import urllib.parse
+    github_token = config.get('github_token', '')
+    
+    # 尝试获取 README（支持多种格式）
+    for filename in ['README.md', 'readme.md', 'README.rst', 'README']:
+        url = f"https://api.github.com/repos/{owner}/{repo}/contents/{filename}"
+        headers = {}
+        if github_token:
+            headers['Authorization'] = f"Bearer {github_token}"
+        
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code == 200:
+                data = response.json()
+                import base64
+                content = base64.b64decode(data['content']).decode('utf-8')
+                
+                # 转换Markdown为HTML
+                import markdown
+                html_content = markdown.markdown(content, extensions=['extra', 'tables', 'nl2br'])
+                
+                return jsonify({
+                    'status': 'ok',
+                    'name': repo,
+                    'html': html_content,
+                    'url': data['html_url']
+                })
+        except Exception as e:
+            continue
+    
+    return jsonify({'status': 'error', 'message': 'README not found'})
+
 if __name__ == '__main__':
     port = config.get('port', 8004)
     print(f"🚀 启动Claude风格个人主页: http://localhost:{port}")

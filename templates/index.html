@@ -303,6 +303,7 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            cursor: pointer;
         }
 
         .project-card:hover {
@@ -553,7 +554,7 @@
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 {% for repo in repos %}
-                <a href="{{ repo.html_url }}" target="_blank" class="project-card">
+                <div class="project-card" onclick="showRepoModal('{{ repo.owner.login }}', '{{ repo.name }}', '{{ repo.html_url }}')">
                     <div class="project-name">{{ repo.name }}</div>
                     <div class="project-desc">{{ repo.description or 'No description' }}</div>
                     <div class="project-stats">
@@ -573,7 +574,7 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                </a>
+                </div>
                 {% endfor %}
             </div>
         </section>
@@ -597,6 +598,163 @@
             </div>
         </section>
         {% endif %}
+
+        <!-- Footer --><!-- Modal for Project README -->
+        <div id="repoModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div id="modalBody" class="modal-body">
+                    <div class="loading">Loading...</div>
+                </div>
+                <div class="modal-footer">
+                    <a id="modalLink" href="#" target="_blank" class="modal-btn">在 GitHub 上查看 →</a>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+        .modal-content {
+            background-color: var(--bg-secondary);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 900px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-close {
+            color: var(--text-secondary);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px 20px;
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: var(--accent);
+        }
+        .modal-title {
+            padding: 20px 20px 10px;
+            margin: 0;
+            color: var(--text-primary);
+        }
+        .modal-body {
+            padding: 15px 20px;
+            overflow-y: auto;
+            flex: 1;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .modal-body pre {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .modal-body code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+        .modal-body pre code {
+            background: none;
+            padding: 0;
+        }
+        .modal-body a {
+            color: var(--accent);
+        }
+        .modal-body h1, .modal-body h2, .modal-body h3 {
+            color: var(--text-primary);
+            margin-top: 1.5em;
+        }
+        .modal-body h1:first-child, .modal-body h2:first-child, .modal-body h3:first-child {
+            margin-top: 0;
+        }
+        .modal-body ul, .modal-body ol {
+            padding-left: 20px;
+        }
+        .modal-body blockquote {
+            border-left: 4px solid var(--accent);
+            margin: 10px 0;
+            padding-left: 15px;
+            color: var(--text-secondary);
+        }
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border);
+            text-align: right;
+        }
+        .modal-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .modal-btn:hover {
+            background: var(--accent-hover);
+        }
+        .loading {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 40px;
+        }
+        </style>
+
+        <script>
+        function showRepoModal(owner, repo, url) {
+            document.getElementById('modalTitle').textContent = repo;
+            document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
+            document.getElementById('modalLink').href = url;
+            document.getElementById('repoModal').style.display = 'block';
+            
+            fetch('/api/readme/' + owner + '/' + repo)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        document.getElementById('modalBody').innerHTML = data.html;
+                    } else {
+                        document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p>';
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('modalBody').innerHTML = '<p>加载失败: ' + err + '</p>';
+                });
+        }
+        
+        function closeModal() {
+            document.getElementById('repoModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('repoModal')) {
+                closeModal();
+            }
+        }
+        </script>
 
         <!-- Footer -->
         <footer>
