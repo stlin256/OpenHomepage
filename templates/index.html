@@ -578,7 +578,7 @@
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 {% for repo in repos %}
-                <a href="{{ repo.html_url }}" target="_blank" class="project-card">
+                <div class="project-card" onclick="showRepoModal('{{ repo.owner.login }}', '{{ repo.name }}', '{{ repo.html_url }}')">
                     <div class="project-name">{{ repo.name }}</div>
                     <div class="project-desc">{{ repo.description or 'No description' }}</div>
                     <div class="project-stats">
@@ -598,7 +598,7 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                </a>
+                </div>
                 {% endfor %}
             </div>
         </section>
@@ -610,14 +610,14 @@
             <h2 class="section-title">Blog Feed</h2>
             <div class="rss-list">
                 {% for item in rss_items %}
-                <a href="{{ item.link }}" target="_blank" class="rss-item">
+                <div class="rss-item" onclick="showRssModal('{{ item.link|urlencode }}')">
                     <div class="rss-header">
                         <span class="rss-title">{{ item.title }}</span>
                         <span class="rss-source">{{ item.source }}</span>
                     </div>
                     <div class="rss-summary">{{ item.summary }}</div>
                     <div class="rss-date">{{ item.published[:10] if item.published else '' }}</div>
-                </a>
+                </div>
                 {% endfor %}
             </div>
         </section>
@@ -787,22 +787,34 @@
             document.getElementById('modalLink').href = url;
             document.getElementById('modalLink').textContent = 'View on GitHub →';
             document.getElementById('repoModal').style.display = 'block';
-            
-            fetch('/api/readme/' + owner + '/' + repo)
-                .then(response => response.json())
+
+            // Try to load from local cache first (for static deployment)
+            const cacheFile = '/readmes/' + owner + '_' + repo + '.json';
+            fetch(cacheFile)
+                .then(res => res.json())
                 .then(data => {
-                    if (data.status === 'ok') {
+                    if (data.html) {
                         document.getElementById('modalBody').innerHTML = data.html;
-                        // 渲染 mermaid 图表
-                        if (typeof mermaid !== 'undefined') {
-                            mermaid.run();
-                        }
+                        if (typeof mermaid !== 'undefined') mermaid.run();
                     } else {
-                        document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p>';
+                        throw new Error('No HTML');
                     }
                 })
-                .catch(err => {
-                    document.getElementById('modalBody').innerHTML = '<p>加载失败: ' + err + '</p>';
+                .catch(() => {
+                    // Fallback: try API (for dynamic server)
+                    return fetch('/api/readme/' + owner + '/' + repo)
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.status === 'ok') {
+                                document.getElementById('modalBody').innerHTML = data.html;
+                                if (typeof mermaid !== 'undefined') mermaid.run();
+                            } else {
+                                document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
+                            }
+                        })
+                        .catch(err => {
+                            document.getElementById('modalBody').innerHTML = '<p>加载失败</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
+                        });
                 });
         }
         
@@ -812,29 +824,47 @@
         
         // RSS Modal
         function showRssModal(link) {
-            // 解码URL（模板已经urlencode了一次）
             var decodedLink = decodeURIComponent(link);
             document.getElementById('modalTitle').textContent = 'Loading...';
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
             document.getElementById('modalLink').href = decodedLink;
             document.getElementById('modalLink').textContent = 'Open in Browser →';
             document.getElementById('repoModal').style.display = 'block';
-            
-            fetch('/api/rss/' + encodeURIComponent(decodedLink))
-                .then(response => response.json())
+
+            // Simple hash function for cache filename
+            var hash = 0;
+            for (var i = 0; i < decodedLink.length; i++) {
+                hash = ((hash << 5) - hash) + decodedLink.charCodeAt(i);
+                hash = hash & hash;
+            }
+            var hashHex = Math.abs(hash).toString(16).padStart(16, '0').substring(0, 16);
+
+            // Try local cache first
+            fetch('/readmes/rss/' + hashHex + '.json')
+                .then(res => res.json())
                 .then(data => {
-                    if (data.status === 'ok') {
+                    if (data.html) {
                         document.getElementById('modalTitle').textContent = data.title || 'Blog';
                         document.getElementById('modalBody').innerHTML = data.html;
-                        if (typeof mermaid !== 'undefined') {
-                            mermaid.run();
-                        }
                     } else {
-                        document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open in Browser →</a></p>';
+                        throw new Error('No HTML');
                     }
                 })
-                .catch(err => {
-                    document.getElementById('modalBody').innerHTML = '<p>Load failed: ' + err + '</p><p><a href="' + decodedLink + '" target="_blank">Open in Browser →</a></p>';
+                .catch(() => {
+                    // Fallback: try API
+                    return fetch('/api/rss/' + encodeURIComponent(decodedLink))
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.status === 'ok') {
+                                document.getElementById('modalTitle').textContent = data.title || 'Blog';
+                                document.getElementById('modalBody').innerHTML = data.html;
+                            } else {
+                                document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open →</a></p>';
+                            }
+                        })
+                        .catch(err => {
+                            document.getElementById('modalBody').innerHTML = '<p>Load failed</p><p><a href="' + decodedLink + '" target="_blank">Open →</a></p>';
+                        });
                 });
         }
         
