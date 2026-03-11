@@ -2327,7 +2327,7 @@
                         
                         <div class="contribution-day c46" data-date="2026-03-11" title="2026-03-11: 46 contributions"></div>
                         
-                        <div class="contribution-day c16" data-date="2026-03-12" title="2026-03-12: 16 contributions"></div>
+                        <div class="contribution-day c17" data-date="2026-03-12" title="2026-03-12: 17 contributions"></div>
                         
                     </div>
                     
@@ -2888,22 +2888,23 @@
             document.getElementById('repoModal').style.display = 'block';
 
             // Try to load from local cache first (for static deployment)
-            const cacheFile = '/readmes/' + owner + '_' + repo + '.json';
+            var cacheFile = owner + '_' + repo + '.json';
             fetch(cacheFile)
-                .then(res => {
-                    if (!res.ok) throw new Error('Cache not found');
+                .then(function(res) {
+                    console.log('Fetch status:', res.status, res.ok);
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
                     return res.json();
                 })
-                .then(data => {
+                .then(function(data) {
+                    console.log('Data received:', data.html ? 'has html' : 'no html');
                     if (data.html) {
                         document.getElementById('modalBody').innerHTML = data.html;
-                        if (typeof mermaid !== 'undefined') mermaid.run();
                     } else {
                         document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
                     }
                 })
-                .catch(() => {
-                    // Fallback: show GitHub link
+                .catch(function(err) {
+                    console.error('Load error:', err);
                     document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
                 });
         }
