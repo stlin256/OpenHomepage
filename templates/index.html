@@ -173,13 +173,22 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
+            overflow-x: auto;
         }
 
         .contribution-grid {
             display: flex;
             gap: 3px;
-            overflow-x: auto;
             padding: 0.5rem 0;
+        }
+
+        @media (min-width: 769px) {
+            .contribution-graph {
+                overflow-x: auto;
+            }
+            .contribution-grid {
+                gap: 4px;
+            }
         }
 
         .contribution-week {
@@ -193,6 +202,16 @@
             height: 12px;
             border-radius: 2px;
             transition: transform 0.1s;
+        }
+
+        @media (min-width: 769px) {
+            .contribution-day {
+                width: 16px;
+                height: 16px;
+            }
+            .contribution-week {
+                gap: 4px;
+            }
         }
 
         .contribution-day:hover {
