@@ -1,98 +1,92 @@
 # OpenHomepage
 
-现代化风格的个人主页，支持展示 GitHub 仓库、贡献图、博客 RSS 订阅等功能。
+[English](README.md) | [中文](README_CN.md)
 
-![Screenshot](https://raw.githubusercontent.com/none-ai/openhome/main/screenshot.jpg)
+A modern personal homepage built with Flask, featuring GitHub stats, contribution graph, RSS feed, and smart theme colors.
 
-## 特性
+## Features
 
-- 🎨 现代化深色主题
-- 🌈 **智能主题色**：自动从 GitHub 头像提取并智能调整（避免太淡或太鲜艳）
-- 💾 **颜色缓存**：主题色自动缓存 24 小时，提升加载速度
-- 📊 GitHub 贡献图（heatmap 风格）
-- 📦 自动展示 GitHub 公开仓库（按 star 数排序）
-- 📰 博客 RSS 订阅同步
-- ⚙️ 完全配置文件驱动
-- 📱 响应式设计
-- 🌍 中文字体支持
+- 🎨 Modern dark theme
+- 🌈 **Smart Theme Colors**: Auto-extracted from GitHub avatar with intelligent adjustments
+- 💾 **Color Caching**: Theme colors cached for 24 hours
+- 📊 GitHub contribution heatmap
+- 📦 GitHub repositories display (sorted by stars)
+- 📰 Blog RSS feed subscription
+- ⚙️ Fully configurable via YAML
+- 📱 Responsive design
+- 🌍 Bilingual support (Chinese & English)
 
-## 快速开始
+## Quick Start
 
-### 1. 配置
+### 1. Configure
 
-复制示例配置文件：
+Copy the example config:
 
 ```bash
 cp config.example.yaml config.yaml
 ```
 
-编辑 `config.yaml`，修改以下内容：
+Edit `config.yaml`:
 
 ```yaml
-# GitHub用户名
 github_username: "your-github-username"
-
-# GitHub Token（可选，用于提高API调用限制）
 github_token: "ghp_xxxxxxxxxxxxxxxxxxxx"
-
-# 端口号
 port: 8004
 
-# RSS订阅
 rss_feeds:
   - url: "https://your-blog.com/feed.xml"
-    name: "我的博客"
+    name: "My Blog"
 
-# 个人简介
 bio:
   name: "Your Name"
   title: "Developer"
   description: "Hello, I'm a developer."
 
-# 社交链接
 social:
   github: "your-github-username"
   email: "you@example.com"
+
+footer:
+  text: "Created by Your Name"
 ```
 
-### 2. 安装依赖
+### 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. 运行
+### 3. Run
 
 ```bash
 python app.py
 ```
 
-打开浏览器访问 http://localhost:8004
+Visit http://localhost:8004
 
-## GitHub Token 配置
+## GitHub Token
 
-### 为什么需要 Token？
+### Why Token?
 
-- 无 Token：每小时 60 次请求限制
-- 有 Token：每小时 5000 次请求限制
+- Without token: 60 requests/hour limit
+- With token: 5000 requests/hour limit
 
-### 如何生成 Token？
+### Generate Token
 
-1. 登录 GitHub
-2. 进入 Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-3. 点击 "Generate new token (classic)"
-4. 勾选 `repo` 权限
-5. 生成后将 Token 添加到 `config.yaml`
+1. Login to GitHub
+2. Go to Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
+3. Click "Generate new token (classic)"
+4. Select `repo` permission
+5. Add the token to `config.yaml`
 
-### 注意
+### Note
 
-- Token 会保存在 `config.yaml` 中，该文件已加入 `.gitignore`，不会提交到 Git
-- 如果不配置 Token，GitHub API 会有每小时 60 次请求限制
-- **配置 Token 后才能获取贡献图数据**（GitHub GraphQL API 需要认证）
+- Token is saved in `config.yaml`, which is in `.gitignore` and won't be committed
+- **Token is required to fetch contribution graph data** (GitHub GraphQL API needs authentication)
 
-## 环境变量（可选）
+## Environment Variables (Optional)
 
-如果需要通过代理访问 GitHub：
+If you need proxy to access GitHub:
 
 ```bash
 export HTTP_PROXY=http://127.0.0.1:7890
@@ -100,95 +94,92 @@ export HTTPS_PROXY=http://127.0.0.1:7890
 python app.py
 ```
 
-## 部署到 GitHub Pages
+## Smart Theme Colors
 
-项目包含 GitHub Actions 工作流，可自动部署到 GitHub Pages。
+### How It Works
 
-### 配置 Secrets
+1. **Auto-extract**: Extract dominant color from GitHub avatar
+2. **Intelligent adjustment**:
+   - Saturation: 40%-80% (avoid too pale or too vivid)
+   - Lightness: 30%-70% (avoid too dark or too bright)
+3. **Caching**: Colors cached for 24 hours
 
-在 GitHub 仓库设置中添加以下 Secrets：
+### Clear Cache Manually
 
-| Secret 名称 | 说明 | 示例 |
-|------------|------|------|
-| `GH_USERNAME` | GitHub 用户名 | `your-username` |
-| `GH_TOKEN` | GitHub Token（需要 repo 权限） | `ghp_xxx` |
-| `RSS_URL` | RSS 订阅地址 | `https://your-blog.com/feed` |
-| `BIO_NAME` | 你的名字 | `Your Name` |
-| `BIO_TITLE` | 标题/职位 | `Developer` |
-| `BIO_DESCRIPTION` | 个人简介 | `A passionate developer` |
-| `BIO_EMAIL` | 邮箱 | `your@email.com` |
-| `FOOTER_TEXT` | 页脚文字 | `Created by Your Name` |
+Visit: http://localhost:8004/api/clear-cache
 
-### 部署步骤
+Or delete `.cache/theme_colors.json` and restart.
 
-1. 在仓库 Settings -> Pages 中设置 Source 为 "Deploy from a branch"
-2. 添加上述 Secrets
-3. 推送代码到 main 分支，或手动触发 workflow
-4. 访问 `https://yourusername.github.io/OpenHomepage/`
-
-### 自动部署
-
-- 推送到 main 分支时自动部署
-- 每天凌晨自动更新（cron: `0 0 * * *`）
-
-## 智能主题色
-
-### 工作原理
-
-1. **自动提取**：从 GitHub 头像图片中提取主色调
-2. **智能调整**：
-   - 饱和度控制在 40%-80%（避免太淡或太鲜艳）
-   - 亮度控制在 30%-70%（避免太暗或太亮）
-3. **缓存机制**：颜色信息缓存 24 小时，避免重复提取
-
-### 手动清除缓存
-
-如需重新提取头像颜色，可访问：
-
-```
-http://localhost:8004/api/clear-cache
-```
-
-或删除 `.cache/theme_colors.json` 文件后重启服务。
-
-## 项目结构
+## Project Structure
 
 ```
 openhome/
-├── app.py              # 主程序
-├── config.yaml         # 配置文件（不提交到 Git）
-├── config.example.yaml # 配置示例
-├── requirements.txt    # Python 依赖
-├── .gitignore         # Git 忽略配置
-├── .cache/            # 缓存目录（自动生成）
+├── app.py              # Main application
+├── config.yaml         # Configuration (not committed)
+├── config.example.yaml # Example config
+├── requirements.txt    # Python dependencies
+├── .gitignore         # Git ignore
+├── .cache/            # Cache directory
+├── readme_sync.py     # README & RSS sync
 ├── templates/
-│   └── index.html     # 主页模板
+│   └── index.html     # Main template
 └── static/
-    └── avatar.png     # 头像（可选）
+    └── avatar.png     # Avatar (optional)
 ```
 
-## 配置说明
+## Configuration
 
-| 配置项 | 说明 |
-|--------|------|
-| `github_username` | GitHub 用户名，用于获取公开仓库 |
-| `github_token` | GitHub Token（可选），提高 API 限制 |
-| `port` | 服务端口号，默认 8004 |
-| `rss_feeds` | RSS 订阅源列表 |
-| `bio.name` | 你的名字 |
-| `bio.title` | 标题/职位 |
-| `bio.description` | 个人简介 |
-| `bio.avatar` | 头像路径（优先使用 GitHub 头像） |
-| `social.*` | 社交链接 |
-| `footer.text` | 页脚文字 |
+| Config | Description |
+|--------|-------------|
+| `github_username` | GitHub username |
+| `github_token` | GitHub Token (optional) |
+| `port` | Server port, default 8004 |
+| `rss_feeds` | RSS feed list |
+| `bio.name` | Your name |
+| `bio.title` | Title/Position |
+| `bio.description` | Bio description |
+| `bio.avatar` | Avatar path |
+| `social.*` | Social links |
+| `footer.text` | Footer text |
 
-## API 接口
+## API
 
-- `GET /` - 主页面
-- `GET /api/clear-cache` - 清除缓存
+- `GET /` - Main page
+- `GET /api/clear-cache` - Clear cache
 
-## 注意事项
+## Deploy to GitHub Pages
 
-- `config.yaml` 已加入 `.gitignore`，不会提交到 Git 仓库
-- `.cache/` 目录已加入 `.gitignore`，不会提交
-- 请使用 `config.example.yaml` 作为模板创建自己的配置
+The project includes GitHub Actions workflow for automatic deployment.
+
+### Configure Secrets
+
+Add these secrets in repository Settings -> Secrets and variables -> Actions:
+
+| Secret | Description |
+|--------|-------------|
+| `GH_USERNAME` | GitHub username |
+| `GH_TOKEN` | GitHub Token with repo permission |
+| `RSS_URL` | RSS feed URL |
+| `BIO_NAME` | Your name |
+| `BIO_TITLE` | Title/Position |
+| `BIO_DESCRIPTION` | Bio description |
+| `BIO_EMAIL` | Email |
+| `FOOTER_TEXT` | Footer text |
+
+### Deploy Steps
+
+1. Set Source to "Deploy from a branch" in Settings -> Pages
+2. Add the secrets above
+3. Push to main branch or manually trigger workflow
+4. Visit `https://yourusername.github.io/OpenHomepage/`
+
+### Auto Deploy
+
+- Deploys automatically on push to main
+- Daily auto-update at midnight (cron: `0 0 * * *`)
+
+## Notes
+
+- `config.yaml` is in `.gitignore`, won't be committed
+- `.cache/` directory is in `.gitignore`, won't be committed
+- Use `config.example.yaml` as template for your own config
