@@ -1,3 +1,7 @@
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 import os
 # 代理配置（用于访问GitHub API）- 留空则直连
 os.environ['HTTP_PROXY'] = ''
@@ -351,7 +355,8 @@ def get_theme_colors(avatar_url, username=''):
                 'secondary': rgb_to_hex(adjusted_secondary),
                 'tertiary': rgb_to_hex(adjusted_tertiary),
                 'gradient_start': rgb_to_hex(adjusted_primary),
-                'gradient_end': rgb_to_hex(adjusted_secondary)
+                'gradient_end': rgb_to_hex(adjusted_secondary),
+                'palette': [rgb_to_hex(c) for c in palette]
             }
             
             # 保存到缓存
@@ -369,7 +374,8 @@ def get_theme_colors(avatar_url, username=''):
         'secondary': '#f59e0b',
         'gradient_start': '#d97706',
         'gradient_end': '#dc2626',
-        'primary_rgb': [217, 119, 6]
+        'primary_rgb': [217, 119, 6],
+        'palette': ['#d97706', '#f59e0b', '#dc2626', '#ea580c', '#c2410c']
     }
 
 # 解析RSS订阅
@@ -567,6 +573,38 @@ def get_rss_content(url):
         return jsonify({'status': 'error', 'message': str(e)})
 
 if __name__ == '__main__':
+    # 启动时预热缓存
+    github_username = config.get('github_username', '')
+    github_token = config.get('github_token', '')
+    if github_token:
+        os.environ['GITHUB_TOKEN'] = github_token
+
+    if github_username:
+        print("🔄 预热缓存中...")
+        # 预先获取 GitHub 数据
+        user_info = get_github_user(github_username)
+        repos = get_github_repos(github_username)
+        contributions = get_github_contributions(github_username)
+
+        # 预先同步 README
+        if repos:
+            try:
+                from readme_sync import sync_all_readmes, start_sync_scheduler
+                print("📝 同步 README 中...")
+                sync_all_readmes(repos)
+                start_sync_scheduler(repos)
+            except Exception as e:
+                print(f"README同步出错: {e}")
+
+        # 预先获取 RSS
+        rss_items = []
+        for feed in config.get('rss_feeds', []):
+            items = parse_rss(feed.get('url', ''))
+            for item in items:
+                item['source'] = feed.get('name', '')
+            rss_items.extend(items)
+        print(f"✅ 缓存预热完成: {len(repos)} 个仓库, {len(rss_items)} 篇 RSS")
+
     port = config.get('port', 8004)
     print(f"🚀 启动Claude风格个人主页: http://localhost:{port}")
     app.run(host='0.0.0.0', port=port, debug=True)

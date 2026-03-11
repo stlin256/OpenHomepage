@@ -36,7 +36,7 @@ def load_config():
     """加载配置"""
     config_path = os.path.join(os.path.dirname(__file__), 'config.yaml')
     if os.path.exists(config_path):
-        with open(config_path, 'r') as f:
+        with open(config_path, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f)
     return {}
 
@@ -70,18 +70,27 @@ def get_repo_info(owner, repo):
 def get_readme_content(owner, repo):
     """获取README内容"""
     token = get_github_token()
-    
+
     for filename in ['README.md', 'readme.md', 'README.MD', 'Readme.md', 'README.rst', 'readme.rst', 'README']:
         url = f"https://api.github.com/repos/{owner}/{repo}/contents/{filename}"
         headers = {}
         if token:
             headers['Authorization'] = f"Bearer {token}"
-        
+
         try:
             response = session.get(url, headers=headers, timeout=10)
             if response.status_code == 200:
                 data = response.json()
-                content = base64.b64decode(data['content']).decode('utf-8')
+                content_bytes = base64.b64decode(data['content'])
+                # 尝试多种编码
+                for encoding in ['utf-8', 'gbk', 'gb2312', 'latin-1']:
+                    try:
+                        content = content_bytes.decode(encoding)
+                        return content, data.get('name', 'README.md')
+                    except:
+                        continue
+                # 最后尝试忽略错误
+                content = content_bytes.decode('utf-8', errors='ignore')
                 return content, data.get('name', 'README.md')
         except Exception as e:
             continue
@@ -188,7 +197,7 @@ def sync_readme(owner, repo):
     local_updated = None
     if os.path.exists(cache_file):
         import json
-        with open(cache_file, 'r') as f:
+        with open(cache_file, 'r', encoding='utf-8') as f:
             local_data = json.load(f)
             local_updated = local_data.get('updated_at')
     
@@ -225,7 +234,7 @@ def sync_readme(owner, repo):
         'synced_at': datetime.now().isoformat()
     }
     
-    with open(cache_file, 'w') as f:
+    with open(cache_file, 'w', encoding='utf-8') as f:
         json.dump(cache_data, f, ensure_ascii=False, indent=2)
     
     print(f"README同步成功: {owner}/{repo}")
@@ -246,7 +255,7 @@ def get_local_readme(owner, repo):
     cache_file = os.path.join(README_DIR, f"{owner}_{repo}.json")
     if os.path.exists(cache_file):
         import json
-        with open(cache_file, 'r') as f:
+        with open(cache_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     return None
 
@@ -276,9 +285,9 @@ def get_rss_cache(url):
     import hashlib
     url_hash = hashlib.md5(url.encode()).hexdigest()[:16]
     cache_file = os.path.join(RSS_CACHE_DIR, f"{url_hash}.json")
-    
+
     if os.path.exists(cache_file):
-        with open(cache_file, 'r') as f:
+        with open(cache_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
             # 检查是否过期（中午12点更新）
             cached_time = data.get('cached_at', '')
@@ -290,28 +299,29 @@ def save_rss_cache(url, title, html):
     import json
     from datetime import datetime
     import hashlib
-    
+
     url_hash = hashlib.md5(url.encode()).hexdigest()[:16]
     cache_file = os.path.join(RSS_CACHE_DIR, f"{url_hash}.json")
-    
+
     data = {
         'url': url,
         'title': title,
         'html': html,
         'cached_at': datetime.now().isoformat()
     }
-    
-    with open(cache_file, 'w') as f:
+
+    with open(cache_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False)
 
 def fetch_and_cache_rss(url):
     """获取并缓存RSS文章"""
     from bs4 import BeautifulSoup
-    
+
     try:
         response = requests.get(url, timeout=10)
+        # 强制使用UTF-8
         response.encoding = 'utf-8'
-        
+
         soup = BeautifulSoup(response.text, 'html.parser')
         
         article = soup.find('article') or soup.find('main') or soup.find('div', class_='content')

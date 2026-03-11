@@ -1,4 +1,4 @@
-# OpenHome
+# OpenHomepage
 
 现代化风格的个人主页，支持展示 GitHub 仓库、贡献图、博客 RSS 订阅等功能。
 
@@ -88,6 +88,7 @@ python app.py
 
 - Token 会保存在 `config.yaml` 中，该文件已加入 `.gitignore`，不会提交到 Git
 - 如果不配置 Token，GitHub API 会有每小时 60 次请求限制
+- **配置 Token 后才能获取贡献图数据**（GitHub GraphQL API 需要认证）
 
 ## 环境变量（可选）
 
@@ -148,6 +149,7 @@ openhome/
 | `bio.description` | 个人简介 |
 | `bio.avatar` | 头像路径（优先使用 GitHub 头像） |
 | `social.*` | 社交链接 |
+| `footer.text` | 页脚文字 |
 
 ## API 接口
 

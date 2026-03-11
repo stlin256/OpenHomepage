@@ -422,11 +422,11 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 0;
+            padding: 1rem 0;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border-top: 1px solid var(--border);
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
 
         /* Loading */
@@ -532,7 +532,7 @@
                     {% endfor %}
                 {% endfor %}
                 <div class="contribution-grid">
-                    {% for week in contributions.weeks[:52] %}
+                    {% for week in contributions.weeks[-52:] %}
                     <div class="contribution-week">
                         {% for day in week.contributionDays %}
                         <div class="contribution-day c{% if day.contributionCount > 55 %}55{% else %}{{ day.contributionCount }}{% endif %}" data-date="{{ day.date }}" title="{{ day.date }}: {{ day.contributionCount }} contributions"></div>
@@ -828,7 +828,7 @@
 
         <!-- Footer -->
         <footer>
-            <p>Created by Claw</p>
+            <p>{{ config.footer.text if config.footer and config.footer.text else 'Created by stlin256' }}</p>
         </footer>
     </div>
     <script>

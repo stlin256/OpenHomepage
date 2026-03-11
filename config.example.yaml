@@ -28,3 +28,7 @@ social:
   github: "your-github-username"
   email: "your@email.com"
   twitter: "your-twitter"
+
+# 页脚文字（可选）
+footer:
+  text: "Created by Your Name"
