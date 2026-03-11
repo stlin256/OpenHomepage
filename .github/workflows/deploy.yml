@@ -1,0 +1,99 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * *'  # 每天自动部署
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install flask feedparser requests pyyaml colorthief markdown beautifulsoup4
+
+      - name: Create config.yaml from secrets
+        run: |
+          cat > config.yaml << EOF
+          github_username: "${{ secrets.GITHUB_USERNAME }}"
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          port: 8004
+
+          rss_feeds:
+            - url: "${{ secrets.RSS_URL }}"
+              name: "Blog"
+
+          bio:
+            name: "${{ secrets.BIO_NAME }}"
+            title: "${{ secrets.BIO_TITLE }}"
+            description: "${{ secrets.BIO_DESCRIPTION }}"
+            avatar: "/static/avatar.png"
+
+          social:
+            github: "${{ secrets.GITHUB_USERNAME }}"
+            email: "${{ secrets.BIO_EMAIL }}"
+
+          footer:
+            text: "${{ secrets.FOOTER_TEXT }}"
+          EOF
+
+      - name: Pre-warm cache
+        run: |
+          timeout 60 python app.py &
+          sleep 30
+          curl -s http://localhost:8004/ > /dev/null
+          pkill -f "python app.py" || true
+
+      - name: Install playwright for static generation
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Generate static site
+        run: |
+          python -c "
+import subprocess
+import time
+import os
+
+# Start Flask app in background
+proc = subprocess.Popen(['python', 'app.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+time.sleep(15)
+
+# Fetch main page
+os.makedirs('dist', exist_ok=True)
+import urllib.request
+try:
+    response = urllib.request.urlopen('http://localhost:8004/', timeout=30)
+    html = response.read().decode('utf-8')
+    with open('dist/index.html', 'w', encoding='utf-8') as f:
+        f.write(html)
+    print('Main page saved')
+except Exception as e:
+    print(f'Error: {e}')
+finally:
+    proc.terminate()
+    proc.wait()
+"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

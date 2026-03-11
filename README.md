@@ -100,6 +100,37 @@ export HTTPS_PROXY=http://127.0.0.1:7890
 python app.py
 ```
 
+## 部署到 GitHub Pages
+
+项目包含 GitHub Actions 工作流，可自动部署到 GitHub Pages。
+
+### 配置 Secrets
+
+在 GitHub 仓库设置中添加以下 Secrets：
+
+| Secret 名称 | 说明 | 示例 |
+|------------|------|------|
+| `GITHUB_USERNAME` | GitHub 用户名 | `stlin256` |
+| `GITHUB_TOKEN` | GitHub Token（需要 repo 权限） | `ghp_xxx` |
+| `RSS_URL` | RSS 订阅地址 | `https://blog.realpics.cn/feed` |
+| `BIO_NAME` | 你的名字 | `stlin256` |
+| `BIO_TITLE` | 标题/职位 | `Developer` |
+| `BIO_DESCRIPTION` | 个人简介 | `A passionate developer` |
+| `BIO_EMAIL` | 邮箱 | `yjzlxljy@outlook.com` |
+| `FOOTER_TEXT` | 页脚文字 | `Created by stlin256` |
+
+### 部署步骤
+
+1. 在仓库 Settings -> Pages 中设置 Source 为 "Deploy from a branch"
+2. 添加上述 Secrets
+3. 推送代码到 main 分支，或手动触发 workflow
+4. 访问 `https://stlin256.github.io/OpenHomepage/`
+
+### 自动部署
+
+- 推送到 main 分支时自动部署
+- 每天凌晨自动更新（cron: `0 0 * * *`）
+
 ## 智能主题色
 
 ### 工作原理
