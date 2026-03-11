@@ -578,7 +578,7 @@
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 {% for repo in repos %}
-                <div class="project-card" onclick="showRepoModal('{{ repo.owner.login }}', '{{ repo.name }}', '{{ repo.html_url }}')">
+                <a href="{{ repo.html_url }}" target="_blank" class="project-card">
                     <div class="project-name">{{ repo.name }}</div>
                     <div class="project-desc">{{ repo.description or 'No description' }}</div>
                     <div class="project-stats">
@@ -598,7 +598,7 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                </div>
+                </a>
                 {% endfor %}
             </div>
         </section>
@@ -610,14 +610,14 @@
             <h2 class="section-title">Blog Feed</h2>
             <div class="rss-list">
                 {% for item in rss_items %}
-                <div class="rss-item" onclick="showRssModal('{{ item.link|urlencode }}')">
+                <a href="{{ item.link }}" target="_blank" class="rss-item">
                     <div class="rss-header">
                         <span class="rss-title">{{ item.title }}</span>
                         <span class="rss-source">{{ item.source }}</span>
                     </div>
                     <div class="rss-summary">{{ item.summary }}</div>
                     <div class="rss-date">{{ item.published[:10] if item.published else '' }}</div>
-                </div>
+                </a>
                 {% endfor %}
             </div>
         </section>
