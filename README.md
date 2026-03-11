@@ -110,8 +110,8 @@ python app.py
 
 | Secret 名称 | 说明 | 示例 |
 |------------|------|------|
-| `GITHUB_USERNAME` | GitHub 用户名 | `stlin256` |
-| `GITHUB_TOKEN` | GitHub Token（需要 repo 权限） | `ghp_xxx` |
+| `GH_USERNAME` | GitHub 用户名 | `your-username` |
+| `GH_TOKEN` | GitHub Token（需要 repo 权限） | `ghp_xxx` |
 | `RSS_URL` | RSS 订阅地址 | `https://your-blog.com/feed` |
 | `BIO_NAME` | 你的名字 | `Your Name` |
 | `BIO_TITLE` | 标题/职位 | `Developer` |

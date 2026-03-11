@@ -29,8 +29,8 @@ jobs:
       - name: Create config.yaml from secrets
         run: |
           cat > config.yaml << EOF
-          github_username: "${{ secrets.GITHUB_USERNAME }}"
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          github_username: "${{ secrets.GH_USERNAME }}"
+          github_token: "${{ secrets.GH_TOKEN }}"
           port: 8004
 
           rss_feeds:
@@ -44,7 +44,7 @@ jobs:
             avatar: "/static/avatar.png"
 
           social:
-            github: "${{ secrets.GITHUB_USERNAME }}"
+            github: "${{ secrets.GH_USERNAME }}"
             email: "${{ secrets.BIO_EMAIL }}"
 
           footer:
