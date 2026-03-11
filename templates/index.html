@@ -788,25 +788,34 @@
             document.getElementById('modalLink').textContent = 'View on GitHub →';
             document.getElementById('repoModal').style.display = 'block';
 
-            // Try to load from local cache first (for static deployment)
+            // Try local JSON first (for static deployment), then API (for Flask server)
             var cacheFile = owner + '_' + repo + '.json';
             fetch(cacheFile)
                 .then(function(res) {
-                    console.log('Fetch status:', res.status, res.ok);
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    if (!res.ok) throw new Error('not found');
                     return res.json();
                 })
                 .then(function(data) {
-                    console.log('Data received:', data.html ? 'has html' : 'no html');
                     if (data.html) {
                         document.getElementById('modalBody').innerHTML = data.html;
                     } else {
-                        document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
+                        throw new Error('no html');
                     }
                 })
-                .catch(function(err) {
-                    console.error('Load error:', err);
-                    document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
+                .catch(function() {
+                    // Try API endpoint
+                    return fetch('/api/readme/' + owner + '/' + repo)
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            if (data.status === 'ok') {
+                                document.getElementById('modalBody').innerHTML = data.html;
+                            } else {
+                                document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + url + '" target="_blank">在 GitHub 查看</a></p>';
+                            }
+                        })
+                        .catch(function() {
+                            document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + url + '" target="_blank">在 GitHub 查看</a></p>';
+                        });
                 });
         }
         
@@ -831,23 +840,35 @@
             }
             var hashHex = Math.abs(hash).toString(16).padStart(16, '0').substring(0, 16);
 
-            // Try local cache first
+            // Try local cache first, then API
             fetch('/readmes/rss/' + hashHex + '.json')
-                .then(res => {
-                    if (!res.ok) throw new Error('Cache not found');
+                .then(function(res) {
+                    if (!res.ok) throw new Error('not found');
                     return res.json();
                 })
-                .then(data => {
+                .then(function(data) {
                     if (data.html) {
                         document.getElementById('modalTitle').textContent = data.title || 'Blog';
                         document.getElementById('modalBody').innerHTML = data.html;
                     } else {
-                        document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文 →</a></p>';
+                        throw new Error('no html');
                     }
                 })
-                .catch(() => {
-                    // Fallback: show link
-                    document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文 →</a></p>';
+                .catch(function() {
+                    // Try API
+                    return fetch('/api/rss/' + encodeURIComponent(decodedLink))
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            if (data.status === 'ok') {
+                                document.getElementById('modalTitle').textContent = data.title || 'Blog';
+                                document.getElementById('modalBody').innerHTML = data.html;
+                            } else {
+                                document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文</a></p>';
+                            }
+                        })
+                        .catch(function() {
+                            document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文</a></p>';
+                        });
                 });
         }
         
