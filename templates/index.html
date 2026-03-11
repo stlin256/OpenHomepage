@@ -791,30 +791,21 @@
             // Try to load from local cache first (for static deployment)
             const cacheFile = '/readmes/' + owner + '_' + repo + '.json';
             fetch(cacheFile)
-                .then(res => res.json())
+                .then(res => {
+                    if (!res.ok) throw new Error('Cache not found');
+                    return res.json();
+                })
                 .then(data => {
                     if (data.html) {
                         document.getElementById('modalBody').innerHTML = data.html;
                         if (typeof mermaid !== 'undefined') mermaid.run();
                     } else {
-                        throw new Error('No HTML');
+                        document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
                     }
                 })
                 .catch(() => {
-                    // Fallback: try API (for dynamic server)
-                    return fetch('/api/readme/' + owner + '/' + repo)
-                        .then(r => r.json())
-                        .then(data => {
-                            if (data.status === 'ok') {
-                                document.getElementById('modalBody').innerHTML = data.html;
-                                if (typeof mermaid !== 'undefined') mermaid.run();
-                            } else {
-                                document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
-                            }
-                        })
-                        .catch(err => {
-                            document.getElementById('modalBody').innerHTML = '<p>加载失败</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
-                        });
+                    // Fallback: show GitHub link
+                    document.getElementById('modalBody').innerHTML = '<p>无法加载 README</p><p><a href="' + url + '" target="_blank">在 GitHub 查看 →</a></p>';
                 });
         }
         
@@ -841,30 +832,21 @@
 
             // Try local cache first
             fetch('/readmes/rss/' + hashHex + '.json')
-                .then(res => res.json())
+                .then(res => {
+                    if (!res.ok) throw new Error('Cache not found');
+                    return res.json();
+                })
                 .then(data => {
                     if (data.html) {
                         document.getElementById('modalTitle').textContent = data.title || 'Blog';
                         document.getElementById('modalBody').innerHTML = data.html;
                     } else {
-                        throw new Error('No HTML');
+                        document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文 →</a></p>';
                     }
                 })
                 .catch(() => {
-                    // Fallback: try API
-                    return fetch('/api/rss/' + encodeURIComponent(decodedLink))
-                        .then(r => r.json())
-                        .then(data => {
-                            if (data.status === 'ok') {
-                                document.getElementById('modalTitle').textContent = data.title || 'Blog';
-                                document.getElementById('modalBody').innerHTML = data.html;
-                            } else {
-                                document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open →</a></p>';
-                            }
-                        })
-                        .catch(err => {
-                            document.getElementById('modalBody').innerHTML = '<p>Load failed</p><p><a href="' + decodedLink + '" target="_blank">Open →</a></p>';
-                        });
+                    // Fallback: show link
+                    document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文 →</a></p>';
                 });
         }
         
