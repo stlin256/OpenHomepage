@@ -112,19 +112,19 @@ python app.py
 |------------|------|------|
 | `GITHUB_USERNAME` | GitHub 用户名 | `stlin256` |
 | `GITHUB_TOKEN` | GitHub Token（需要 repo 权限） | `ghp_xxx` |
-| `RSS_URL` | RSS 订阅地址 | `https://blog.realpics.cn/feed` |
-| `BIO_NAME` | 你的名字 | `stlin256` |
+| `RSS_URL` | RSS 订阅地址 | `https://your-blog.com/feed` |
+| `BIO_NAME` | 你的名字 | `Your Name` |
 | `BIO_TITLE` | 标题/职位 | `Developer` |
 | `BIO_DESCRIPTION` | 个人简介 | `A passionate developer` |
-| `BIO_EMAIL` | 邮箱 | `yjzlxljy@outlook.com` |
-| `FOOTER_TEXT` | 页脚文字 | `Created by stlin256` |
+| `BIO_EMAIL` | 邮箱 | `your@email.com` |
+| `FOOTER_TEXT` | 页脚文字 | `Created by Your Name` |
 
 ### 部署步骤
 
 1. 在仓库 Settings -> Pages 中设置 Source 为 "Deploy from a branch"
 2. 添加上述 Secrets
 3. 推送代码到 main 分支，或手动触发 workflow
-4. 访问 `https://stlin256.github.io/OpenHomepage/`
+4. 访问 `https://yourusername.github.io/OpenHomepage/`
 
 ### 自动部署
 
