@@ -789,7 +789,7 @@
             document.getElementById('repoModal').style.display = 'block';
 
             // Try local JSON first (for static deployment), then API (for Flask server)
-            var cacheFile = owner + '_' + repo + '.json';
+            var cacheFile = '/readmes/' + owner + '_' + repo + '.json';
             fetch(cacheFile)
                 .then(function(res) {
                     if (!res.ok) throw new Error('not found');
@@ -832,13 +832,11 @@
             document.getElementById('modalLink').textContent = 'Open in Browser →';
             document.getElementById('repoModal').style.display = 'block';
 
-            // Simple hash function for cache filename
-            var hash = 0;
-            for (var i = 0; i < decodedLink.length; i++) {
-                hash = ((hash << 5) - hash) + decodedLink.charCodeAt(i);
-                hash = hash & hash;
+            // Base64 hash (same as Python)
+            function urlhash(str) {
+                return btoa(str).replace(/[/+=]/g, '').substring(0, 22);
             }
-            var hashHex = Math.abs(hash).toString(16).padStart(16, '0').substring(0, 16);
+            var hashHex = urlhash(decodedLink);
 
             // Try local cache first, then API
             fetch('/readmes/rss/' + hashHex + '.json')

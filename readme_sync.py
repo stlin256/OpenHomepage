@@ -282,8 +282,8 @@ os.makedirs(RSS_CACHE_DIR, exist_ok=True)
 def get_rss_cache(url):
     """从缓存获取RSS"""
     import json
-    import hashlib
-    url_hash = hashlib.md5(url.encode()).hexdigest()[:16]
+    import base64
+    url_hash = base64.urlsafe_b64encode(url.encode()).decode().replace('=', '')[:22]
     cache_file = os.path.join(RSS_CACHE_DIR, f"{url_hash}.json")
 
     if os.path.exists(cache_file):
@@ -298,9 +298,9 @@ def save_rss_cache(url, title, html):
     """保存RSS到缓存"""
     import json
     from datetime import datetime
-    import hashlib
+    import base64
 
-    url_hash = hashlib.md5(url.encode()).hexdigest()[:16]
+    url_hash = base64.urlsafe_b64encode(url.encode()).decode().replace('=', '')[:22]
     cache_file = os.path.join(RSS_CACHE_DIR, f"{url_hash}.json")
 
     data = {
