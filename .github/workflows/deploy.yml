@@ -66,6 +66,12 @@ jobs:
       - name: Generate static site
         run: python generate.py
 
+      - name: Copy cache to dist
+        run: |
+          mkdir -p dist/readmes dist/.cache
+          cp -r readmes/* dist/readmes/ 2>/dev/null || true
+          cp -r .cache/* dist/.cache/ 2>/dev/null || true
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
