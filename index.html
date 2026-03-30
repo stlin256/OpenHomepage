@@ -2720,6 +2720,11 @@
                 <div id="modalBody" class="modal-body">
                     <div class="loading">Loading...</div>
                 </div>
+                <!-- Highlight.js for Code Syntax Highlighting -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+                
+                <!-- Mermaid for Diagrams -->
                 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
                 <script>
                     mermaid.initialize({ startOnLoad: false, theme: 'dark' });
@@ -2868,8 +2873,10 @@
         </style>
 
         <script>
-        function renderMermaid() {
+        function renderDynamicContent() {
             var modalBody = document.getElementById('modalBody');
+            
+            // 1. Mermaid rendering
             var mermaidCodes = modalBody.querySelectorAll('code.language-mermaid, code.mermaid');
             mermaidCodes.forEach(function(codeBlock) {
                 var pre = codeBlock.parentNode;
@@ -2889,6 +2896,14 @@
                     console.error('Mermaid render error:', e);
                 }
             }
+            
+            // 2. Syntax Highlighting
+            var codeBlocks = modalBody.querySelectorAll('pre code');
+            codeBlocks.forEach(function(block) {
+                if (window.hljs && block.className.indexOf('mermaid') === -1) {
+                    hljs.highlightElement(block);
+                }
+            });
         }
 
         function showRepoModal(owner, repo, url) {
@@ -2908,7 +2923,7 @@
                 .then(function(data) {
                     if (data.html) {
                         document.getElementById('modalBody').innerHTML = data.html;
-                        setTimeout(renderMermaid, 50);
+                        setTimeout(renderDynamicContent, 50);
                     } else {
                         throw new Error('no html');
                     }
@@ -2920,7 +2935,7 @@
                         .then(function(data) {
                             if (data.status === 'ok') {
                                 document.getElementById('modalBody').innerHTML = data.html;
-                                setTimeout(renderMermaid, 50);
+                                setTimeout(renderDynamicContent, 50);
                             } else {
                                 document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + url + '" target="_blank">在 GitHub 查看</a></p>';
                             }
@@ -2962,7 +2977,7 @@
                     if (data.html) {
                         document.getElementById('modalTitle').textContent = data.title || 'Blog';
                         document.getElementById('modalBody').innerHTML = data.html;
-                        setTimeout(renderMermaid, 50);
+                        setTimeout(renderDynamicContent, 50);
                     } else {
                         throw new Error('no html');
                     }
@@ -2975,7 +2990,7 @@
                             if (data.status === 'ok') {
                                 document.getElementById('modalTitle').textContent = data.title || 'Blog';
                                 document.getElementById('modalBody').innerHTML = data.html;
-                                setTimeout(renderMermaid, 50);
+                                setTimeout(renderDynamicContent, 50);
                             } else {
                                 document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文</a></p>';
                             }
