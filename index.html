@@ -455,6 +455,40 @@
             color: var(--text-muted);
         }
 
+        /* Contribution Tooltip */
+        .contrib-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 1000;
+            white-space: nowrap;
+            transform: translate(-50%, -100%);
+            margin-top: -8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .contrib-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+        }
+
+        .contribution-day.active {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 1px var(--bg-primary);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -1395,927 +1429,927 @@
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-04-06" title="2025-04-06: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-06" data-title="2025-04-06: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-07" title="2025-04-07: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-07" data-title="2025-04-07: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-08" title="2025-04-08: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-08" data-title="2025-04-08: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-09" title="2025-04-09: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-09" data-title="2025-04-09: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-10" title="2025-04-10: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-10" data-title="2025-04-10: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-11" title="2025-04-11: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-11" data-title="2025-04-11: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-12" title="2025-04-12: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-04-13" title="2025-04-13: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-14" title="2025-04-14: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-15" title="2025-04-15: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-16" title="2025-04-16: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-17" title="2025-04-17: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-18" title="2025-04-18: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-19" title="2025-04-19: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-12" data-title="2025-04-12: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-04-20" title="2025-04-20: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-13" data-title="2025-04-13: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-21" title="2025-04-21: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-14" data-title="2025-04-14: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-22" title="2025-04-22: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-15" data-title="2025-04-15: 0 contributions"></div>
                         
-                        <div class="contribution-day c1" data-date="2025-04-23" title="2025-04-23: 1 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-16" data-title="2025-04-16: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-24" title="2025-04-24: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-17" data-title="2025-04-17: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-25" title="2025-04-25: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-18" data-title="2025-04-18: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-04-26" title="2025-04-26: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-04-27" title="2025-04-27: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-28" title="2025-04-28: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-29" title="2025-04-29: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-04-30" title="2025-04-30: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-01" title="2025-05-01: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-02" title="2025-05-02: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-03" title="2025-05-03: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-19" data-title="2025-04-19: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-05-04" title="2025-05-04: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-20" data-title="2025-04-20: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-05" title="2025-05-05: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-21" data-title="2025-04-21: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-06" title="2025-05-06: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-22" data-title="2025-04-22: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-07" title="2025-05-07: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-04-23" data-title="2025-04-23: 1 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-08" title="2025-05-08: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-24" data-title="2025-04-24: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-09" title="2025-05-09: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-25" data-title="2025-04-25: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-10" title="2025-05-10: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-05-11" title="2025-05-11: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-12" title="2025-05-12: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-13" title="2025-05-13: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-14" title="2025-05-14: 0 contributions"></div>
-                        
-                        <div class="contribution-day c7" data-date="2025-05-15" title="2025-05-15: 7 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-16" title="2025-05-16: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-17" title="2025-05-17: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-26" data-title="2025-04-26: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-05-18" title="2025-05-18: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-27" data-title="2025-04-27: 0 contributions"></div>
                         
-                        <div class="contribution-day c17" data-date="2025-05-19" title="2025-05-19: 17 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-28" data-title="2025-04-28: 0 contributions"></div>
                         
-                        <div class="contribution-day c8" data-date="2025-05-20" title="2025-05-20: 8 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-29" data-title="2025-04-29: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-21" title="2025-05-21: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-04-30" data-title="2025-04-30: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-22" title="2025-05-22: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-01" data-title="2025-05-01: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-23" title="2025-05-23: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-02" data-title="2025-05-02: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-05-24" title="2025-05-24: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-05-25" title="2025-05-25: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-26" title="2025-05-26: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-27" title="2025-05-27: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-28" title="2025-05-28: 0 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2025-05-29" title="2025-05-29: 2 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-30" title="2025-05-30: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-05-31" title="2025-05-31: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-03" data-title="2025-05-03: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c6" data-date="2025-06-01" title="2025-06-01: 6 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-04" data-title="2025-05-04: 0 contributions"></div>
                         
-                        <div class="contribution-day c7" data-date="2025-06-02" title="2025-06-02: 7 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-05" data-title="2025-05-05: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-03" title="2025-06-03: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-06" data-title="2025-05-06: 0 contributions"></div>
                         
-                        <div class="contribution-day c11" data-date="2025-06-04" title="2025-06-04: 11 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-07" data-title="2025-05-07: 0 contributions"></div>
                         
-                        <div class="contribution-day c21" data-date="2025-06-05" title="2025-06-05: 21 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-08" data-title="2025-05-08: 0 contributions"></div>
                         
-                        <div class="contribution-day c1" data-date="2025-06-06" title="2025-06-06: 1 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-09" data-title="2025-05-09: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-07" title="2025-06-07: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-06-08" title="2025-06-08: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-06-09" title="2025-06-09: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-06-10" title="2025-06-10: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-06-11" title="2025-06-11: 0 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-06-12" title="2025-06-12: 1 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-06-13" title="2025-06-13: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-06-14" title="2025-06-14: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-10" data-title="2025-05-10: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-06-15" title="2025-06-15: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-11" data-title="2025-05-11: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-16" title="2025-06-16: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-12" data-title="2025-05-12: 0 contributions"></div>
                         
-                        <div class="contribution-day c5" data-date="2025-06-17" title="2025-06-17: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-13" data-title="2025-05-13: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-18" title="2025-06-18: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-14" data-title="2025-05-14: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-19" title="2025-06-19: 0 contributions"></div>
+                        <div class="contribution-day c7" data-date="2025-05-15" data-title="2025-05-15: 7 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-20" title="2025-06-20: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-16" data-title="2025-05-16: 0 contributions"></div>
                         
-                        <div class="contribution-day c52" data-date="2025-06-21" title="2025-06-21: 52 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c24" data-date="2025-06-22" title="2025-06-22: 24 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-06-23" title="2025-06-23: 1 contributions"></div>
-                        
-                        <div class="contribution-day c21" data-date="2025-06-24" title="2025-06-24: 21 contributions"></div>
-                        
-                        <div class="contribution-day c9" data-date="2025-06-25" title="2025-06-25: 9 contributions"></div>
-                        
-                        <div class="contribution-day c16" data-date="2025-06-26" title="2025-06-26: 16 contributions"></div>
-                        
-                        <div class="contribution-day c18" data-date="2025-06-27" title="2025-06-27: 18 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-06-28" title="2025-06-28: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-17" data-title="2025-05-17: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-06-29" title="2025-06-29: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-18" data-title="2025-05-18: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-06-30" title="2025-06-30: 0 contributions"></div>
+                        <div class="contribution-day c17" data-date="2025-05-19" data-title="2025-05-19: 17 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-01" title="2025-07-01: 0 contributions"></div>
+                        <div class="contribution-day c8" data-date="2025-05-20" data-title="2025-05-20: 8 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-02" title="2025-07-02: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-21" data-title="2025-05-21: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-03" title="2025-07-03: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-22" data-title="2025-05-22: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-04" title="2025-07-04: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-23" data-title="2025-05-23: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-05" title="2025-07-05: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-07-06" title="2025-07-06: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-07" title="2025-07-07: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-08" title="2025-07-08: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-09" title="2025-07-09: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-10" title="2025-07-10: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-11" title="2025-07-11: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-12" title="2025-07-12: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-24" data-title="2025-05-24: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-07-13" title="2025-07-13: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-25" data-title="2025-05-25: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-14" title="2025-07-14: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-26" data-title="2025-05-26: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-15" title="2025-07-15: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-27" data-title="2025-05-27: 0 contributions"></div>
                         
-                        <div class="contribution-day c7" data-date="2025-07-16" title="2025-07-16: 7 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-28" data-title="2025-05-28: 0 contributions"></div>
                         
-                        <div class="contribution-day c3" data-date="2025-07-17" title="2025-07-17: 3 contributions"></div>
+                        <div class="contribution-day c2" data-date="2025-05-29" data-title="2025-05-29: 2 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-18" title="2025-07-18: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-30" data-title="2025-05-30: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-19" title="2025-07-19: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-07-20" title="2025-07-20: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-21" title="2025-07-21: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-22" title="2025-07-22: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-23" title="2025-07-23: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-24" title="2025-07-24: 0 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-07-25" title="2025-07-25: 1 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-07-26" title="2025-07-26: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-05-31" data-title="2025-05-31: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-07-27" title="2025-07-27: 0 contributions"></div>
+                        <div class="contribution-day c6" data-date="2025-06-01" data-title="2025-06-01: 6 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-28" title="2025-07-28: 0 contributions"></div>
+                        <div class="contribution-day c7" data-date="2025-06-02" data-title="2025-06-02: 7 contributions"></div>
                         
-                        <div class="contribution-day c4" data-date="2025-07-29" title="2025-07-29: 4 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-03" data-title="2025-06-03: 0 contributions"></div>
                         
-                        <div class="contribution-day c1" data-date="2025-07-30" title="2025-07-30: 1 contributions"></div>
+                        <div class="contribution-day c11" data-date="2025-06-04" data-title="2025-06-04: 11 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-07-31" title="2025-07-31: 0 contributions"></div>
+                        <div class="contribution-day c21" data-date="2025-06-05" data-title="2025-06-05: 21 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-01" title="2025-08-01: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-06-06" data-title="2025-06-06: 1 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-02" title="2025-08-02: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-08-03" title="2025-08-03: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-04" title="2025-08-04: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-05" title="2025-08-05: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-06" title="2025-08-06: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-07" title="2025-08-07: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-08" title="2025-08-08: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-09" title="2025-08-09: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-07" data-title="2025-06-07: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c5" data-date="2025-08-10" title="2025-08-10: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-08" data-title="2025-06-08: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-11" title="2025-08-11: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-09" data-title="2025-06-09: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-12" title="2025-08-12: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-10" data-title="2025-06-10: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-13" title="2025-08-13: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-11" data-title="2025-06-11: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-14" title="2025-08-14: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-06-12" data-title="2025-06-12: 1 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-15" title="2025-08-15: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-13" data-title="2025-06-13: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-16" title="2025-08-16: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-08-17" title="2025-08-17: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-18" title="2025-08-18: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-19" title="2025-08-19: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-20" title="2025-08-20: 0 contributions"></div>
-                        
-                        <div class="contribution-day c5" data-date="2025-08-21" title="2025-08-21: 5 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-08-22" title="2025-08-22: 1 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-08-23" title="2025-08-23: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-14" data-title="2025-06-14: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-08-24" title="2025-08-24: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-15" data-title="2025-06-15: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-25" title="2025-08-25: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-16" data-title="2025-06-16: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-26" title="2025-08-26: 0 contributions"></div>
+                        <div class="contribution-day c5" data-date="2025-06-17" data-title="2025-06-17: 5 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-27" title="2025-08-27: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-18" data-title="2025-06-18: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-28" title="2025-08-28: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-19" data-title="2025-06-19: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-29" title="2025-08-29: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-20" data-title="2025-06-20: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-08-30" title="2025-08-30: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-08-31" title="2025-08-31: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-01" title="2025-09-01: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-02" title="2025-09-02: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-03" title="2025-09-03: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-04" title="2025-09-04: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-05" title="2025-09-05: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-06" title="2025-09-06: 0 contributions"></div>
+                        <div class="contribution-day c52" data-date="2025-06-21" data-title="2025-06-21: 52 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-09-07" title="2025-09-07: 0 contributions"></div>
+                        <div class="contribution-day c24" data-date="2025-06-22" data-title="2025-06-22: 24 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-08" title="2025-09-08: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-06-23" data-title="2025-06-23: 1 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-09" title="2025-09-09: 0 contributions"></div>
+                        <div class="contribution-day c21" data-date="2025-06-24" data-title="2025-06-24: 21 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-10" title="2025-09-10: 0 contributions"></div>
+                        <div class="contribution-day c9" data-date="2025-06-25" data-title="2025-06-25: 9 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-11" title="2025-09-11: 0 contributions"></div>
+                        <div class="contribution-day c16" data-date="2025-06-26" data-title="2025-06-26: 16 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-12" title="2025-09-12: 0 contributions"></div>
+                        <div class="contribution-day c18" data-date="2025-06-27" data-title="2025-06-27: 18 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-13" title="2025-09-13: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-09-14" title="2025-09-14: 0 contributions"></div>
-                        
-                        <div class="contribution-day c5" data-date="2025-09-15" title="2025-09-15: 5 contributions"></div>
-                        
-                        <div class="contribution-day c10" data-date="2025-09-16" title="2025-09-16: 10 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-17" title="2025-09-17: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-18" title="2025-09-18: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-19" title="2025-09-19: 0 contributions"></div>
-                        
-                        <div class="contribution-day c6" data-date="2025-09-20" title="2025-09-20: 6 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-28" data-title="2025-06-28: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-09-21" title="2025-09-21: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-29" data-title="2025-06-29: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-22" title="2025-09-22: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-06-30" data-title="2025-06-30: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-23" title="2025-09-23: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-01" data-title="2025-07-01: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-24" title="2025-09-24: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-02" data-title="2025-07-02: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-25" title="2025-09-25: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-03" data-title="2025-07-03: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-26" title="2025-09-26: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-04" data-title="2025-07-04: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-09-27" title="2025-09-27: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-09-28" title="2025-09-28: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-09-29" title="2025-09-29: 0 contributions"></div>
-                        
-                        <div class="contribution-day c32" data-date="2025-09-30" title="2025-09-30: 32 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-01" title="2025-10-01: 0 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2025-10-02" title="2025-10-02: 2 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-03" title="2025-10-03: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-04" title="2025-10-04: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-05" data-title="2025-07-05: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-10-05" title="2025-10-05: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-06" data-title="2025-07-06: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-06" title="2025-10-06: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-07" data-title="2025-07-07: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-07" title="2025-10-07: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-08" data-title="2025-07-08: 0 contributions"></div>
                         
-                        <div class="contribution-day c2" data-date="2025-10-08" title="2025-10-08: 2 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-09" data-title="2025-07-09: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-09" title="2025-10-09: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-10" data-title="2025-07-10: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-10" title="2025-10-10: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-11" data-title="2025-07-11: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-11" title="2025-10-11: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-10-12" title="2025-10-12: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-13" title="2025-10-13: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-14" title="2025-10-14: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-15" title="2025-10-15: 0 contributions"></div>
-                        
-                        <div class="contribution-day c3" data-date="2025-10-16" title="2025-10-16: 3 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-17" title="2025-10-17: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-18" title="2025-10-18: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-12" data-title="2025-07-12: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-10-19" title="2025-10-19: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-13" data-title="2025-07-13: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-20" title="2025-10-20: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-14" data-title="2025-07-14: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-21" title="2025-10-21: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-15" data-title="2025-07-15: 0 contributions"></div>
                         
-                        <div class="contribution-day c2" data-date="2025-10-22" title="2025-10-22: 2 contributions"></div>
+                        <div class="contribution-day c7" data-date="2025-07-16" data-title="2025-07-16: 7 contributions"></div>
                         
-                        <div class="contribution-day c1" data-date="2025-10-23" title="2025-10-23: 1 contributions"></div>
+                        <div class="contribution-day c3" data-date="2025-07-17" data-title="2025-07-17: 3 contributions"></div>
                         
-                        <div class="contribution-day c3" data-date="2025-10-24" title="2025-10-24: 3 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-18" data-title="2025-07-18: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-10-25" title="2025-10-25: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c6" data-date="2025-10-26" title="2025-10-26: 6 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-10-27" title="2025-10-27: 1 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-28" title="2025-10-28: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-29" title="2025-10-29: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-30" title="2025-10-30: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-10-31" title="2025-10-31: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-11-01" title="2025-11-01: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-19" data-title="2025-07-19: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-11-02" title="2025-11-02: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-20" data-title="2025-07-20: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-03" title="2025-11-03: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-21" data-title="2025-07-21: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-04" title="2025-11-04: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-22" data-title="2025-07-22: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-05" title="2025-11-05: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-23" data-title="2025-07-23: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-06" title="2025-11-06: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-24" data-title="2025-07-24: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-07" title="2025-11-07: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-07-25" data-title="2025-07-25: 1 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-08" title="2025-11-08: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-11-09" title="2025-11-09: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-11-10" title="2025-11-10: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-11-11" title="2025-11-11: 0 contributions"></div>
-                        
-                        <div class="contribution-day c12" data-date="2025-11-12" title="2025-11-12: 12 contributions"></div>
-                        
-                        <div class="contribution-day c6" data-date="2025-11-13" title="2025-11-13: 6 contributions"></div>
-                        
-                        <div class="contribution-day c4" data-date="2025-11-14" title="2025-11-14: 4 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2025-11-15" title="2025-11-15: 2 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-26" data-title="2025-07-26: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c1" data-date="2025-11-16" title="2025-11-16: 1 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-27" data-title="2025-07-27: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-17" title="2025-11-17: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-28" data-title="2025-07-28: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-18" title="2025-11-18: 0 contributions"></div>
+                        <div class="contribution-day c4" data-date="2025-07-29" data-title="2025-07-29: 4 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-19" title="2025-11-19: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-07-30" data-title="2025-07-30: 1 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-20" title="2025-11-20: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-07-31" data-title="2025-07-31: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-21" title="2025-11-21: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-01" data-title="2025-08-01: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-11-22" title="2025-11-22: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-11-23" title="2025-11-23: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-11-24" title="2025-11-24: 0 contributions"></div>
-                        
-                        <div class="contribution-day c8" data-date="2025-11-25" title="2025-11-25: 8 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2025-11-26" title="2025-11-26: 2 contributions"></div>
-                        
-                        <div class="contribution-day c13" data-date="2025-11-27" title="2025-11-27: 13 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-11-28" title="2025-11-28: 1 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-11-29" title="2025-11-29: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-02" data-title="2025-08-02: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-11-30" title="2025-11-30: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-03" data-title="2025-08-03: 0 contributions"></div>
                         
-                        <div class="contribution-day c3" data-date="2025-12-01" title="2025-12-01: 3 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-04" data-title="2025-08-04: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-02" title="2025-12-02: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-05" data-title="2025-08-05: 0 contributions"></div>
                         
-                        <div class="contribution-day c5" data-date="2025-12-03" title="2025-12-03: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-06" data-title="2025-08-06: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-04" title="2025-12-04: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-07" data-title="2025-08-07: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-05" title="2025-12-05: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-08" data-title="2025-08-08: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-06" title="2025-12-06: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-12-07" title="2025-12-07: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-12-08" title="2025-12-08: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-12-09" title="2025-12-09: 0 contributions"></div>
-                        
-                        <div class="contribution-day c5" data-date="2025-12-10" title="2025-12-10: 5 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-12-11" title="2025-12-11: 0 contributions"></div>
-                        
-                        <div class="contribution-day c13" data-date="2025-12-12" title="2025-12-12: 13 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-12-13" title="2025-12-13: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-09" data-title="2025-08-09: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-12-14" title="2025-12-14: 0 contributions"></div>
+                        <div class="contribution-day c5" data-date="2025-08-10" data-title="2025-08-10: 5 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-15" title="2025-12-15: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-11" data-title="2025-08-11: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-16" title="2025-12-16: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-12" data-title="2025-08-12: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-17" title="2025-12-17: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-13" data-title="2025-08-13: 0 contributions"></div>
                         
-                        <div class="contribution-day c2" data-date="2025-12-18" title="2025-12-18: 2 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-14" data-title="2025-08-14: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-19" title="2025-12-19: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-15" data-title="2025-08-15: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-20" title="2025-12-20: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2025-12-21" title="2025-12-21: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-12-22" title="2025-12-22: 0 contributions"></div>
-                        
-                        <div class="contribution-day c13" data-date="2025-12-23" title="2025-12-23: 13 contributions"></div>
-                        
-                        <div class="contribution-day c9" data-date="2025-12-24" title="2025-12-24: 9 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2025-12-25" title="2025-12-25: 1 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2025-12-26" title="2025-12-26: 0 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2025-12-27" title="2025-12-27: 2 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-16" data-title="2025-08-16: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2025-12-28" title="2025-12-28: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-17" data-title="2025-08-17: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-29" title="2025-12-29: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-18" data-title="2025-08-18: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-30" title="2025-12-30: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-19" data-title="2025-08-19: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2025-12-31" title="2025-12-31: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-20" data-title="2025-08-20: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-01" title="2026-01-01: 0 contributions"></div>
+                        <div class="contribution-day c5" data-date="2025-08-21" data-title="2025-08-21: 5 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-02" title="2026-01-02: 0 contributions"></div>
+                        <div class="contribution-day c1" data-date="2025-08-22" data-title="2025-08-22: 1 contributions"></div>
                         
-                        <div class="contribution-day c1" data-date="2026-01-03" title="2026-01-03: 1 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2026-01-04" title="2026-01-04: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-01-05" title="2026-01-05: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-01-06" title="2026-01-06: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-01-07" title="2026-01-07: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-01-08" title="2026-01-08: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-01-09" title="2026-01-09: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-01-10" title="2026-01-10: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-23" data-title="2025-08-23: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2026-01-11" title="2026-01-11: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-24" data-title="2025-08-24: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-12" title="2026-01-12: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-25" data-title="2025-08-25: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-13" title="2026-01-13: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-26" data-title="2025-08-26: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-14" title="2026-01-14: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-27" data-title="2025-08-27: 0 contributions"></div>
                         
-                        <div class="contribution-day c5" data-date="2026-01-15" title="2026-01-15: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-28" data-title="2025-08-28: 0 contributions"></div>
                         
-                        <div class="contribution-day c7" data-date="2026-01-16" title="2026-01-16: 7 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-29" data-title="2025-08-29: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-17" title="2026-01-17: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c4" data-date="2026-01-18" title="2026-01-18: 4 contributions"></div>
-                        
-                        <div class="contribution-day c8" data-date="2026-01-19" title="2026-01-19: 8 contributions"></div>
-                        
-                        <div class="contribution-day c5" data-date="2026-01-20" title="2026-01-20: 5 contributions"></div>
-                        
-                        <div class="contribution-day c3" data-date="2026-01-21" title="2026-01-21: 3 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2026-01-22" title="2026-01-22: 2 contributions"></div>
-                        
-                        <div class="contribution-day c6" data-date="2026-01-23" title="2026-01-23: 6 contributions"></div>
-                        
-                        <div class="contribution-day c5" data-date="2026-01-24" title="2026-01-24: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-30" data-title="2025-08-30: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2026-01-25" title="2026-01-25: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-08-31" data-title="2025-08-31: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-01-26" title="2026-01-26: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-01" data-title="2025-09-01: 0 contributions"></div>
                         
-                        <div class="contribution-day c16" data-date="2026-01-27" title="2026-01-27: 16 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-02" data-title="2025-09-02: 0 contributions"></div>
                         
-                        <div class="contribution-day c10" data-date="2026-01-28" title="2026-01-28: 10 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-03" data-title="2025-09-03: 0 contributions"></div>
                         
-                        <div class="contribution-day c15" data-date="2026-01-29" title="2026-01-29: 15 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-04" data-title="2025-09-04: 0 contributions"></div>
                         
-                        <div class="contribution-day c5" data-date="2026-01-30" title="2026-01-30: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-05" data-title="2025-09-05: 0 contributions"></div>
                         
-                        <div class="contribution-day c2" data-date="2026-01-31" title="2026-01-31: 2 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c14" data-date="2026-02-01" title="2026-02-01: 14 contributions"></div>
-                        
-                        <div class="contribution-day c3" data-date="2026-02-02" title="2026-02-02: 3 contributions"></div>
-                        
-                        <div class="contribution-day c11" data-date="2026-02-03" title="2026-02-03: 11 contributions"></div>
-                        
-                        <div class="contribution-day c1" data-date="2026-02-04" title="2026-02-04: 1 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2026-02-05" title="2026-02-05: 2 contributions"></div>
-                        
-                        <div class="contribution-day c9" data-date="2026-02-06" title="2026-02-06: 9 contributions"></div>
-                        
-                        <div class="contribution-day c4" data-date="2026-02-07" title="2026-02-07: 4 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-06" data-title="2025-09-06: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c11" data-date="2026-02-08" title="2026-02-08: 11 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-07" data-title="2025-09-07: 0 contributions"></div>
                         
-                        <div class="contribution-day c11" data-date="2026-02-09" title="2026-02-09: 11 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-08" data-title="2025-09-08: 0 contributions"></div>
                         
-                        <div class="contribution-day c5" data-date="2026-02-10" title="2026-02-10: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-09" data-title="2025-09-09: 0 contributions"></div>
                         
-                        <div class="contribution-day c6" data-date="2026-02-11" title="2026-02-11: 6 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-10" data-title="2025-09-10: 0 contributions"></div>
                         
-                        <div class="contribution-day c4" data-date="2026-02-12" title="2026-02-12: 4 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-11" data-title="2025-09-11: 0 contributions"></div>
                         
-                        <div class="contribution-day c1" data-date="2026-02-13" title="2026-02-13: 1 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-12" data-title="2025-09-12: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-02-14" title="2026-02-14: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2026-02-15" title="2026-02-15: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-02-16" title="2026-02-16: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-02-17" title="2026-02-17: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-02-18" title="2026-02-18: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-02-19" title="2026-02-19: 0 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2026-02-20" title="2026-02-20: 2 contributions"></div>
-                        
-                        <div class="contribution-day c10" data-date="2026-02-21" title="2026-02-21: 10 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-13" data-title="2025-09-13: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2026-02-22" title="2026-02-22: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-14" data-title="2025-09-14: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-02-23" title="2026-02-23: 0 contributions"></div>
+                        <div class="contribution-day c5" data-date="2025-09-15" data-title="2025-09-15: 5 contributions"></div>
                         
-                        <div class="contribution-day c7" data-date="2026-02-24" title="2026-02-24: 7 contributions"></div>
+                        <div class="contribution-day c10" data-date="2025-09-16" data-title="2025-09-16: 10 contributions"></div>
                         
-                        <div class="contribution-day c3" data-date="2026-02-25" title="2026-02-25: 3 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-17" data-title="2025-09-17: 0 contributions"></div>
                         
-                        <div class="contribution-day c2" data-date="2026-02-26" title="2026-02-26: 2 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-18" data-title="2025-09-18: 0 contributions"></div>
                         
-                        <div class="contribution-day c5" data-date="2026-02-27" title="2026-02-27: 5 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-19" data-title="2025-09-19: 0 contributions"></div>
                         
-                        <div class="contribution-day c12" data-date="2026-02-28" title="2026-02-28: 12 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c0" data-date="2026-03-01" title="2026-03-01: 0 contributions"></div>
-                        
-                        <div class="contribution-day c2" data-date="2026-03-02" title="2026-03-02: 2 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-03-03" title="2026-03-03: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-03-04" title="2026-03-04: 0 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-03-05" title="2026-03-05: 0 contributions"></div>
-                        
-                        <div class="contribution-day c13" data-date="2026-03-06" title="2026-03-06: 13 contributions"></div>
-                        
-                        <div class="contribution-day c55" data-date="2026-03-07" title="2026-03-07: 96 contributions"></div>
+                        <div class="contribution-day c6" data-date="2025-09-20" data-title="2025-09-20: 6 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c2" data-date="2026-03-08" title="2026-03-08: 2 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-21" data-title="2025-09-21: 0 contributions"></div>
                         
-                        <div class="contribution-day c55" data-date="2026-03-09" title="2026-03-09: 78 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-22" data-title="2025-09-22: 0 contributions"></div>
                         
-                        <div class="contribution-day c55" data-date="2026-03-10" title="2026-03-10: 124 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-23" data-title="2025-09-23: 0 contributions"></div>
                         
-                        <div class="contribution-day c46" data-date="2026-03-11" title="2026-03-11: 46 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-24" data-title="2025-09-24: 0 contributions"></div>
                         
-                        <div class="contribution-day c55" data-date="2026-03-12" title="2026-03-12: 496 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-25" data-title="2025-09-25: 0 contributions"></div>
                         
-                        <div class="contribution-day c13" data-date="2026-03-13" title="2026-03-13: 13 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-26" data-title="2025-09-26: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-03-14" title="2026-03-14: 0 contributions"></div>
-                        
-                    </div>
-                    
-                    <div class="contribution-week">
-                        
-                        <div class="contribution-day c46" data-date="2026-03-15" title="2026-03-15: 46 contributions"></div>
-                        
-                        <div class="contribution-day c27" data-date="2026-03-16" title="2026-03-16: 27 contributions"></div>
-                        
-                        <div class="contribution-day c32" data-date="2026-03-17" title="2026-03-17: 32 contributions"></div>
-                        
-                        <div class="contribution-day c34" data-date="2026-03-18" title="2026-03-18: 34 contributions"></div>
-                        
-                        <div class="contribution-day c13" data-date="2026-03-19" title="2026-03-19: 13 contributions"></div>
-                        
-                        <div class="contribution-day c13" data-date="2026-03-20" title="2026-03-20: 13 contributions"></div>
-                        
-                        <div class="contribution-day c0" data-date="2026-03-21" title="2026-03-21: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-27" data-title="2025-09-27: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c3" data-date="2026-03-22" title="2026-03-22: 3 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-28" data-title="2025-09-28: 0 contributions"></div>
                         
-                        <div class="contribution-day c18" data-date="2026-03-23" title="2026-03-23: 18 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-09-29" data-title="2025-09-29: 0 contributions"></div>
                         
-                        <div class="contribution-day c44" data-date="2026-03-24" title="2026-03-24: 44 contributions"></div>
+                        <div class="contribution-day c32" data-date="2025-09-30" data-title="2025-09-30: 32 contributions"></div>
                         
-                        <div class="contribution-day c25" data-date="2026-03-25" title="2026-03-25: 25 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-10-01" data-title="2025-10-01: 0 contributions"></div>
                         
-                        <div class="contribution-day c12" data-date="2026-03-26" title="2026-03-26: 12 contributions"></div>
+                        <div class="contribution-day c2" data-date="2025-10-02" data-title="2025-10-02: 2 contributions"></div>
                         
-                        <div class="contribution-day c26" data-date="2026-03-27" title="2026-03-27: 26 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-10-03" data-title="2025-10-03: 0 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-03-28" title="2026-03-28: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-10-04" data-title="2025-10-04: 0 contributions"></div>
                         
                     </div>
                     
                     <div class="contribution-week">
                         
-                        <div class="contribution-day c0" data-date="2026-03-29" title="2026-03-29: 0 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-10-05" data-title="2025-10-05: 0 contributions"></div>
                         
-                        <div class="contribution-day c15" data-date="2026-03-30" title="2026-03-30: 15 contributions"></div>
+                        <div class="contribution-day c0" data-date="2025-10-06" data-title="2025-10-06: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-07" data-title="2025-10-07: 0 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2025-10-08" data-title="2025-10-08: 2 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-09" data-title="2025-10-09: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-10" data-title="2025-10-10: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-11" data-title="2025-10-11: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-10-12" data-title="2025-10-12: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-13" data-title="2025-10-13: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-14" data-title="2025-10-14: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-15" data-title="2025-10-15: 0 contributions"></div>
+                        
+                        <div class="contribution-day c3" data-date="2025-10-16" data-title="2025-10-16: 3 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-17" data-title="2025-10-17: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-18" data-title="2025-10-18: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-10-19" data-title="2025-10-19: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-20" data-title="2025-10-20: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-21" data-title="2025-10-21: 0 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2025-10-22" data-title="2025-10-22: 2 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2025-10-23" data-title="2025-10-23: 1 contributions"></div>
+                        
+                        <div class="contribution-day c3" data-date="2025-10-24" data-title="2025-10-24: 3 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-25" data-title="2025-10-25: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c6" data-date="2025-10-26" data-title="2025-10-26: 6 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2025-10-27" data-title="2025-10-27: 1 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-28" data-title="2025-10-28: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-29" data-title="2025-10-29: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-30" data-title="2025-10-30: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-10-31" data-title="2025-10-31: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-01" data-title="2025-11-01: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-11-02" data-title="2025-11-02: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-03" data-title="2025-11-03: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-04" data-title="2025-11-04: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-05" data-title="2025-11-05: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-06" data-title="2025-11-06: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-07" data-title="2025-11-07: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-08" data-title="2025-11-08: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-11-09" data-title="2025-11-09: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-10" data-title="2025-11-10: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-11" data-title="2025-11-11: 0 contributions"></div>
+                        
+                        <div class="contribution-day c12" data-date="2025-11-12" data-title="2025-11-12: 12 contributions"></div>
+                        
+                        <div class="contribution-day c6" data-date="2025-11-13" data-title="2025-11-13: 6 contributions"></div>
+                        
+                        <div class="contribution-day c4" data-date="2025-11-14" data-title="2025-11-14: 4 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2025-11-15" data-title="2025-11-15: 2 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c1" data-date="2025-11-16" data-title="2025-11-16: 1 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-17" data-title="2025-11-17: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-18" data-title="2025-11-18: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-19" data-title="2025-11-19: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-20" data-title="2025-11-20: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-21" data-title="2025-11-21: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-22" data-title="2025-11-22: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-11-23" data-title="2025-11-23: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-24" data-title="2025-11-24: 0 contributions"></div>
+                        
+                        <div class="contribution-day c8" data-date="2025-11-25" data-title="2025-11-25: 8 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2025-11-26" data-title="2025-11-26: 2 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2025-11-27" data-title="2025-11-27: 13 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2025-11-28" data-title="2025-11-28: 1 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-11-29" data-title="2025-11-29: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-11-30" data-title="2025-11-30: 0 contributions"></div>
+                        
+                        <div class="contribution-day c3" data-date="2025-12-01" data-title="2025-12-01: 3 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-02" data-title="2025-12-02: 0 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2025-12-03" data-title="2025-12-03: 5 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-04" data-title="2025-12-04: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-05" data-title="2025-12-05: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-06" data-title="2025-12-06: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-12-07" data-title="2025-12-07: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-08" data-title="2025-12-08: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-09" data-title="2025-12-09: 0 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2025-12-10" data-title="2025-12-10: 5 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-11" data-title="2025-12-11: 0 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2025-12-12" data-title="2025-12-12: 13 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-13" data-title="2025-12-13: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-12-14" data-title="2025-12-14: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-15" data-title="2025-12-15: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-16" data-title="2025-12-16: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-17" data-title="2025-12-17: 0 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2025-12-18" data-title="2025-12-18: 2 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-19" data-title="2025-12-19: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-20" data-title="2025-12-20: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-12-21" data-title="2025-12-21: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-22" data-title="2025-12-22: 0 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2025-12-23" data-title="2025-12-23: 13 contributions"></div>
+                        
+                        <div class="contribution-day c9" data-date="2025-12-24" data-title="2025-12-24: 9 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2025-12-25" data-title="2025-12-25: 1 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-26" data-title="2025-12-26: 0 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2025-12-27" data-title="2025-12-27: 2 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2025-12-28" data-title="2025-12-28: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-29" data-title="2025-12-29: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-30" data-title="2025-12-30: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2025-12-31" data-title="2025-12-31: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-01" data-title="2026-01-01: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-02" data-title="2026-01-02: 0 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2026-01-03" data-title="2026-01-03: 1 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-01-04" data-title="2026-01-04: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-05" data-title="2026-01-05: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-06" data-title="2026-01-06: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-07" data-title="2026-01-07: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-08" data-title="2026-01-08: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-09" data-title="2026-01-09: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-10" data-title="2026-01-10: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-01-11" data-title="2026-01-11: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-12" data-title="2026-01-12: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-13" data-title="2026-01-13: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-14" data-title="2026-01-14: 0 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2026-01-15" data-title="2026-01-15: 5 contributions"></div>
+                        
+                        <div class="contribution-day c7" data-date="2026-01-16" data-title="2026-01-16: 7 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-17" data-title="2026-01-17: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c4" data-date="2026-01-18" data-title="2026-01-18: 4 contributions"></div>
+                        
+                        <div class="contribution-day c8" data-date="2026-01-19" data-title="2026-01-19: 8 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2026-01-20" data-title="2026-01-20: 5 contributions"></div>
+                        
+                        <div class="contribution-day c3" data-date="2026-01-21" data-title="2026-01-21: 3 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2026-01-22" data-title="2026-01-22: 2 contributions"></div>
+                        
+                        <div class="contribution-day c6" data-date="2026-01-23" data-title="2026-01-23: 6 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2026-01-24" data-title="2026-01-24: 5 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-01-25" data-title="2026-01-25: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-01-26" data-title="2026-01-26: 0 contributions"></div>
+                        
+                        <div class="contribution-day c16" data-date="2026-01-27" data-title="2026-01-27: 16 contributions"></div>
+                        
+                        <div class="contribution-day c10" data-date="2026-01-28" data-title="2026-01-28: 10 contributions"></div>
+                        
+                        <div class="contribution-day c15" data-date="2026-01-29" data-title="2026-01-29: 15 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2026-01-30" data-title="2026-01-30: 5 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2026-01-31" data-title="2026-01-31: 2 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c14" data-date="2026-02-01" data-title="2026-02-01: 14 contributions"></div>
+                        
+                        <div class="contribution-day c3" data-date="2026-02-02" data-title="2026-02-02: 3 contributions"></div>
+                        
+                        <div class="contribution-day c11" data-date="2026-02-03" data-title="2026-02-03: 11 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2026-02-04" data-title="2026-02-04: 1 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2026-02-05" data-title="2026-02-05: 2 contributions"></div>
+                        
+                        <div class="contribution-day c9" data-date="2026-02-06" data-title="2026-02-06: 9 contributions"></div>
+                        
+                        <div class="contribution-day c4" data-date="2026-02-07" data-title="2026-02-07: 4 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c11" data-date="2026-02-08" data-title="2026-02-08: 11 contributions"></div>
+                        
+                        <div class="contribution-day c11" data-date="2026-02-09" data-title="2026-02-09: 11 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2026-02-10" data-title="2026-02-10: 5 contributions"></div>
+                        
+                        <div class="contribution-day c6" data-date="2026-02-11" data-title="2026-02-11: 6 contributions"></div>
+                        
+                        <div class="contribution-day c4" data-date="2026-02-12" data-title="2026-02-12: 4 contributions"></div>
+                        
+                        <div class="contribution-day c1" data-date="2026-02-13" data-title="2026-02-13: 1 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-02-14" data-title="2026-02-14: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-02-15" data-title="2026-02-15: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-02-16" data-title="2026-02-16: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-02-17" data-title="2026-02-17: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-02-18" data-title="2026-02-18: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-02-19" data-title="2026-02-19: 0 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2026-02-20" data-title="2026-02-20: 2 contributions"></div>
+                        
+                        <div class="contribution-day c10" data-date="2026-02-21" data-title="2026-02-21: 10 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-02-22" data-title="2026-02-22: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-02-23" data-title="2026-02-23: 0 contributions"></div>
+                        
+                        <div class="contribution-day c7" data-date="2026-02-24" data-title="2026-02-24: 7 contributions"></div>
+                        
+                        <div class="contribution-day c3" data-date="2026-02-25" data-title="2026-02-25: 3 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2026-02-26" data-title="2026-02-26: 2 contributions"></div>
+                        
+                        <div class="contribution-day c5" data-date="2026-02-27" data-title="2026-02-27: 5 contributions"></div>
+                        
+                        <div class="contribution-day c12" data-date="2026-02-28" data-title="2026-02-28: 12 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-03-01" data-title="2026-03-01: 0 contributions"></div>
+                        
+                        <div class="contribution-day c2" data-date="2026-03-02" data-title="2026-03-02: 2 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-03-03" data-title="2026-03-03: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-03-04" data-title="2026-03-04: 0 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-03-05" data-title="2026-03-05: 0 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2026-03-06" data-title="2026-03-06: 13 contributions"></div>
+                        
+                        <div class="contribution-day c55" data-date="2026-03-07" data-title="2026-03-07: 96 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c2" data-date="2026-03-08" data-title="2026-03-08: 2 contributions"></div>
+                        
+                        <div class="contribution-day c55" data-date="2026-03-09" data-title="2026-03-09: 78 contributions"></div>
+                        
+                        <div class="contribution-day c55" data-date="2026-03-10" data-title="2026-03-10: 124 contributions"></div>
+                        
+                        <div class="contribution-day c46" data-date="2026-03-11" data-title="2026-03-11: 46 contributions"></div>
+                        
+                        <div class="contribution-day c55" data-date="2026-03-12" data-title="2026-03-12: 496 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2026-03-13" data-title="2026-03-13: 13 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-03-14" data-title="2026-03-14: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c46" data-date="2026-03-15" data-title="2026-03-15: 46 contributions"></div>
+                        
+                        <div class="contribution-day c27" data-date="2026-03-16" data-title="2026-03-16: 27 contributions"></div>
+                        
+                        <div class="contribution-day c32" data-date="2026-03-17" data-title="2026-03-17: 32 contributions"></div>
+                        
+                        <div class="contribution-day c34" data-date="2026-03-18" data-title="2026-03-18: 34 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2026-03-19" data-title="2026-03-19: 13 contributions"></div>
+                        
+                        <div class="contribution-day c13" data-date="2026-03-20" data-title="2026-03-20: 13 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-03-21" data-title="2026-03-21: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c3" data-date="2026-03-22" data-title="2026-03-22: 3 contributions"></div>
+                        
+                        <div class="contribution-day c18" data-date="2026-03-23" data-title="2026-03-23: 18 contributions"></div>
+                        
+                        <div class="contribution-day c44" data-date="2026-03-24" data-title="2026-03-24: 44 contributions"></div>
+                        
+                        <div class="contribution-day c25" data-date="2026-03-25" data-title="2026-03-25: 25 contributions"></div>
+                        
+                        <div class="contribution-day c12" data-date="2026-03-26" data-title="2026-03-26: 12 contributions"></div>
+                        
+                        <div class="contribution-day c26" data-date="2026-03-27" data-title="2026-03-27: 26 contributions"></div>
+                        
+                        <div class="contribution-day c0" data-date="2026-03-28" data-title="2026-03-28: 0 contributions"></div>
+                        
+                    </div>
+                    
+                    <div class="contribution-week">
+                        
+                        <div class="contribution-day c0" data-date="2026-03-29" data-title="2026-03-29: 0 contributions"></div>
+                        
+                        <div class="contribution-day c16" data-date="2026-03-30" data-title="2026-03-30: 16 contributions"></div>
                         
                     </div>
                     
@@ -3085,6 +3119,48 @@
         if (contribGrid) {
             contribGrid.scrollLeft = contribGrid.scrollWidth;
         }
+        
+        // Contribution Tooltip Logic
+        const tooltip = document.createElement('div');
+        tooltip.className = 'contrib-tooltip';
+        document.body.appendChild(tooltip);
+
+        function showTooltip(el) {
+            const rect = el.getBoundingClientRect();
+            const text = el.getAttribute('data-title');
+            if(!text) return;
+            tooltip.textContent = text;
+            tooltip.style.left = (rect.left + rect.width / 2 + window.scrollX) + 'px';
+            tooltip.style.top = (rect.top + window.scrollY) + 'px';
+            tooltip.style.opacity = '1';
+        }
+
+        function hideTooltip() {
+            tooltip.style.opacity = '0';
+        }
+
+        document.querySelectorAll('.contribution-day').forEach(day => {
+            day.addEventListener('mouseenter', function(e) {
+                showTooltip(this);
+            });
+            day.addEventListener('mouseleave', function(e) {
+                hideTooltip();
+                this.classList.remove('active');
+            });
+            day.addEventListener('click', function(e) {
+                document.querySelectorAll('.contribution-day.active').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+                showTooltip(this);
+                e.stopPropagation();
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('contribution-day')) {
+                hideTooltip();
+                document.querySelectorAll('.contribution-day.active').forEach(d => d.classList.remove('active'));
+            }
+        });
     </script>
 </body>
 </html>
