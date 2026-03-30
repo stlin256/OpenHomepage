@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config.bio.name }} - 个人主页</title>
+    <title>{{ config.bio.name }} - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -516,7 +516,7 @@
                 {% for color in theme_colors.palette[:5] %}
                 <button class="scheme-btn" data-scheme="{{ loop.index0 }}" 
                     style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, {{ color }}, {% if loop.index < theme_colors.palette|length %}{{ theme_colors.palette[loop.index] }}{% else %}{{ color }}{% endif %})"
-                    title="配色{{ loop.index }}"></button>
+                    title="Scheme {{ loop.index }}"></button>
                 {% endfor %}
             </div>
         </header>
@@ -808,7 +808,7 @@
                     mermaid.run({ querySelector: '.mermaid' }).then(function() {
                         if (window.svgPanZoom) {
                             modalBody.querySelectorAll('.mermaid svg').forEach(function(svg) {
-                                // 确保 SVG 有合适的高度，避免缩放后消失
+                                // Ensure SVG has a defined height so it doesn't disappear when zoomed
                                 if (!svg.getAttribute('height') && !svg.style.height) {
                                     svg.style.minHeight = '300px';
                                 }
@@ -869,11 +869,11 @@
                                 document.getElementById('modalBody').innerHTML = data.html;
                                 setTimeout(renderDynamicContent, 50);
                             } else {
-                                document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + url + '" target="_blank">在 GitHub 查看</a></p>';
+                                document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
                             }
                         })
                         .catch(function() {
-                            document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + url + '" target="_blank">在 GitHub 查看</a></p>';
+                            document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
                         });
                 });
         }
@@ -924,11 +924,11 @@
                                 document.getElementById('modalBody').innerHTML = data.html;
                                 setTimeout(renderDynamicContent, 50);
                             } else {
-                                document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文</a></p>';
+                                document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
                             }
                         })
                         .catch(function() {
-                            document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文</a></p>';
+                            document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
                         });
                 });
         }

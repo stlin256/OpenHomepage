@@ -1,5 +1,8 @@
 # OpenHomepage
 
+[![Deploy to GitHub Pages](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml/badge.svg)](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml)
+[![Demo](https://img.shields.io/badge/Demo-Live_Preview-success)](https://stlin256.github.io/OpenHomepage/)
+
 [English](README.md) | [中文](README_CN.md)
 
 A modern personal homepage built with Flask, featuring GitHub stats, contribution graph, RSS feed, and smart theme colors.
@@ -8,12 +11,12 @@ A modern personal homepage built with Flask, featuring GitHub stats, contributio
 
 - 🎨 Modern dark theme
 - 🌈 **Smart Theme Colors**: Auto-extracted from GitHub avatar with intelligent adjustments
-- 💾 **Color Caching**: Theme colors cached for 24 hours
+- 💾 **Fully Static & Offline-Ready**: All assets (JS/CSS) and images are pre-fetched and localized
 - 📊 GitHub contribution heatmap
-- 📦 GitHub repositories display (sorted by stars)
-- 📰 Blog RSS feed subscription
+- 📦 GitHub repositories display with **Dynamic Sorting** (Stars or Recently Updated)
+- 📖 Markdown rendering in Modals with **Mermaid Diagrams**, **SVG Pan/Zoom**, and **Highlight.js** code syntax highlighting
+- 📰 Blog RSS feed subscription with **Anti-Hotlinking image caching**
 - ⚙️ Fully configurable via YAML
-- 📱 Responsive design
 - 🌍 Bilingual support (Chinese & English)
 
 ## Quick Start
@@ -155,16 +158,17 @@ The project includes GitHub Actions workflow for automatic deployment.
 
 Add these secrets in repository Settings -> Secrets and variables -> Actions:
 
-| Secret | Description |
-|--------|-------------|
-| `GH_USERNAME` | GitHub username |
-| `GH_TOKEN` | GitHub Token with repo permission |
-| `RSS_URL` | RSS feed URL |
-| `BIO_NAME` | Your name |
-| `BIO_TITLE` | Title/Position |
-| `BIO_DESCRIPTION` | Bio description |
-| `BIO_EMAIL` | Email |
-| `FOOTER_TEXT` | Footer text |
+| Secret/Variable | Type | Description |
+|--------|------|-------------|
+| `GH_USERNAME` | Secret | GitHub username |
+| `GH_TOKEN` | Secret | GitHub Token with repo permission |
+| `RSS_URL` | Secret | RSS feed URL |
+| `BIO_NAME` | Secret | Your name |
+| `BIO_TITLE` | Secret | Title/Position |
+| `BIO_DESCRIPTION` | Secret | Bio description |
+| `BIO_EMAIL` | Secret | Email |
+| `FOOTER_TEXT` | Secret | Footer text |
+| `REPO_SORT_BY` | Variable (vars) | Set to `updated` to show recent repos. Defaults to `stars` |
 
 ### Deploy Steps
 

@@ -1,5 +1,8 @@
 # OpenHomepage
 
+[![Deploy to GitHub Pages](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml/badge.svg)](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml)
+[![Demo](https://img.shields.io/badge/Demo-Live_Preview-success)](https://stlin256.github.io/OpenHomepage/)
+
 [English](README.md) | [中文](README_CN.md)
 
 现代化风格的个人主页，基于 Flask 构建，支持展示 GitHub 仓库、贡献图、RSS 订阅和智能主题色。
@@ -8,12 +11,12 @@
 
 - 🎨 现代化深色主题
 - 🌈 **智能主题色**：自动从 GitHub 头像提取并智能调整（避免太淡或太鲜艳）
-- 💾 **颜色缓存**：主题色自动缓存 24 小时，提升加载速度
+- 💾 **纯静态离线化访问**：所有前端依赖 (JS/CSS) 及图片均实现预抓取和本地化，无需担心 CDN 被墙
 - 📊 GitHub 贡献图（heatmap 风格）
-- 📦 自动展示 GitHub 公开仓库（按 star 数排序）
-- 📰 博客 RSS 订阅同步
+- 📦 自动展示 GitHub 公开仓库，支持**动态排序机制**（可配置按 Star 数量或最近更新排列）
+- 📖 弹窗内支持 Markdown 渲染，更加入了 **Mermaid 图表渲染**、**SVG 平移缩放** 和 **Highlight.js 代码高亮**
+- 📰 博客 RSS 订阅同步，并支持**自动缓存图片，无视防盗链**
 - ⚙️ 完全配置文件驱动
-- 📱 响应式设计
 - 🌍 中英双语支持
 
 ## 快速开始
@@ -159,16 +162,17 @@ openhome/
 
 在 GitHub 仓库设置中添加以下 Secrets：
 
-| Secret 名称 | 说明 |
-|------------|------|
-| `GH_USERNAME` | GitHub 用户名 |
-| `GH_TOKEN` | GitHub Token（需要 repo 权限） |
-| `RSS_URL` | RSS 订阅地址 |
-| `BIO_NAME` | 你的名字 |
-| `BIO_TITLE` | 标题/职位 |
-| `BIO_DESCRIPTION` | 个人简介 |
-| `BIO_EMAIL` | 邮箱 |
-| `FOOTER_TEXT` | 页脚文字 |
+| Secret/Variable 名称 | 类型 | 说明 |
+|------------|------|------|
+| `GH_USERNAME` | Secret | GitHub 用户名 |
+| `GH_TOKEN` | Secret | GitHub Token（需要 repo 权限） |
+| `RSS_URL` | Secret | RSS 订阅地址 |
+| `BIO_NAME` | Secret | 你的名字 |
+| `BIO_TITLE` | Secret | 标题/职位 |
+| `BIO_DESCRIPTION` | Secret | 个人简介 |
+| `BIO_EMAIL` | Secret | 邮箱 |
+| `FOOTER_TEXT` | Secret | 页脚文字 |
+| `REPO_SORT_BY` | Variable (vars) | 设置为 `updated` 以按更新时间排序，默认为按 `stars` 排序 |
 
 ### 部署步骤
 
