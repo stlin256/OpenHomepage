@@ -5,7 +5,7 @@ proc = subprocess.Popen(['python', 'app.py'])
 os.makedirs('dist', exist_ok=True)
 
 print('Waiting for server to start and pre-warm cache...')
-max_retries = 30
+max_retries = 36
 for i in range(max_retries):
     try:
         response = urllib.request.urlopen('http://localhost:8004/', timeout=10)

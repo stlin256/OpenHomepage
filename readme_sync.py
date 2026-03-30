@@ -313,6 +313,43 @@ def save_rss_cache(url, title, html):
     with open(cache_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False)
 
+def download_rss_image(img_url, article_url):
+    """下载RSS文章中的图片"""
+    import urllib.parse
+    if not img_url or img_url.startswith('data:') or img_url.startswith('#'):
+        return None
+        
+    # 处理相对路径
+    if not img_url.startswith('http://') and not img_url.startswith('https://'):
+        img_url = urllib.parse.urljoin(article_url, img_url)
+        
+    # 生成唯一文件名
+    url_hash = hashlib.md5(img_url.encode()).hexdigest()[:10]
+    ext = os.path.splitext(img_url.split('?')[0])[-1] or '.png'
+    import re
+    ext = re.sub(r'[^a-zA-Z0-9.]', '', ext)
+    filename = f"rss_{url_hash}{ext}"
+    filepath = os.path.join(IMAGES_DIR, filename)
+    
+    if os.path.exists(filepath):
+        return f"readmes/images/{filename}"
+        
+    try:
+        # 添加 User-Agent 绕过某些防盗链
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Referer': article_url
+        }
+        response = session.get(img_url, headers=headers, timeout=30)
+        if response.status_code == 200:
+            with open(filepath, 'wb') as f:
+                f.write(response.content)
+            return f"readmes/images/{filename}"
+    except Exception as e:
+        print(f"Error downloading RSS image: {img_url} - {e}")
+        
+    return None
+
 def fetch_and_cache_rss(url):
     """获取并缓存RSS文章"""
     from bs4 import BeautifulSoup
@@ -329,12 +366,32 @@ def fetch_and_cache_rss(url):
         if article:
             for tag in article.find_all(['script', 'style', 'nav', 'footer', 'header']):
                 tag.decompose()
+            # 提取并替换所有图片
+            for img in article.find_all('img'):
+                src = img.get('data-src') or img.get('data-original') or img.get('src')
+                if src:
+                    local_src = download_rss_image(src, url)
+                    if local_src:
+                        img['src'] = local_src
+                        # 移除可能导致防盗链或延迟加载的属性
+                        for attr in ['data-src', 'srcset', 'data-original']:
+                            if img.has_attr(attr):
+                                del img[attr]
             html_content = str(article)
         else:
             body = soup.find('body')
             if body:
                 for tag in body.find_all(['script', 'style', 'nav', 'footer', 'header']):
                     tag.decompose()
+                for img in body.find_all('img'):
+                    src = img.get('data-src') or img.get('data-original') or img.get('src')
+                    if src:
+                        local_src = download_rss_image(src, url)
+                        if local_src:
+                            img['src'] = local_src
+                            for attr in ['data-src', 'srcset', 'data-original']:
+                                if img.has_attr(attr):
+                                    del img[attr]
                 html_content = str(body)
             else:
                 html_content = response.text[:5000]
