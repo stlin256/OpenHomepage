@@ -24,7 +24,13 @@ from colorthief import ColorThief
 
 # 配置静态文件夹用于README图片
 READMES_DIR = os.path.join(os.path.dirname(__file__), 'readmes')
-app = Flask(__name__, static_folder=READMES_DIR, static_url_path='/readmes')
+app = Flask(__name__)
+
+# 自定义路由处理 readmes 文件夹
+@app.route('/readmes/<path:filename>')
+def serve_readmes(filename):
+    from flask import send_from_directory
+    return send_from_directory(READMES_DIR, filename)
 
 # 缓存配置
 CACHE_DIR = os.path.join(os.path.dirname(__file__), '.cache')
