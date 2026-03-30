@@ -789,7 +789,7 @@
             document.getElementById('repoModal').style.display = 'block';
 
             // Try local JSON first (for static deployment), then API (for Flask server)
-            var cacheFile = '/readmes/' + owner + '_' + repo + '.json';
+            var cacheFile = 'readmes/' + owner + '_' + repo + '.json';
             fetch(cacheFile)
                 .then(function(res) {
                     if (!res.ok) throw new Error('not found');
@@ -804,7 +804,7 @@
                 })
                 .catch(function() {
                     // Try API endpoint
-                    return fetch('/api/readme/' + owner + '/' + repo)
+                    return fetch('api/readme/' + owner + '/' + repo)
                         .then(function(r) { return r.json(); })
                         .then(function(data) {
                             if (data.status === 'ok') {
@@ -832,14 +832,16 @@
             document.getElementById('modalLink').textContent = 'Open in Browser →';
             document.getElementById('repoModal').style.display = 'block';
 
-            // Base64 hash (same as Python)
+            // Base64 hash (same as Python's urlsafe_b64encode)
             function urlhash(str) {
-                return btoa(str).replace(/[/+=]/g, '').substring(0, 22);
+                var bytes = unescape(encodeURIComponent(str));
+                var b64 = btoa(bytes);
+                return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '').substring(0, 22);
             }
             var hashHex = urlhash(decodedLink);
 
             // Try local cache first, then API
-            fetch('/readmes/rss/' + hashHex + '.json')
+            fetch('readmes/rss/' + hashHex + '.json')
                 .then(function(res) {
                     if (!res.ok) throw new Error('not found');
                     return res.json();
@@ -854,7 +856,7 @@
                 })
                 .catch(function() {
                     // Try API
-                    return fetch('/api/rss/' + encodeURIComponent(decodedLink))
+                    return fetch('api/rss/' + encodeURIComponent(decodedLink))
                         .then(function(r) { return r.json(); })
                         .then(function(data) {
                             if (data.status === 'ok') {

@@ -598,11 +598,25 @@ if __name__ == '__main__':
 
         # 预先获取 RSS
         rss_items = []
+        from concurrent.futures import ThreadPoolExecutor
+        
         for feed in config.get('rss_feeds', []):
             items = parse_rss(feed.get('url', ''))
             for item in items:
                 item['source'] = feed.get('name', '')
             rss_items.extend(items)
+            
+        # 并发预先缓存文章内容，提高预热速度
+        from readme_sync import fetch_and_cache_rss
+        print(f"开始并发预热 {len(rss_items)} 篇 RSS 文章...")
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            futures = []
+            for item in rss_items:
+                futures.append(executor.submit(fetch_and_cache_rss, item['link']))
+            # 等待所有文章抓取完成
+            for future in futures:
+                future.result()
+                
         print(f"✅ 缓存预热完成: {len(repos)} 个仓库, {len(rss_items)} 篇 RSS")
 
     port = config.get('port', 8004)

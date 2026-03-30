@@ -51,13 +51,6 @@ jobs:
             text: "${{ secrets.FOOTER_TEXT }}"
           EOF
 
-      - name: Pre-warm cache
-        run: |
-          timeout 60 python app.py &
-          sleep 30
-          curl -s http://localhost:8004/ > /dev/null
-          pkill -f "python app.py" || true
-
       - name: Install playwright for static generation
         run: |
           pip install playwright
