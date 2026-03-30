@@ -2315,7 +2315,7 @@
                         
                         <div class="contribution-day c0" data-date="2026-03-29" title="2026-03-29: 0 contributions"></div>
                         
-                        <div class="contribution-day c9" data-date="2026-03-30" title="2026-03-30: 9 contributions"></div>
+                        <div class="contribution-day c11" data-date="2026-03-30" title="2026-03-30: 11 contributions"></div>
                         
                     </div>
                     
@@ -2868,6 +2868,29 @@
         </style>
 
         <script>
+        function renderMermaid() {
+            var modalBody = document.getElementById('modalBody');
+            var mermaidCodes = modalBody.querySelectorAll('code.language-mermaid, code.mermaid');
+            mermaidCodes.forEach(function(codeBlock) {
+                var pre = codeBlock.parentNode;
+                if (pre && pre.tagName === 'PRE') {
+                    var div = document.createElement('div');
+                    div.className = 'mermaid';
+                    div.textContent = codeBlock.textContent;
+                    // Copy any other attributes just in case
+                    pre.parentNode.replaceChild(div, pre);
+                }
+            });
+            
+            if (window.mermaid) {
+                try {
+                    mermaid.run({ querySelector: '.mermaid' });
+                } catch (e) {
+                    console.error('Mermaid render error:', e);
+                }
+            }
+        }
+
         function showRepoModal(owner, repo, url) {
             document.getElementById('modalTitle').textContent = owner + '/' + repo;
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
@@ -2885,6 +2908,7 @@
                 .then(function(data) {
                     if (data.html) {
                         document.getElementById('modalBody').innerHTML = data.html;
+                        setTimeout(renderMermaid, 50);
                     } else {
                         throw new Error('no html');
                     }
@@ -2896,6 +2920,7 @@
                         .then(function(data) {
                             if (data.status === 'ok') {
                                 document.getElementById('modalBody').innerHTML = data.html;
+                                setTimeout(renderMermaid, 50);
                             } else {
                                 document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + url + '" target="_blank">在 GitHub 查看</a></p>';
                             }
@@ -2937,6 +2962,7 @@
                     if (data.html) {
                         document.getElementById('modalTitle').textContent = data.title || 'Blog';
                         document.getElementById('modalBody').innerHTML = data.html;
+                        setTimeout(renderMermaid, 50);
                     } else {
                         throw new Error('no html');
                     }
@@ -2949,6 +2975,7 @@
                             if (data.status === 'ok') {
                                 document.getElementById('modalTitle').textContent = data.title || 'Blog';
                                 document.getElementById('modalBody').innerHTML = data.html;
+                                setTimeout(renderMermaid, 50);
                             } else {
                                 document.getElementById('modalBody').innerHTML = '<p>无法加载</p><p><a href="' + decodedLink + '" target="_blank">打开原文</a></p>';
                             }
