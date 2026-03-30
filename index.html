@@ -2315,7 +2315,7 @@
                         
                         <div class="contribution-day c0" data-date="2026-03-29" title="2026-03-29: 0 contributions"></div>
                         
-                        <div class="contribution-day c11" data-date="2026-03-30" title="2026-03-30: 11 contributions"></div>
+                        <div class="contribution-day c12" data-date="2026-03-30" title="2026-03-30: 12 contributions"></div>
                         
                     </div>
                     
@@ -2724,8 +2724,9 @@
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
                 
-                <!-- Mermaid for Diagrams -->
+                <!-- Mermaid & SVG Pan Zoom for Diagrams -->
                 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
                 <script>
                     mermaid.initialize({ startOnLoad: false, theme: 'dark' });
                 </script>
@@ -2891,7 +2892,25 @@
             
             if (window.mermaid) {
                 try {
-                    mermaid.run({ querySelector: '.mermaid' });
+                    mermaid.run({ querySelector: '.mermaid' }).then(function() {
+                        if (window.svgPanZoom) {
+                            modalBody.querySelectorAll('.mermaid svg').forEach(function(svg) {
+                                // 确保 SVG 有合适的高度，避免缩放后消失
+                                if (!svg.getAttribute('height') && !svg.style.height) {
+                                    svg.style.minHeight = '300px';
+                                }
+                                svgPanZoom(svg, {
+                                    controlIconsEnabled: true,
+                                    fit: true,
+                                    center: true,
+                                    minZoom: 0.5,
+                                    maxZoom: 10
+                                });
+                            });
+                        }
+                    }).catch(function(e) {
+                        console.error('Mermaid render promise error:', e);
+                    });
                 } catch (e) {
                     console.error('Mermaid render error:', e);
                 }
