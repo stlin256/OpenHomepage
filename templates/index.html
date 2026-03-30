@@ -455,6 +455,40 @@
             color: var(--text-muted);
         }
 
+        /* Contribution Tooltip */
+        .contrib-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 1000;
+            white-space: nowrap;
+            transform: translate(-50%, -100%);
+            margin-top: -8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .contrib-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+        }
+
+        .contribution-day.active {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 1px var(--bg-primary);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -554,7 +588,7 @@
                     {% for week in contributions.weeks[-52:] %}
                     <div class="contribution-week">
                         {% for day in week.contributionDays %}
-                        <div class="contribution-day c{% if day.contributionCount > 55 %}55{% else %}{{ day.contributionCount }}{% endif %}" data-date="{{ day.date }}" title="{{ day.date }}: {{ day.contributionCount }} contributions"></div>
+                        <div class="contribution-day c{% if day.contributionCount > 55 %}55{% else %}{{ day.contributionCount }}{% endif %}" data-date="{{ day.date }}" data-title="{{ day.date }}: {{ day.contributionCount }} contributions"></div>
                         {% endfor %}
                     </div>
                     {% endfor %}
@@ -998,6 +1032,48 @@
         if (contribGrid) {
             contribGrid.scrollLeft = contribGrid.scrollWidth;
         }
+        
+        // Contribution Tooltip Logic
+        const tooltip = document.createElement('div');
+        tooltip.className = 'contrib-tooltip';
+        document.body.appendChild(tooltip);
+
+        function showTooltip(el) {
+            const rect = el.getBoundingClientRect();
+            const text = el.getAttribute('data-title');
+            if(!text) return;
+            tooltip.textContent = text;
+            tooltip.style.left = (rect.left + rect.width / 2 + window.scrollX) + 'px';
+            tooltip.style.top = (rect.top + window.scrollY) + 'px';
+            tooltip.style.opacity = '1';
+        }
+
+        function hideTooltip() {
+            tooltip.style.opacity = '0';
+        }
+
+        document.querySelectorAll('.contribution-day').forEach(day => {
+            day.addEventListener('mouseenter', function(e) {
+                showTooltip(this);
+            });
+            day.addEventListener('mouseleave', function(e) {
+                hideTooltip();
+                this.classList.remove('active');
+            });
+            day.addEventListener('click', function(e) {
+                document.querySelectorAll('.contribution-day.active').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+                showTooltip(this);
+                e.stopPropagation();
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('contribution-day')) {
+                hideTooltip();
+                document.querySelectorAll('.contribution-day.active').forEach(d => d.classList.remove('active'));
+            }
+        });
     </script>
 </body>
 </html>
