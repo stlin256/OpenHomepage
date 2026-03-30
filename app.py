@@ -227,15 +227,20 @@ def get_github_user(username):
         return cached_data
     
     url = f"https://api.github.com/users/{username}"
+    headers = {}
+    token = os.environ.get('GITHUB_TOKEN', '')
+    if token:
+        headers['Authorization'] = f"Bearer {token}"
+        
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 200:
             data = response.json()
             save_github_cache(f'user_{username}', data)
             return data
         else:
             if cached_data:
-                print(f"Using stale cache for user {username}")
+                print(f"Using stale cache for user {username} (Status: {response.status_code})")
                 return cached_data
     except Exception as e:
         print(f"Error fetching GitHub user: {e}")
@@ -252,19 +257,46 @@ def get_github_repos(username):
         print(f"Using cached repos for {username}")
         return cached_data
     
-    url = f"https://api.github.com/users/{username}/repos?sort=updated&per_page=100"
-    try:
-        response = requests.get(url, timeout=10)
-        if response.status_code == 200:
-            repos = response.json()
-            # 过滤掉fork的仓库，按star数量排序
-            repos = [r for r in repos if not r.get('fork', False)]
+    headers = {}
+    token = os.environ.get('GITHUB_TOKEN', '')
+    if token:
+        headers['Authorization'] = f"Bearer {token}"
+        
+    all_repos = []
+    page = 1
+    while True:
+        url = f"https://api.github.com/users/{username}/repos?per_page=100&page={page}"
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code == 200:
+                page_repos = response.json()
+                if not page_repos:
+                    break
+                all_repos.extend(page_repos)
+                if len(page_repos) < 100:
+                    break
+                page += 1
+            else:
+                print(f"Failed to fetch repos page {page}. Status code: {response.status_code}")
+                break
+        except Exception as e:
+            print(f"Error fetching GitHub repos page {page}: {e}")
+            break
+            
+    if all_repos:
+        # 过滤掉fork的仓库
+        repos = [r for r in all_repos if not r.get('fork', False)]
+        
+        # 根据配置决定排序方式 (默认按 star 数量降序)
+        sort_by = config.get('repo_sort_by') or 'stars'
+        if sort_by.lower() == 'updated':
+            repos.sort(key=lambda x: x.get('updated_at', ''), reverse=True)
+        else:
             repos.sort(key=lambda x: x.get('stargazers_count', 0), reverse=True)
-            result = repos[:12]
-            save_github_cache(f'repos_{username}', result)
-            return result
-    except Exception as e:
-        print(f"Error fetching GitHub repos: {e}")
+            
+        result = repos[:12]
+        save_github_cache(f'repos_{username}', result)
+        return result
     
     if cached_data and is_cache_valid(cached_time, retry=True):
         print(f"Using stale cache for repos {username}")

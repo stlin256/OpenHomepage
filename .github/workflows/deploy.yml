@@ -31,6 +31,7 @@ jobs:
           cat > config.yaml << EOF
           github_username: "${{ secrets.GH_USERNAME }}"
           github_token: "${{ secrets.GH_TOKEN }}"
+          repo_sort_by: "${{ vars.REPO_SORT_BY }}"
           port: 8004
 
           rss_feeds:
