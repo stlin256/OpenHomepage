@@ -131,14 +131,14 @@ def download_image(url, owner, repo):
     
     # 如果已存在则跳过
     if os.path.exists(filepath):
-        return f"/static/readmes/images/{filename}"
+        return f"readmes/images/{filename}"
     
     try:
         response = session.get(url, timeout=30)
         if response.status_code == 200:
             with open(filepath, 'wb') as f:
                 f.write(response.content)
-            return f"/static/readmes/images/{filename}"
+            return f"readmes/images/{filename}"
     except Exception as e:
         print(f"Error downloading image: {url} - {e}")
     
