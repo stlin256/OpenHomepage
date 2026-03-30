@@ -929,7 +929,8 @@
             function urlhash(str) {
                 var bytes = unescape(encodeURIComponent(str));
                 var b64 = btoa(bytes);
-                return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '').substring(0, 22);
+                var hash = b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+                return hash.length > 100 ? hash.substring(hash.length - 100) : hash;
             }
             var hashHex = urlhash(decodedLink);
 

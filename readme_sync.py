@@ -283,7 +283,10 @@ def get_rss_cache(url):
     """从缓存获取RSS"""
     import json
     import base64
-    url_hash = base64.urlsafe_b64encode(url.encode()).decode().replace('=', '')[:22]
+    url_hash = base64.urlsafe_b64encode(url.encode()).decode().replace('=', '')
+    # 限制长度并防止前缀相同导致的哈希碰撞（取完整哈希或截取尾部）
+    if len(url_hash) > 100:
+        url_hash = url_hash[-100:]
     cache_file = os.path.join(RSS_CACHE_DIR, f"{url_hash}.json")
 
     if os.path.exists(cache_file):
@@ -300,7 +303,9 @@ def save_rss_cache(url, title, html):
     from datetime import datetime
     import base64
 
-    url_hash = base64.urlsafe_b64encode(url.encode()).decode().replace('=', '')[:22]
+    url_hash = base64.urlsafe_b64encode(url.encode()).decode().replace('=', '')
+    if len(url_hash) > 100:
+        url_hash = url_hash[-100:]
     cache_file = os.path.join(RSS_CACHE_DIR, f"{url_hash}.json")
 
     data = {
