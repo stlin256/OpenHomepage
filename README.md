@@ -12,7 +12,7 @@ A modern personal homepage built with Flask, featuring GitHub stats, contributio
 - 🎨 Modern dark theme
 - 🌈 **Smart Theme Colors**: Auto-extracted from GitHub avatar with intelligent adjustments
 - 🖼️ **Auto Favicon**: Automatically generates `favicon.ico` from your GitHub avatar
-- � **Fully Static & Offline-Ready**: All assets (JS/CSS) and images are pre-fetched and localized
+- 📦 **Fully Static & Offline-Ready**: All assets (JS/CSS) and images are pre-fetched and localized
 - 📊 GitHub contribution heatmap
 - 📦 GitHub repositories display with **Dynamic Sorting** (Stars or Recently Updated)
 - 📖 Markdown rendering in Modals with **Mermaid Diagrams**, **SVG Pan/Zoom**, and **Highlight.js** code syntax highlighting
@@ -114,6 +114,30 @@ python app.py
 Visit: http://localhost:8004/api/clear-cache
 
 Or delete `.cache/theme_colors.json` and restart.
+
+## Animations
+
+The interface features smooth, nonlinear animations powered by CSS and JavaScript:
+
+### Glow Effect
+- **Username & Avatar**: Glow sweep animation on page load and theme switching
+- Uses `cubic-bezier(0.4, 0, 0.2, 1)` for natural easing
+- Subtle pulse effect continues after the initial sweep
+
+### Entrance Animations
+- **Stat Cards**: Fade + slide up with staggered delays (100ms, 200ms, 300ms)
+- **Section Titles**: Fade + slide from left
+- **Project Cards**: Scale in with staggered delays
+- **RSS Items**: Fade + slide from left with staggered delays
+
+### Hover Interactions
+- **Cards**: `translateY(-6px) scale(1.02)` with enhanced shadows
+- **RSS Items**: `translateX(8px)` slide effect
+- **Contribution Days**: Quick `scale(1.4)` on hover
+- All transitions use `cubic-bezier(0.4, 0, 0.2, 1)` for fluid motion
+
+### Theme Switching
+Click any color palette button to switch themes instantly with glow feedback.
 
 ## Project Structure
 
