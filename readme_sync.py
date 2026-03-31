@@ -356,7 +356,7 @@ def save_rss_cache(url, title, html):
 def download_rss_image(img_url, article_url):
     """下载RSS文章中的图片"""
     import urllib.parse
-    if not img_url or img_url.startswith('data:') or img_url.startswith('#'):
+    if not img_url or img_url.startswith('data:') or img_url.startswith('blob:') or img_url.startswith('#'):
         return None
         
     # 处理相对路径

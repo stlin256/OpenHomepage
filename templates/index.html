@@ -1218,7 +1218,7 @@
             buildContentQueue();
             contentPreloading = true;
             contentIndex = 0;
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < 1; i++) {
                 contentPreloadNext();
             }
         }
@@ -1230,7 +1230,7 @@
         function resumeContentPreload() {
             if (!contentPreloading) {
                 contentPreloading = true;
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 1; i++) {
                     contentPreloadNext();
                 }
             }
