@@ -42,6 +42,8 @@ GITHUB_CACHE_FILE = os.path.join(CACHE_DIR, 'github_data.json')
 GITHUB_CACHE_EXPIRE = 3600  # GitHub数据1小时
 GITHUB_CACHE_RETRY = 900    # 失败15分钟重试
 
+from readme_sync import parse_rss, get_theme_colors, get_rss_cache, fetch_and_cache_rss, sync_all_readmes, sync_all_rss, get_local_readme, sync_readme
+
 # 确保缓存目录存在
 os.makedirs(CACHE_DIR, exist_ok=True)
 
@@ -669,7 +671,7 @@ if __name__ == '__main__':
             # 3. 同步 RSS
             rss_feeds = config.get('rss_feeds', [])
             if rss_feeds:
-                from readme_sync import parse_rss, fetch_and_cache_rss
+                from readme_sync import fetch_and_cache_rss
                 from concurrent.futures import ThreadPoolExecutor
                 
                 all_rss_items = []
