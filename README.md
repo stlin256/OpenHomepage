@@ -125,9 +125,10 @@ The interface features smooth, nonlinear animations powered by CSS and JavaScrip
 ### Entrance Animations (Scroll-Triggered)
 - **Stat Cards**: Fade + slide up with staggered delays
 - **Section Titles**: Fade + slide from left
+- **Contribution Graph**: Fade + slide up
 - **Project Cards**: Scale in with staggered delays
 - **RSS Items**: Fade + slide from left with staggered delays
-- Animations trigger when scrolling into view via Intersection Observer
+- Animations trigger only when scrolling into actual view (not already visible on page load)
 
 ### Hover Interactions
 - **Cards**: `translateY(-6px) scale(1.02)` with enhanced shadows

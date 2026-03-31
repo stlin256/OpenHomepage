@@ -235,6 +235,10 @@
             overflow-x: auto;
         }
 
+        .contribution-graph.animate-on-scroll {
+            animation: fadeSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
         .contribution-grid {
             display: flex;
             gap: 3px;
@@ -646,7 +650,7 @@
         {% if contributions %}
         <section>
             <h2 class="section-title animate-on-scroll">Contributions</h2>
-            <div class="contribution-graph">
+            <div class="contribution-graph animate-on-scroll">
                 {% set week_count = [] %}
                 {% for week in contributions.weeks %}
                     {% for day in week.contributionDays %}
@@ -1124,14 +1128,17 @@
         }
 
         // Scroll-triggered animations using Intersection Observer
+        // Only trigger when element actually scrolls into view from below
         const scrollObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
+                // entry.boundingClientRect.top > 100 ensures element starts below viewport
+                // This prevents animations from firing for elements already visible on page load
+                if (entry.isIntersecting && entry.boundingClientRect.top > 100) {
                     entry.target.classList.add('visible');
                     scrollObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0 });
 
         document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
             scrollObserver.observe(el);
