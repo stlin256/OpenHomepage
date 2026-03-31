@@ -363,9 +363,27 @@ def get_github_contributions(username):
 
 # 从头像提取主题色（带智能调整和缓存）
 def get_theme_colors(avatar_url, username=''):
-    """从头像图片提取主题色（智能调整 + 缓存）"""
+    """从头像图片提取主题色并自动生成 favicon.ico"""
     
-    # 尝试从缓存获取
+    # 定义 favicon 路径
+    favicon_dir = os.path.join(os.path.dirname(__file__), 'static')
+    favicon_path = os.path.join(favicon_dir, 'favicon.ico')
+    
+    # 如果 favicon 不存在，尝试生成它
+    if not os.path.exists(favicon_path):
+        try:
+            print(f"Generating favicon from {avatar_url}...")
+            response = requests.get(avatar_url, timeout=10)
+            if response.status_code == 200:
+                from PIL import Image
+                img = Image.open(BytesIO(response.content))
+                os.makedirs(favicon_dir, exist_ok=True)
+                img.convert('RGBA').resize((32, 32), Image.Resampling.LANCZOS).save(favicon_path, format='ICO')
+                print(f"✅ Favicon generated: {favicon_path}")
+        except Exception as fe:
+            print(f"Error generating favicon on demand: {fe}")
+
+    # 尝试从缓存获取主题色
     if username:
         cached = get_cached_colors(username)
         if cached:
@@ -373,10 +391,22 @@ def get_theme_colors(avatar_url, username=''):
             return cached
     
     try:
-        # 下载头像
+        # 下载头像 (如果刚才没下载过，这里会下载；如果下载过，这里重复下载一次也行，或者优化下)
         response = requests.get(avatar_url, timeout=10)
         if response.status_code == 200:
             img_data = BytesIO(response.content)
+            
+            # 如果刚才没生成成功或者需要强制更新，可以在这里确保生成
+            if not os.path.exists(favicon_path):
+                try:
+                    from PIL import Image
+                    img = Image.open(img_data)
+                    os.makedirs(favicon_dir, exist_ok=True)
+                    img.convert('RGBA').resize((32, 32), Image.Resampling.LANCZOS).save(favicon_path, format='ICO')
+                    img_data.seek(0) # 重置流位置给 ColorThief
+                except:
+                    pass
+
             color_thief = ColorThief(img_data)
             
             # 获取主色
