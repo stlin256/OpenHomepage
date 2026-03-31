@@ -24,7 +24,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install flask feedparser requests pyyaml colorthief markdown beautifulsoup4
 
       - name: Create config.yaml from secrets
         run: |
