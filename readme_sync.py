@@ -544,7 +544,7 @@ def adjust_color_saturation(rgb):
     # 确保值在有效范围内
     adjusted = [max(0, min(255, x)) for x in adjusted]
 
-    return tuple(adjusted)
+    return adjusted
 
 def adjust_color_lightness(rgb):
     """智能调整颜色亮度"""
@@ -570,7 +570,7 @@ def adjust_color_lightness(rgb):
 
     # 确保值在有效范围内
     adjusted = [max(0, min(255, x)) for x in adjusted]
-    return tuple(adjusted)
+    return adjusted
 
 def smart_adjust_color(rgb):
     rgb = adjust_color_saturation(rgb)
@@ -625,7 +625,7 @@ def get_theme_colors(avatar_url, username=''):
 
             colors = {
                 'primary': rgb_to_hex(adjusted_primary),
-                'primary_rgb': list(adjusted_primary),
+                'primary_rgb': adjusted_primary,
                 'secondary': rgb_to_hex(adjusted_secondary),
                 'tertiary': rgb_to_hex(adjusted_tertiary),
                 'gradient_start': rgb_to_hex(adjusted_primary),
