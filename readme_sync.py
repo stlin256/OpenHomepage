@@ -493,41 +493,84 @@ def save_colors_to_cache(username, colors):
 
 def adjust_color_saturation(rgb):
     """智能调整颜色饱和度，避免太淡或太鲜艳"""
-    import colorsys
-    r, g, b = [x/255.0 for x in rgb]
-    h, s, l = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = rgb[0] / 255.0, rgb[1] / 255.0, rgb[2] / 255.0
 
-    # 目标饱和度在0.4-0.8之间
+    # 计算亮度
+    max_c = max(r, g, b)
+    min_c = min(r, g, b)
+    l = (max_c + min_c) / 2
+
+    # 计算饱和度
+    if max_c == min_c:
+        s = 0
+    else:
+        if l <= 0.5:
+            s = (max_c - min_c) / (max_c + min_c)
+        else:
+            s = (max_c - min_c) / (2 - max_c - min_c)
+
+    # 智能调整：目标饱和度在0.4-0.8之间
     target_s = max(0.4, min(0.8, s))
 
     if s == 0:
-        # 无彩色（灰阶），返回中灰色避免纯白
-        l = 0.5
-    elif s < target_s:
-        # 太淡，提高到目标饱和度
-        s = target_s
+        # 无彩色，返回中灰色
+        adjusted = [128, 128, 128]
     else:
-        # 太鲜艳，降低饱和度
-        s = min(1.0, s * 1.2)
+        # 调整饱和度
+        if s > target_s:
+            # 太鲜艳，降低饱和度
+            factor = target_s / s
+            adjusted = [
+                int(((1 - target_s) + (r - (1 - target_s)) * factor) * 255),
+                int(((1 - target_s) + (g - (1 - target_s)) * factor) * 255),
+                int(((1 - target_s) + (b - (1 - target_s)) * factor) * 255)
+            ]
+        else:
+            # 太淡，提高饱和度
+            factor = target_s / s if s > 0 else 1
+            if l <= 0.5:
+                adjusted = [
+                    int((l + s * (1 - l)) * 255),
+                    int((l + s * (1 - l) * g / max(r, g, b)) * 255),
+                    int((l + s * (1 - l) * b / max(r, g, b)) * 255)
+                ]
+            else:
+                adjusted = [
+                    int((l + s * (1 - l) * r / max(r, g, b)) * 255),
+                    int((l + s * (1 - l) * g / max(r, g, b)) * 255),
+                    int((l + s * (1 - l) * b / max(r, g, b)) * 255)
+                ]
 
-    r, g, b = colorsys.hls_to_rgb(h, s, l)
-    return tuple(int(max(0, min(255, x * 255))) for x in (r, g, b))
+    # 确保值在有效范围内
+    adjusted = [max(0, min(255, x)) for x in adjusted]
+
+    return tuple(adjusted)
 
 def adjust_color_lightness(rgb):
     """智能调整颜色亮度"""
-    import colorsys
-    r, g, b = [x/255.0 for x in rgb]
-    h, s, l = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = rgb[0] / 255.0, rgb[1] / 255.0, rgb[2] / 255.0
+
+    max_c = max(r, g, b)
+    min_c = min(r, g, b)
+    l = (max_c + min_c) / 2  # 亮度
 
     # 目标亮度范围：0.3-0.7（避免太暗或太亮）
     target_l = max(0.3, min(0.7, l))
-    if abs(l - target_l) > 0.1:
-        factor = target_l / l if l > 0 else 1
-        r, g, b = r * factor, g * factor, b * factor
 
-    l = max(0.3, min(0.7, l))
-    r, g, b = colorsys.hls_to_rgb(h, s, l)
-    return tuple(int(max(0, min(255, x))) for x in (r, g, b))
+    if abs(l - target_l) > 0.1:
+        # 调整亮度
+        if l < target_l:
+            factor = target_l / l if l > 0 else 1
+        else:
+            factor = target_l / l if l > 0 else 1
+
+        adjusted = [int(x * factor * 255) for x in [r, g, b]]
+    else:
+        adjusted = list(rgb)
+
+    # 确保值在有效范围内
+    adjusted = [max(0, min(255, x)) for x in adjusted]
+    return tuple(adjusted)
 
 def smart_adjust_color(rgb):
     rgb = adjust_color_saturation(rgb)
@@ -549,7 +592,7 @@ def get_theme_colors(avatar_url, username=''):
 
         # 提取颜色
         color_thief = ColorThief(io.BytesIO(img_data))
-        palette = color_thief.get_palette(color_count=6)
+        palette = color_thief.get_palette(color_count=5)
 
         if not palette:
             raise Exception("Empty palette from ColorThief")
@@ -564,7 +607,7 @@ def get_theme_colors(avatar_url, username=''):
             print(f"Favicon generation failed: {e}")
 
         colors = []
-        for p in palette[:4]:
+        for p in palette[:5]:
             adj = smart_adjust_color(p)
             colors.append(f'rgb({adj[0]}, {adj[1]}, {adj[2]})')
 
@@ -573,4 +616,4 @@ def get_theme_colors(avatar_url, username=''):
         return colors
     except Exception as e:
         print(f"Error extracting colors: {e}")
-        return ['rgb(52, 152, 219)', 'rgb(46, 204, 113)', 'rgb(155, 89, 182)', 'rgb(241, 196, 15)']
+        return ['rgb(52, 152, 219)', 'rgb(46, 204, 113)', 'rgb(155, 89, 182)', 'rgb(241, 196, 15)', 'rgb(231, 76, 60)']
