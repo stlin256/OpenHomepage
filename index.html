@@ -2426,7 +2426,7 @@
                         
                         <div class="contribution-day c20" data-date="2026-03-30" data-title="2026-03-30: 20 contributions"></div>
                         
-                        <div class="contribution-day c34" data-date="2026-03-31" data-title="2026-03-31: 34 contributions"></div>
+                        <div class="contribution-day c35" data-date="2026-03-31" data-title="2026-03-31: 35 contributions"></div>
                         
                     </div>
                     
@@ -2860,6 +2860,12 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             overflow: auto;
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal.show {
+            display: block;
+            opacity: 1;
         }
         .modal-content {
             background-color: rgba(var(--bg-secondary-rgb, 30, 30, 30), 0.95);
@@ -2872,6 +2878,13 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal.show .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
         .modal-close {
             color: var(--text-secondary);
@@ -2982,6 +2995,20 @@
             color: var(--text-secondary);
             padding: 40px;
         }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            margin-bottom: 10px;
+        }
         </style>
 
         <script>
@@ -3041,7 +3068,8 @@
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
             document.getElementById('modalLink').href = url;
             document.getElementById('modalLink').textContent = 'View on GitHub →';
-            document.getElementById('repoModal').style.display = 'block';
+            var modal = document.getElementById('repoModal');
+            modal.classList.add('show');
 
             // Try local JSON first (for static deployment), then API (for Flask server)
             var cacheFile = 'readmes/' + owner + '_' + repo + '.json';
@@ -3077,7 +3105,11 @@
         }
         
         function closeModal() {
-            document.getElementById('repoModal').style.display = 'none';
+            var modal = document.getElementById('repoModal');
+            modal.classList.remove('show');
+            setTimeout(function() {
+                modal.style.display = 'none';
+            }, 300);
         }
         
         // RSS Modal
@@ -3087,7 +3119,8 @@
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
             document.getElementById('modalLink').href = decodedLink;
             document.getElementById('modalLink').textContent = 'Open in Browser →';
-            document.getElementById('repoModal').style.display = 'block';
+            var modal = document.getElementById('repoModal');
+            modal.classList.add('show');
 
             // Base64 hash (same as Python's urlsafe_b64encode)
             function urlhash(str) {
@@ -3208,6 +3241,7 @@
 
         // Initial glow on page load
         window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
             initTheme();
             setTimeout(triggerGlow, 100);
         });
