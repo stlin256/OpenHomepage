@@ -273,12 +273,21 @@ def index():
         colors = get_theme_colors(user_info['avatar_url'], github_username)
         # 统一格式以适配模板
         if isinstance(colors, list):
+            # 解析 rgb(r, g, b) 格式并提取 primary_rgb
+            def parse_rgb(rgb_str):
+                import re
+                match = re.match(r'rgb\((\d+),\s*(\d+),\s*(\d+)\)', rgb_str)
+                if match:
+                    return [int(match.group(i)) for i in range(1, 4)]
+                return [217, 119, 6]
+            primary_rgb = parse_rgb(colors[0]) if colors else [217, 119, 6]
             theme_colors = {
                 'primary': colors[0],
                 'secondary': colors[1] if len(colors) > 1 else colors[0],
                 'tertiary': colors[2] if len(colors) > 2 else colors[0],
                 'gradient_start': colors[0],
                 'gradient_end': colors[1] if len(colors) > 1 else colors[0],
+                'primary_rgb': primary_rgb,
                 'palette': colors
             }
         else:
