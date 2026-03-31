@@ -74,18 +74,21 @@ def get_cached_colors(username):
 def save_colors_to_cache(username, colors):
     """保存主题色到缓存"""
     try:
+        from readme_sync import atomic_write_json
         cache = {}
         if os.path.exists(CACHE_FILE):
-            with open(CACHE_FILE, 'r') as f:
-                cache = json.load(f)
+            try:
+                with open(CACHE_FILE, 'r') as f:
+                    cache = json.load(f)
+            except:
+                pass
         
         cache[username] = {
             'colors': colors,
             'timestamp': time.time()
         }
         
-        with open(CACHE_FILE, 'w') as f:
-            json.dump(cache, f)
+        atomic_write_json(CACHE_FILE, cache)
     except Exception as e:
         print(f"Error saving cache: {e}")
 
@@ -197,17 +200,20 @@ def get_github_cache(key):
 def save_github_cache(key, data, error=None):
     """保存GitHub数据到缓存"""
     try:
+        from readme_sync import atomic_write_json
         cache = {}
         if os.path.exists(GITHUB_CACHE_FILE):
-            with open(GITHUB_CACHE_FILE, 'r') as f:
-                cache = json.load(f)
+            try:
+                with open(GITHUB_CACHE_FILE, 'r') as f:
+                    cache = json.load(f)
+            except:
+                pass
         cache[key] = {
             'data': data,
             'error': error,
             'timestamp': time.time()
         }
-        with open(GITHUB_CACHE_FILE, 'w') as f:
-            json.dump(cache, f)
+        atomic_write_json(GITHUB_CACHE_FILE, cache)
     except Exception as e:
         print(f"Error saving GitHub cache: {e}")
 
@@ -445,21 +451,6 @@ def index():
     repos = get_github_repos(github_username) if github_username else []
     contributions = get_github_contributions(github_username) if github_username else None
     
-    # 同步README到本地（启动时同步一次）
-    if repos:
-        try:
-            from readme_sync import sync_all_readmes, start_sync_scheduler
-            import threading
-            # 后台同步（不阻塞页面加载）
-            def background_sync():
-                import time
-                time.sleep(5)  # 等待页面加载完成后再同步
-                sync_all_readmes(repos)
-                start_sync_scheduler(repos)
-            threading.Thread(target=background_sync, daemon=True).start()
-        except Exception as e:
-            print(f"README同步出错: {e}")
-    
     # 计算总star数
     total_stars = sum(r.get('stargazers_count', 0) for r in repos) if repos else 0
     
@@ -542,8 +533,19 @@ def save_scheme():
         scheme = request.json.get('scheme', '0')
         scheme_file = os.path.join(os.path.dirname(__file__), '.cache', 'color_scheme.txt')
         os.makedirs(os.path.dirname(scheme_file), exist_ok=True)
-        with open(scheme_file, 'w') as f:
-            f.write(str(scheme))
+        
+        # 原子性写入
+        import tempfile
+        fd, temp_path = tempfile.mkstemp(dir=os.path.dirname(scheme_file), suffix='.tmp')
+        try:
+            with os.fdopen(fd, 'w') as f:
+                f.write(str(scheme))
+            os.replace(temp_path, scheme_file)
+        except Exception as e:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+            raise e
+            
         return jsonify({'status': 'ok'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
@@ -617,45 +619,57 @@ if __name__ == '__main__':
     if github_token:
         os.environ['GITHUB_TOKEN'] = github_token
 
-    if github_username:
-        print("🔄 预热缓存中...")
-        # 预先获取 GitHub 数据
-        user_info = get_github_user(github_username)
-        repos = get_github_repos(github_username)
-        contributions = get_github_contributions(github_username)
-
-        # 预先同步 README
-        if repos:
-            try:
-                from readme_sync import sync_all_readmes, start_sync_scheduler
-                print("📝 同步 README 中...")
-                sync_all_readmes(repos)
-                start_sync_scheduler(repos)
-            except Exception as e:
-                print(f"README同步出错: {e}")
-
-        # 预先获取 RSS
-        rss_items = []
-        from concurrent.futures import ThreadPoolExecutor
+    def perform_full_sync():
+        """执行全量同步任务"""
+        if not github_username:
+            return
         
-        for feed in config.get('rss_feeds', []):
-            items = parse_rss(feed.get('url', ''))
-            for item in items:
-                item['source'] = feed.get('name', '')
-            rss_items.extend(items)
-            
-        # 并发预先缓存文章内容，提高预热速度
-        from readme_sync import fetch_and_cache_rss
-        print(f"开始并发预热 {len(rss_items)} 篇 RSS 文章...")
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            futures = []
-            for item in rss_items:
-                futures.append(executor.submit(fetch_and_cache_rss, item['link']))
-            # 等待所有文章抓取完成
-            for future in futures:
-                future.result()
+        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 开始执行全量同步...")
+        try:
+            # 1. 获取 GitHub 数据 (自动更新缓存)
+            user_info = get_github_user(github_username)
+            repos = get_github_repos(github_username)
+            get_github_contributions(github_username)
+
+            # 2. 同步 README
+            if repos:
+                from readme_sync import sync_all_readmes
+                sync_all_readmes(repos)
+
+            # 3. 同步 RSS
+            rss_feeds = config.get('rss_feeds', [])
+            if rss_feeds:
+                from readme_sync import parse_rss, fetch_and_cache_rss
+                from concurrent.futures import ThreadPoolExecutor
                 
-        print(f"✅ 缓存预热完成: {len(repos)} 个仓库, {len(rss_items)} 篇 RSS")
+                all_rss_items = []
+                for feed in rss_feeds:
+                    items = parse_rss(feed.get('url', ''))
+                    for item in items:
+                        item['source'] = feed.get('name', '')
+                    all_rss_items.extend(items)
+                
+                with ThreadPoolExecutor(max_workers=10) as executor:
+                    for item in all_rss_items:
+                        executor.submit(fetch_and_cache_rss, item['link'])
+            
+            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 全量同步完成")
+        except Exception as e:
+            print(f"同步过程中出错: {e}")
+
+    if github_username:
+        print("🔄 初始预热缓存中...")
+        perform_full_sync()
+
+        # 启动后台定时同步线程 (每 2 小时)
+        def sync_scheduler():
+            while True:
+                time.sleep(7200)
+                perform_full_sync()
+        
+        import threading
+        threading.Thread(target=sync_scheduler, daemon=True).start()
+        print("🚀 后台同步调度器已启动（每 2 小时自动更新）")
 
     port = config.get('port', 8004)
     print(f"🚀 启动Claude风格个人主页: http://localhost:{port}")

@@ -185,6 +185,22 @@ def process_readme_images(content, owner, repo):
     
     return content
 
+def atomic_write_json(file_path, data):
+    """原子性地写入JSON文件"""
+    import json
+    import tempfile
+    
+    dir_name = os.path.dirname(file_path)
+    fd, temp_path = tempfile.mkstemp(dir=dir_name, suffix='.tmp')
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(temp_path, file_path)
+    except Exception as e:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        raise e
+
 def sync_readme(owner, repo):
     """同步单个仓库的README"""
     repo_info = get_repo_info(owner, repo)
@@ -197,9 +213,12 @@ def sync_readme(owner, repo):
     local_updated = None
     if os.path.exists(cache_file):
         import json
-        with open(cache_file, 'r', encoding='utf-8') as f:
-            local_data = json.load(f)
-            local_updated = local_data.get('updated_at')
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                local_data = json.load(f)
+                local_updated = local_data.get('updated_at')
+        except:
+            pass
     
     remote_updated = repo_info.get('updated_at')
     
@@ -234,11 +253,13 @@ def sync_readme(owner, repo):
         'synced_at': datetime.now().isoformat()
     }
     
-    with open(cache_file, 'w', encoding='utf-8') as f:
-        json.dump(cache_data, f, ensure_ascii=False, indent=2)
-    
-    print(f"README同步成功: {owner}/{repo}")
-    return True
+    try:
+        atomic_write_json(cache_file, cache_data)
+        print(f"README同步成功: {owner}/{repo}")
+        return True
+    except Exception as e:
+        print(f"README保存失败: {owner}/{repo} - {e}")
+        return False
 
 def sync_all_readmes(repos):
     """同步所有仓库的README"""
@@ -259,16 +280,24 @@ def get_local_readme(owner, repo):
             return json.load(f)
     return None
 
-def start_sync_scheduler(repos):
+def start_sync_scheduler(repos, rss_urls=None):
     """启动定时同步"""
     def run():
         while True:
-            sync_all_readmes(repos)
-            time.sleep(3600)  # 每小时执行一次
+            # 每 2 小时执行一次
+            time.sleep(7200)
+            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 开始自动定时同步 (README/RSS)...")
+            try:
+                if repos:
+                    sync_all_readmes(repos)
+                if rss_urls:
+                    sync_all_rss(rss_urls)
+            except Exception as e:
+                print(f"定时同步出错: {e}")
     
     thread = Thread(target=run, daemon=True)
     thread.start()
-    print("README同步调度器已启动（每小时检测更新）")
+    print("README/RSS同步调度器已启动（每 2 小时自动更新，原子性覆盖）")
 
 if __name__ == '__main__':
     # 测试
@@ -315,8 +344,10 @@ def save_rss_cache(url, title, html):
         'cached_at': datetime.now().isoformat()
     }
 
-    with open(cache_file, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False)
+    try:
+        atomic_write_json(cache_file, data)
+    except Exception as e:
+        print(f"RSS保存失败: {url} - {e}")
 
 def download_rss_image(img_url, article_url):
     """下载RSS文章中的图片"""
