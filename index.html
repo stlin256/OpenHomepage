@@ -3294,6 +3294,22 @@
             });
         }
 
+        // Preload images from HTML content
+        var preloadedImages = {};
+        function preloadImagesFromHtml(html) {
+            var imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+            var match;
+            while ((match = imgRegex.exec(html)) !== null) {
+                var src = match[1];
+                // Skip data URIs and external URLs
+                if (src && !src.startsWith('data:') && !src.startsWith('http') && !preloadedImages[src]) {
+                    preloadedImages[src] = true;
+                    var img = new Image();
+                    img.src = src;
+                }
+            }
+        }
+
         function contentPreloadNext() {
             if (!contentPreloading || contentIndex >= contentQueue.length) return;
             var item = contentQueue[contentIndex++];
@@ -3308,6 +3324,10 @@
                 })
                 .then(function(data) {
                     contentCache[item.key] = data;
+                    // Preload images from content
+                    if (data.html) {
+                        preloadImagesFromHtml(data.html);
+                    }
                 })
                 .catch(function() {})
                 .finally(function() {
@@ -3319,7 +3339,7 @@
             buildContentQueue();
             contentPreloading = true;
             contentIndex = 0;
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < 1; i++) {
                 contentPreloadNext();
             }
         }
@@ -3331,7 +3351,7 @@
         function resumeContentPreload() {
             if (!contentPreloading) {
                 contentPreloading = true;
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 1; i++) {
                     contentPreloadNext();
                 }
             }
