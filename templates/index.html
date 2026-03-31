@@ -978,7 +978,7 @@
             document.getElementById('modalLink').href = url;
             document.getElementById('modalLink').textContent = 'View on GitHub →';
             var modal = document.getElementById('repoModal');
-            modal.classList.add('show');
+            openModal();
 
             // Try local JSON first (for static deployment), then API (for Flask server)
             var cacheFile = 'readmes/' + owner + '_' + repo + '.json';
@@ -1020,6 +1020,14 @@
                 modal.style.display = 'none';
             }, 300);
         }
+
+        function openModal() {
+            var modal = document.getElementById('repoModal');
+            modal.style.display = 'block';
+            // Force reflow to ensure display change takes effect
+            void modal.offsetWidth;
+            openModal();
+        }
         
         // RSS Modal
         function showRssModal(link) {
@@ -1029,7 +1037,7 @@
             document.getElementById('modalLink').href = decodedLink;
             document.getElementById('modalLink').textContent = 'Open in Browser →';
             var modal = document.getElementById('repoModal');
-            modal.classList.add('show');
+            openModal();
 
             // Base64 hash (same as Python's urlsafe_b64encode)
             function urlhash(str) {
