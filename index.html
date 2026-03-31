@@ -2426,7 +2426,7 @@
                         
                         <div class="contribution-day c20" data-date="2026-03-30" data-title="2026-03-30: 20 contributions"></div>
                         
-                        <div class="contribution-day c37" data-date="2026-03-31" data-title="2026-03-31: 37 contributions"></div>
+                        <div class="contribution-day c41" data-date="2026-03-31" data-title="2026-03-31: 41 contributions"></div>
                         
                     </div>
                     
@@ -3064,6 +3064,7 @@
         }
 
         function showRepoModal(owner, repo, url) {
+            pausePreloading();
             document.getElementById('modalTitle').textContent = owner + '/' + repo;
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
             document.getElementById('modalLink').href = url;
@@ -3085,6 +3086,7 @@
                     } else {
                         throw new Error('no html');
                     }
+                    resumePreloading();
                 })
                 .catch(function() {
                     // Try API endpoint
@@ -3097,9 +3099,11 @@
                             } else {
                                 document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
                             }
+                            resumePreloading();
                         })
                         .catch(function() {
                             document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
+                            resumePreloading();
                         });
                 });
         }
@@ -3122,6 +3126,7 @@
         
         // RSS Modal
         function showRssModal(link) {
+            pausePreloading();
             var decodedLink = decodeURIComponent(link);
             document.getElementById('modalTitle').textContent = 'Loading...';
             document.getElementById('modalBody').innerHTML = '<div class="loading">Loading...</div>';
@@ -3153,6 +3158,7 @@
                     } else {
                         throw new Error('no html');
                     }
+                    resumePreloading();
                 })
                 .catch(function() {
                     // Try API
@@ -3166,9 +3172,11 @@
                             } else {
                                 document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
                             }
+                            resumePreloading();
                         })
                         .catch(function() {
                             document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
+                            resumePreloading();
                         });
                 });
         }
@@ -3252,7 +3260,58 @@
             window.scrollTo(0, 0);
             initTheme();
             setTimeout(triggerGlow, 100);
+            // Start background preloading
+            startPreloading();
         });
+
+        // Resource preloader
+        var preloaderRunning = true;
+        var preloadQueue = [];
+        var preloadIndex = 0;
+
+        function startPreloading() {
+            preloaderRunning = true;
+            // Collect resources to preload
+            var resources = [
+                'static/libs/highlight.min.js',
+                'static/libs/mermaid.min.js',
+                'static/libs/svg-pan-zoom.min.js',
+                'static/libs/atom-one-dark.min.css'
+            ];
+            preloadQueue = resources;
+            preloadIndex = 0;
+            preloadNext();
+        }
+
+        function preloadNext() {
+            if (!preloaderRunning || preloadIndex >= preloadQueue.length) return;
+            var resource = preloadQueue[preloadIndex++];
+            var isCss = resource.endsWith('.css');
+            var link = document.createElement(isCss ? 'link' : 'script');
+            link.rel = isCss ? 'preload' : 'preload';
+            if (isCss) {
+                link.href = resource;
+                link.as = 'style';
+                link.onload = function() { setTimeout(preloadNext, 100); };
+            } else {
+                link.src = resource;
+                link.as = 'script';
+                link.onload = function() { setTimeout(preloadNext, 100); };
+            }
+            link.onerror = function() { setTimeout(preloadNext, 50); };
+            document.head.appendChild(link);
+        }
+
+        function pausePreloading() {
+            preloaderRunning = false;
+        }
+
+        function resumePreloading() {
+            if (!preloaderRunning) {
+                preloaderRunning = true;
+                setTimeout(preloadNext, 200);
+            }
+        }
         
         // Scroll contribution grid to right (latest)
         const contribGrid = document.querySelector('.contribution-grid');
