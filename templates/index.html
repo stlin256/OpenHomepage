@@ -33,12 +33,7 @@
         @keyframes glow-sweep {
             0% { text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent); opacity: 0.3; }
             20% { text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 40px var(--accent), 0 0 60px var(--accent); opacity: 1; }
-            100% { text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent); opacity: 1; }
-        }
-
-        @keyframes glow-pulse {
-            0%, 100% { filter: drop-shadow(0 0 8px var(--accent)); }
-            50% { filter: drop-shadow(0 0 16px var(--accent)) drop-shadow(0 0 24px var(--accent)); }
+            100% { text-shadow: 0 0 2px var(--accent); opacity: 1; }
         }
 
         /* Entrance animation keyframes */
@@ -55,6 +50,14 @@
         @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Scroll-triggered animation */
+        .animate-on-scroll {
+            opacity: 0;
+        }
+        .animate-on-scroll.visible {
+            animation-fill-mode: forwards;
         }
 
         @keyframes shimmer {
@@ -99,7 +102,7 @@
         }
 
         .avatar.glow {
-            animation: glow-sweep 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards, glow-pulse 2s ease-in-out 0.8s infinite;
+            animation: glow-sweep 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         h1 {
@@ -114,7 +117,7 @@
         }
 
         h1.glow {
-            animation: glow-sweep 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards, glow-pulse 2s ease-in-out 0.8s infinite;
+            animation: glow-sweep 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .title {
@@ -168,12 +171,15 @@
             padding: 1.5rem;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
         }
 
-        .stat-card:nth-child(1) { animation-delay: 0.1s; }
-        .stat-card:nth-child(2) { animation-delay: 0.2s; }
-        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card.animate-on-scroll {
+            animation: fadeSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0s; }
+        .stat-card:nth-child(2) { animation-delay: 0.1s; }
+        .stat-card:nth-child(3) { animation-delay: 0.2s; }
 
         .stat-card:hover {
             border-color: var(--accent);
@@ -206,7 +212,10 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            animation: fadeSlideLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .section-title.animate-on-scroll {
+            animation: fadeSlideLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .section-title::before {
@@ -374,7 +383,10 @@
             color: inherit;
             display: block;
             cursor: pointer;
-            animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .project-card.animate-on-scroll {
+            animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .project-card:hover {
@@ -383,18 +395,7 @@
             box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
         }
 
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.15s; }
-        .project-card:nth-child(3) { animation-delay: 0.2s; }
-        .project-card:nth-child(4) { animation-delay: 0.25s; }
-        .project-card:nth-child(5) { animation-delay: 0.3s; }
-        .project-card:nth-child(6) { animation-delay: 0.35s; }
-
-        .rss-item:nth-child(1) { animation-delay: 0.1s; }
-        .rss-item:nth-child(2) { animation-delay: 0.15s; }
-        .rss-item:nth-child(3) { animation-delay: 0.2s; }
-        .rss-item:nth-child(4) { animation-delay: 0.25s; }
-        .rss-item:nth-child(5) { animation-delay: 0.3s; }
+        .rss-item {
 
         .project-name {
             font-size: 1.1rem;
@@ -460,7 +461,10 @@
             color: inherit;
             display: block;
             cursor: pointer;
-            animation: fadeSlideLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .rss-item.animate-on-scroll {
+            animation: fadeSlideLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .rss-item:hover {
@@ -625,15 +629,15 @@
         <!-- GitHub Stats -->
         {% if user_info %}
         <div class="github-stats">
-            <div class="stat-card">
+            <div class="stat-card animate-on-scroll">
                 <div class="stat-value">{{ user_info.public_repos }}</div>
                 <div class="stat-label">Repositories</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card animate-on-scroll">
                 <div class="stat-value">{{ total_stars }}</div>
                 <div class="stat-label">Stars</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card animate-on-scroll">
                 <div class="stat-value">{{ user_info.followers }}</div>
                 <div class="stat-label">Followers</div>
             </div>
@@ -643,7 +647,7 @@
         <!-- GitHub Contributions -->
         {% if contributions %}
         <section>
-            <h2 class="section-title">Contributions</h2>
+            <h2 class="section-title animate-on-scroll">Contributions</h2>
             <div class="contribution-graph">
                 {% set week_count = [] %}
                 {% for week in contributions.weeks %}
@@ -676,10 +680,10 @@
         <!-- Projects -->
         {% if repos %}
         <section>
-            <h2 class="section-title">Projects</h2>
+            <h2 class="section-title animate-on-scroll">Projects</h2>
             <div class="projects-grid">
                 {% for repo in repos %}
-                <div class="project-card" onclick="showRepoModal('{{ repo.owner.login }}', '{{ repo.name }}', '{{ repo.html_url }}')">
+                <div class="project-card animate-on-scroll" onclick="showRepoModal('{{ repo.owner.login }}', '{{ repo.name }}', '{{ repo.html_url }}')">
                     <div class="project-name">{{ repo.name }}</div>
                     <div class="project-desc">{{ repo.description or 'No description' }}</div>
                     <div class="project-stats">
@@ -708,10 +712,10 @@
         <!-- RSS Feed -->
         {% if rss_items %}
         <section>
-            <h2 class="section-title">Blog Feed</h2>
+            <h2 class="section-title animate-on-scroll">Blog Feed</h2>
             <div class="rss-list">
                 {% for item in rss_items %}
-                <div class="rss-item" onclick="showRssModal('{{ item.link|urlencode }}')">
+                <div class="rss-item animate-on-scroll" onclick="showRssModal('{{ item.link|urlencode }}')">
                     <div class="rss-header">
                         <span class="rss-title">{{ item.title }}</span>
                         <span class="rss-source">{{ item.source }}</span>
@@ -1120,7 +1124,21 @@
         if (contribGrid) {
             contribGrid.scrollLeft = contribGrid.scrollWidth;
         }
-        
+
+        // Scroll-triggered animations using Intersection Observer
+        const scrollObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+            scrollObserver.observe(el);
+        });
+
         // Contribution Tooltip Logic
         const tooltip = document.createElement('div');
         tooltip.className = 'contrib-tooltip';

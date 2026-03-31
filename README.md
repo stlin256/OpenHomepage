@@ -18,7 +18,6 @@ A modern personal homepage built with Flask, featuring GitHub stats, contributio
 - 📖 Markdown rendering in Modals with **Mermaid Diagrams**, **SVG Pan/Zoom**, and **Highlight.js** code syntax highlighting
 - 📰 Blog RSS feed subscription with **Anti-Hotlinking image caching**
 - ⚙️ Fully configurable via YAML
-- 🌍 Bilingual support (Chinese & English)
 
 ## Quick Start
 
@@ -122,13 +121,13 @@ The interface features smooth, nonlinear animations powered by CSS and JavaScrip
 ### Glow Effect
 - **Username & Avatar**: Glow sweep animation on page load and theme switching
 - Uses `cubic-bezier(0.4, 0, 0.2, 1)` for natural easing
-- Subtle pulse effect continues after the initial sweep
 
-### Entrance Animations
-- **Stat Cards**: Fade + slide up with staggered delays (100ms, 200ms, 300ms)
+### Entrance Animations (Scroll-Triggered)
+- **Stat Cards**: Fade + slide up with staggered delays
 - **Section Titles**: Fade + slide from left
 - **Project Cards**: Scale in with staggered delays
 - **RSS Items**: Fade + slide from left with staggered delays
+- Animations trigger when scrolling into view via Intersection Observer
 
 ### Hover Interactions
 - **Cards**: `translateY(-6px) scale(1.02)` with enhanced shadows
