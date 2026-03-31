@@ -15,12 +15,12 @@
             --text-primary: #ededed;
             --text-secondary: #a1a1a1;
             --text-muted: #6b6b6b;
-            --accent: rgb(177, 177, 179);
-            --accent-hover: rgb(186, 170, 173);
+            --accent: #b1b1b3;
+            --accent-hover: #baaaac;
             --border: #2a2a2a;
             --code-bg: #1e1e1e;
-            --gradient-start: rgb(177, 177, 179);
-            --gradient-end: rgb(186, 170, 173);
+            --gradient-start: #b1b1b3;
+            --gradient-end: #baaaac;
         }
 
         * {
@@ -540,23 +540,23 @@
             <div class="color-schemes" style="display:flex;justify-content:center;gap:6px;margin-top:1rem">
                 
                 <button class="scheme-btn" data-scheme="0" 
-                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, rgb(177, 177, 179), rgb(186, 170, 173))"
+                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, #d7d6ee, #ec8b95)"
                     title="Scheme 1"></button>
                 
                 <button class="scheme-btn" data-scheme="1" 
-                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, rgb(186, 170, 173), rgb(183, 195, 210))"
+                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, #ec8b95, #5a83c5)"
                     title="Scheme 2"></button>
                 
                 <button class="scheme-btn" data-scheme="2" 
-                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, rgb(183, 195, 210), rgb(170, 180, 186))"
+                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, #5a83c5, #8dccf0)"
                     title="Scheme 3"></button>
                 
                 <button class="scheme-btn" data-scheme="3" 
-                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, rgb(170, 180, 186), rgb(182, 174, 175))"
+                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, #8dccf0, #e2989d)"
                     title="Scheme 4"></button>
                 
                 <button class="scheme-btn" data-scheme="4" 
-                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, rgb(182, 174, 175), rgb(182, 174, 175))"
+                    style="width:20px;height:20px;border-radius:50%;border:1px solid var(--border);cursor:pointer;padding:0;background:linear-gradient(135deg, #e2989d, #e2989d)"
                     title="Scheme 5"></button>
                 
             </div>
@@ -3073,7 +3073,7 @@
     </div>
     <script>
         // Palette colors from avatar
-        const palette = ["rgb(177, 177, 179)", "rgb(186, 170, 173)", "rgb(183, 195, 210)", "rgb(170, 180, 186)", "rgb(182, 174, 175)"];
+        const palette = ["#d7d6ee", "#ec8b95", "#5a83c5", "#8dccf0", "#e2989d"];
         
         const themes = palette.map((color, index) => ({
             primary: color,

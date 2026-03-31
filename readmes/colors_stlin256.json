@@ -1,7 +1,19 @@
-[
-  "rgb(177, 177, 179)",
-  "rgb(186, 170, 173)",
-  "rgb(183, 195, 210)",
-  "rgb(170, 180, 186)",
-  "rgb(182, 174, 175)"
-]
+{
+  "primary": "#b1b1b3",
+  "primary_rgb": [
+    177,
+    177,
+    179
+  ],
+  "secondary": "#baaaac",
+  "tertiary": "#a7b3c5",
+  "gradient_start": "#b1b1b3",
+  "gradient_end": "#baaaac",
+  "palette": [
+    "#d7d6ee",
+    "#ec8b95",
+    "#5a83c5",
+    "#8dccf0",
+    "#e2989d"
+  ]
+}
