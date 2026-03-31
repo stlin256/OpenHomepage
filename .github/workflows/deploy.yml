@@ -7,6 +7,10 @@ on:
     - cron: '0 0 * * *'  # 每天自动部署
   workflow_dispatch:
 
+concurrency:
+  group: github-pages-deploy
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
