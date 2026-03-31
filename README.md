@@ -11,7 +11,8 @@ A modern personal homepage built with Flask, featuring GitHub stats, contributio
 
 - 🎨 Modern dark theme
 - 🌈 **Smart Theme Colors**: Auto-extracted from GitHub avatar with intelligent adjustments
-- 💾 **Fully Static & Offline-Ready**: All assets (JS/CSS) and images are pre-fetched and localized
+- 🖼️ **Auto Favicon**: Automatically generates `favicon.ico` from your GitHub avatar
+- � **Fully Static & Offline-Ready**: All assets (JS/CSS) and images are pre-fetched and localized
 - 📊 GitHub contribution heatmap
 - 📦 GitHub repositories display with **Dynamic Sorting** (Stars or Recently Updated)
 - 📖 Markdown rendering in Modals with **Mermaid Diagrams**, **SVG Pan/Zoom**, and **Highlight.js** code syntax highlighting
@@ -102,7 +103,8 @@ python app.py
 ### How It Works
 
 1. **Auto-extract**: Extract dominant color from GitHub avatar
-2. **Intelligent adjustment**:
+2. **Auto Favicon**: Automatically generates and saves `static/favicon.ico` from your avatar
+3. **Intelligent adjustment**:
    - Saturation: 40%-80% (avoid too pale or too vivid)
    - Lightness: 30%-70% (avoid too dark or too bright)
 3. **Caching**: Colors cached for 24 hours
