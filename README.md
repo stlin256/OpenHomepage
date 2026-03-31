@@ -139,6 +139,11 @@ The interface features smooth, nonlinear animations powered by CSS and JavaScrip
 ### Theme Switching
 Click any color palette button to switch themes instantly with glow feedback.
 
+### Modal Animations
+- **Open/Close**: Smooth fade + scale animation (300ms)
+- **Loading**: Spinner animation while content loads
+- Click outside modal or press ESC to close
+
 ## Project Structure
 
 ```
