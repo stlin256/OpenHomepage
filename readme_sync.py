@@ -492,21 +492,42 @@ def save_colors_to_cache(username, colors):
         print(f"Error saving colors to cache: {e}")
 
 def adjust_color_saturation(rgb):
+    """智能调整颜色饱和度，避免太淡或太鲜艳"""
     import colorsys
     r, g, b = [x/255.0 for x in rgb]
     h, s, l = colorsys.rgb_to_hls(r, g, b)
-    s = min(1.0, s * 1.5)
+
+    # 目标饱和度在0.4-0.8之间
+    target_s = max(0.4, min(0.8, s))
+
+    if s == 0:
+        # 无彩色（灰阶），返回中灰色避免纯白
+        l = 0.5
+    elif s < target_s:
+        # 太淡，提高到目标饱和度
+        s = target_s
+    else:
+        # 太鲜艳，降低饱和度
+        s = min(1.0, s * 1.2)
+
     r, g, b = colorsys.hls_to_rgb(h, s, l)
-    return tuple(int(x*255) for x in (r, g, b))
+    return tuple(int(max(0, min(255, x * 255))) for x in (r, g, b))
 
 def adjust_color_lightness(rgb):
+    """智能调整颜色亮度"""
     import colorsys
     r, g, b = [x/255.0 for x in rgb]
     h, s, l = colorsys.rgb_to_hls(r, g, b)
-    if l < 0.2: l = 0.2
-    if l > 0.8: l = 0.8
+
+    # 目标亮度范围：0.3-0.7（避免太暗或太亮）
+    target_l = max(0.3, min(0.7, l))
+    if abs(l - target_l) > 0.1:
+        factor = target_l / l if l > 0 else 1
+        r, g, b = r * factor, g * factor, b * factor
+
+    l = max(0.3, min(0.7, l))
     r, g, b = colorsys.hls_to_rgb(h, s, l)
-    return tuple(int(x*255) for x in (r, g, b))
+    return tuple(int(max(0, min(255, x))) for x in (r, g, b))
 
 def smart_adjust_color(rgb):
     rgb = adjust_color_saturation(rgb)
@@ -522,12 +543,17 @@ def get_theme_colors(avatar_url, username=''):
 
     try:
         response = session.get(avatar_url, timeout=10)
+        if response.status_code != 200:
+            raise Exception(f"Avatar download failed: {response.status_code}")
         img_data = response.content
-        
+
         # 提取颜色
         color_thief = ColorThief(io.BytesIO(img_data))
         palette = color_thief.get_palette(color_count=6)
-        
+
+        if not palette:
+            raise Exception("Empty palette from ColorThief")
+
         # 生成favicon
         try:
             img = Image.open(io.BytesIO(img_data))
@@ -541,7 +567,7 @@ def get_theme_colors(avatar_url, username=''):
         for p in palette[:4]:
             adj = smart_adjust_color(p)
             colors.append(f'rgb({adj[0]}, {adj[1]}, {adj[2]})')
-            
+
         if username:
             save_colors_to_cache(username, colors)
         return colors
