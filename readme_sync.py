@@ -440,6 +440,25 @@ def fetch_and_cache_rss(url):
     except Exception as e:
         return {'status': 'error', 'message': str(e)}
 
+def parse_rss(feed_url):
+    """解析RSS订阅"""
+    import feedparser
+    try:
+        feed = feedparser.parse(feed_url)
+        if feed.entries:
+            return [
+                {
+                    'title': entry.get('title', ''),
+                    'link': entry.get('link', ''),
+                    'published': entry.get('published', ''),
+                    'summary': entry.get('summary', '')[:200]
+                }
+                for entry in feed.entries[:5]
+            ]
+    except Exception as e:
+        print(f"Error parsing RSS: {e}")
+    return []
+
 def sync_all_rss(urls):
     """同步所有RSS源"""
     print(f"开始同步 {len(urls)} 个RSS源...")
