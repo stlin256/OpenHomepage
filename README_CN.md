@@ -85,7 +85,7 @@ python app.py
 ### 注意
 
 - Token 会保存在 `config.yaml` 中，该文件已加入 `.gitignore`，不会提交到 Git
-- **配置 Token 后才能获取贡献图数据**（GitHub GraphQL API 需要认证）
+- **配置 Token 后才能显示贡献图**（GitHub GraphQL API 需要认证，不配置 Token 将无法显示贡献图）
 
 ## 环境变量（可选）
 

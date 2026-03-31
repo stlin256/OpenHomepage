@@ -85,7 +85,7 @@ Visit http://localhost:8004
 ### Note
 
 - Token is saved in `config.yaml`, which is in `.gitignore` and won't be committed
-- **Token is required to fetch contribution graph data** (GitHub GraphQL API needs authentication)
+- **Token is required to display contribution graph** (GitHub GraphQL API needs authentication, without token the contribution graph will not show)
 
 ## Environment Variables (Optional)
 

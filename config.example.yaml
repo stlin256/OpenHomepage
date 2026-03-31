@@ -1,34 +1,36 @@
-# 配置文件示例
-# 复制此文件为 config.yaml 并修改为你自己的信息
+# Configuration Example
+# Copy this file to config.yaml and modify with your own information
 
-# GitHub用户名（用于获取公开的仓库信息）
+# GitHub username (for fetching public repository info)
 github_username: "octocat"
 
-# GitHub Token（可选，用于提高API调用限制）
-# 在 GitHub 设置 -> Developer settings -> Personal access tokens 生成
+# GitHub Token (required for contribution graph display)
+# Generate at GitHub Settings -> Developer settings -> Personal access tokens
+# Without token: 60 requests/hour limit, contribution graph will NOT display
+# With token: 5000 requests/hour limit, full features available
 # github_token: "ghp_xxxxxxxxxxxx"
 
-# 服务器端口号
+# Server port
 port: 8004
 
-# 个人博客RSS订阅源（可多个）
+# RSS feed subscriptions (can have multiple)
 rss_feeds:
   - url: "https://example.com/blog/feed.xml"
-    name: "我的博客"
+    name: "My Blog"
 
-# 个人简介
+# Personal bio
 bio:
   name: "Your Name"
   title: "Developer & Creator"
   description: "A passionate developer building cool things."
   avatar: "/static/avatar.png"
 
-# 社交链接
+# Social links
 social:
   github: "your-github-username"
   email: "your@email.com"
   twitter: "your-twitter"
 
-# 页脚文字（可选）
+# Footer text (optional)
 footer:
   text: "Created by Your Name"
