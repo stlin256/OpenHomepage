@@ -578,42 +578,76 @@ def smart_adjust_color(rgb):
     return rgb
 
 def get_theme_colors(avatar_url, username=''):
-    """从头像图片提取主题色并自动生成 favicon.ico"""
+    """从头像图片提取主题色（智能调整 + 缓存）"""
+    # 尝试从缓存获取
     if username:
         cached = get_cached_colors(username)
         if cached:
+            print(f"Using cached colors for {username}")
             return cached
+
+    # 定义 favicon 路径
+    favicon_dir = os.path.join(os.path.dirname(__file__), 'static')
+    favicon_path = os.path.join(favicon_dir, 'favicon.ico')
+
+    # 生成 favicon（如果不存在）
+    if not os.path.exists(favicon_path):
+        try:
+            print(f"Generating favicon from {avatar_url}...")
+            response = session.get(avatar_url, timeout=10)
+            if response.status_code == 200:
+                img = Image.open(io.BytesIO(response.content))
+                os.makedirs(favicon_dir, exist_ok=True)
+                img.convert('RGBA').resize((32, 32), Image.Resampling.LANCZOS).save(favicon_path, format='ICO')
+                print(f"Favicon generated: {favicon_path}")
+        except Exception as fe:
+            print(f"Error generating favicon: {fe}")
 
     try:
         response = session.get(avatar_url, timeout=10)
-        if response.status_code != 200:
-            raise Exception(f"Avatar download failed: {response.status_code}")
-        img_data = response.content
+        if response.status_code == 200:
+            img_data = io.BytesIO(response.content)
+            color_thief = ColorThief(img_data)
 
-        # 提取颜色
-        color_thief = ColorThief(io.BytesIO(img_data))
-        palette = color_thief.get_palette(color_count=5)
+            # 获取主色
+            dominant_color = color_thief.get_color(quality=1)
+            # 获取调色板
+            palette = color_thief.get_palette(color_count=5, quality=1)
 
-        if not palette:
-            raise Exception("Empty palette from ColorThief")
+            # 转换RGB为HEX
+            def rgb_to_hex(rgb):
+                return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
 
-        # 生成favicon
-        try:
-            img = Image.open(io.BytesIO(img_data))
-            img = img.resize((32, 32), Image.Resampling.LANCZOS)
-            favicon_path = os.path.join('static', 'favicon.ico')
-            img.save(favicon_path, format='ICO')
-        except Exception as e:
-            print(f"Favicon generation failed: {e}")
+            # 智能调整主色
+            adjusted_primary = smart_adjust_color(dominant_color)
+            adjusted_secondary = smart_adjust_color(palette[1]) if len(palette) > 1 else smart_adjust_color(palette[0])
+            adjusted_tertiary = smart_adjust_color(palette[2]) if len(palette) > 2 else adjusted_secondary
 
-        colors = []
-        for p in palette[:5]:
-            adj = smart_adjust_color(p)
-            colors.append(f'rgb({adj[0]}, {adj[1]}, {adj[2]})')
+            colors = {
+                'primary': rgb_to_hex(adjusted_primary),
+                'primary_rgb': list(adjusted_primary),
+                'secondary': rgb_to_hex(adjusted_secondary),
+                'tertiary': rgb_to_hex(adjusted_tertiary),
+                'gradient_start': rgb_to_hex(adjusted_primary),
+                'gradient_end': rgb_to_hex(adjusted_secondary),
+                'palette': [rgb_to_hex(c) for c in palette]
+            }
 
-        if username:
-            save_colors_to_cache(username, colors)
-        return colors
+            # 保存到缓存
+            if username:
+                save_colors_to_cache(username, colors)
+
+            return colors
+
     except Exception as e:
         print(f"Error extracting colors: {e}")
-        return ['rgb(52, 152, 219)', 'rgb(46, 204, 113)', 'rgb(155, 89, 182)', 'rgb(241, 196, 15)', 'rgb(231, 76, 60)']
+
+    # 默认颜色
+    return {
+        'primary': '#d97706',
+        'secondary': '#f59e0b',
+        'gradient_start': '#d97706',
+        'gradient_end': '#dc2626',
+        'primary_rgb': [217, 119, 6],
+        'palette': ['#d97706', '#f59e0b', '#dc2626', '#ea580c', '#c2410c']
+    }
