@@ -983,38 +983,50 @@
 
             // Try local JSON first (for static deployment), then API (for Flask server)
             var cacheFile = 'readmes/' + owner + '_' + repo + '.json';
-            fetch(cacheFile)
-                .then(function(res) {
-                    if (!res.ok) throw new Error('not found');
-                    return res.json();
-                })
-                .then(function(data) {
-                    if (data.html) {
-                        document.getElementById('modalBody').innerHTML = data.html;
-                        setTimeout(renderDynamicContent, 50);
-                    } else {
-                        throw new Error('no html');
-                    }
-                    resumePreloading();
-                })
-                .catch(function() {
-                    // Try API endpoint
-                    return fetch('api/readme/' + owner + '/' + repo)
-                        .then(function(r) { return r.json(); })
-                        .then(function(data) {
-                            if (data.status === 'ok') {
-                                document.getElementById('modalBody').innerHTML = data.html;
-                                setTimeout(renderDynamicContent, 50);
-                            } else {
+            var cacheKey = owner + '/' + repo;
+
+            // Try cache first, then fetch
+            var showContent = function(data) {
+                if (data.html) {
+                    document.getElementById('modalBody').innerHTML = data.html;
+                    setTimeout(renderDynamicContent, 50);
+                } else {
+                    document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
+                }
+                resumePreloading();
+            };
+
+            if (contentCache[cacheKey]) {
+                showContent(contentCache[cacheKey]);
+            } else {
+                fetch(cacheFile)
+                    .then(function(res) {
+                        if (!res.ok) throw new Error('not found');
+                        return res.json();
+                    })
+                    .then(function(data) {
+                        contentCache[cacheKey] = data;
+                        showContent(data);
+                    })
+                    .catch(function() {
+                        // Try API endpoint
+                        return fetch('api/readme/' + owner + '/' + repo)
+                            .then(function(r) { return r.json(); })
+                            .then(function(data) {
+                                if (data.status === 'ok') {
+                                    document.getElementById('modalBody').innerHTML = data.html;
+                                    setTimeout(renderDynamicContent, 50);
+                                } else {
+                                    document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
+                                }
+                                resumePreloading();
+                            })
+                            .catch(function() {
                                 document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
-                            }
-                            resumePreloading();
-                        })
-                        .catch(function() {
-                            document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + url + '" target="_blank">View on GitHub</a></p>';
-                            resumePreloading();
-                        });
-                });
+                                resumePreloading();
+                            });
+                    });
+            }
         }
         
         function closeModal() {
@@ -1044,52 +1056,49 @@
             var modal = document.getElementById('repoModal');
             openModal();
 
-            // Base64 hash (same as Python's urlsafe_b64encode)
-            function urlhash(str) {
-                var bytes = unescape(encodeURIComponent(str));
-                var b64 = btoa(bytes);
-                var hash = b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-                return hash.length > 100 ? hash.substring(hash.length - 100) : hash;
-            }
-            var hashHex = urlhash(decodedLink);
+            var hashHex = contentHash(decodedLink);
 
-            // Try local cache first, then API
-            fetch('readmes/rss/' + hashHex + '.json')
-                .then(function(res) {
-                    if (!res.ok) throw new Error('not found');
-                    return res.json();
-                })
-                .then(function(data) {
-                    if (data.html) {
-                        document.getElementById('modalTitle').textContent = data.title || 'Blog';
-                        document.getElementById('modalBody').innerHTML = data.html;
-                        setTimeout(renderDynamicContent, 50);
-                    } else {
-                        throw new Error('no html');
-                    }
-                    resumePreloading();
-                })
-                .catch(function() {
-                    // Try API
-                    return fetch('api/rss/' + encodeURIComponent(decodedLink))
-                        .then(function(r) { return r.json(); })
-                        .then(function(data) {
-                            if (data.status === 'ok') {
-                                document.getElementById('modalTitle').textContent = data.title || 'Blog';
-                                document.getElementById('modalBody').innerHTML = data.html;
-                                setTimeout(renderDynamicContent, 50);
-                            } else {
+            var showRssContent = function(data) {
+                document.getElementById('modalTitle').textContent = data.title || 'Blog';
+                document.getElementById('modalBody').innerHTML = data.html;
+                setTimeout(renderDynamicContent, 50);
+                resumePreloading();
+            };
+
+            if (contentCache[hashHex]) {
+                showRssContent(contentCache[hashHex]);
+            } else {
+                fetch('readmes/rss/' + hashHex + '.json')
+                    .then(function(res) {
+                        if (!res.ok) throw new Error('not found');
+                        return res.json();
+                    })
+                    .then(function(data) {
+                        contentCache[hashHex] = data;
+                        showRssContent(data);
+                    })
+                    .catch(function() {
+                        // Try API
+                        return fetch('api/rss/' + encodeURIComponent(decodedLink))
+                            .then(function(r) { return r.json(); })
+                            .then(function(data) {
+                                if (data.status === 'ok') {
+                                    document.getElementById('modalTitle').textContent = data.title || 'Blog';
+                                    document.getElementById('modalBody').innerHTML = data.html;
+                                    setTimeout(renderDynamicContent, 50);
+                                } else {
+                                    document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
+                                }
+                                resumePreloading();
+                            })
+                            .catch(function() {
                                 document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
-                            }
-                            resumePreloading();
-                        })
-                        .catch(function() {
-                            document.getElementById('modalBody').innerHTML = '<p>Failed to load</p><p><a href="' + decodedLink + '" target="_blank">Open original article</a></p>';
-                            resumePreloading();
-                        });
-                });
+                                resumePreloading();
+                            });
+                    });
+            }
         }
-        
+
         window.onclick = function(event) {
             if (event.target == document.getElementById('repoModal')) {
                 closeModal();
@@ -1112,6 +1121,100 @@
             gradientStart: color,
             gradientEnd: palette[index + 1] || color
         }));
+
+        // Content preloader - preload all card content in background
+        var contentCache = {};
+        var contentQueue = [];
+        var contentIndex = 0;
+        var contentPreloading = false;
+
+        {% if repos %}
+        var reposData = [
+            {% for repo in repos %}
+            { owner: '{{ repo.owner.login }}', name: '{{ repo.name }}' },
+            {% endfor %}
+        ];
+        {% else %}
+        var reposData = [];
+        {% endif %}
+
+        {% if rss_items %}
+        var rssData = [
+            {% for item in rss_items %}
+            { link: '{{ item.link }}' },
+            {% endfor %}
+        ];
+        {% else %}
+        var rssData = [];
+        {% endif %}
+
+        function contentHash(str) {
+            var bytes = unescape(encodeURIComponent(str));
+            var b64 = btoa(bytes);
+            var hash = b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            return hash.length > 100 ? hash.substring(hash.length - 100) : hash;
+        }
+
+        function buildContentQueue() {
+            reposData.forEach(function(repo) {
+                contentQueue.push({
+                    type: 'repo',
+                    key: repo.owner + '/' + repo.name,
+                    url: 'readmes/' + repo.owner + '_' + repo.name + '.json'
+                });
+            });
+            rssData.forEach(function(item) {
+                var hash = contentHash(decodeURIComponent(item.link));
+                contentQueue.push({
+                    type: 'rss',
+                    key: hash,
+                    url: 'readmes/rss/' + hash + '.json'
+                });
+            });
+        }
+
+        function contentPreloadNext() {
+            if (!contentPreloading || contentIndex >= contentQueue.length) return;
+            var item = contentQueue[contentIndex++];
+            if (contentCache[item.key]) {
+                setTimeout(contentPreloadNext, 10);
+                return;
+            }
+            fetch(item.url)
+                .then(function(res) {
+                    if (res.ok) return res.json();
+                    throw new Error('not found');
+                })
+                .then(function(data) {
+                    contentCache[item.key] = data;
+                })
+                .catch(function() {})
+                .finally(function() {
+                    setTimeout(contentPreloadNext, 50);
+                });
+        }
+
+        function startContentPreload() {
+            buildContentQueue();
+            contentPreloading = true;
+            contentIndex = 0;
+            for (var i = 0; i < 3; i++) {
+                contentPreloadNext();
+            }
+        }
+
+        function pauseContentPreload() {
+            contentPreloading = false;
+        }
+
+        function resumeContentPreload() {
+            if (!contentPreloading) {
+                contentPreloading = true;
+                for (var i = 0; i < 3; i++) {
+                    contentPreloadNext();
+                }
+            }
+        }
         
         let currentScheme = '{{ saved_scheme }}' || localStorage.getItem('colorScheme') || '0';
         
@@ -1171,6 +1274,7 @@
             setTimeout(triggerGlow, 100);
             // Start background preloading
             startPreloading();
+            startContentPreload();
         });
 
         // Resource preloader
