@@ -25,6 +25,10 @@ session.trust_env = False
 import hashlib
 from datetime import datetime
 from threading import Thread
+import json
+from colorthief import ColorThief
+from PIL import Image
+import io
 
 README_DIR = os.path.join(os.path.dirname(__file__), 'readmes')
 IMAGES_DIR = os.path.join(README_DIR, 'images')
@@ -467,3 +471,80 @@ def sync_all_rss(urls):
         if url:
             fetch_and_cache_rss(url)
     print("RSS同步完成")
+
+def get_cached_colors(username):
+    """从缓存获取主题色"""
+    cache_file = os.path.join(README_DIR, f'colors_{username}.json')
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            pass
+    return None
+
+def save_colors_to_cache(username, colors):
+    """保存主题色到缓存"""
+    cache_file = os.path.join(README_DIR, f'colors_{username}.json')
+    try:
+        atomic_write_json(cache_file, colors)
+    except Exception as e:
+        print(f"Error saving colors to cache: {e}")
+
+def adjust_color_saturation(rgb):
+    import colorsys
+    r, g, b = [x/255.0 for x in rgb]
+    h, s, l = colorsys.rgb_to_hls(r, g, b)
+    s = min(1.0, s * 1.5)
+    r, g, b = colorsys.hls_to_rgb(h, s, l)
+    return tuple(int(x*255) for x in (r, g, b))
+
+def adjust_color_lightness(rgb):
+    import colorsys
+    r, g, b = [x/255.0 for x in rgb]
+    h, s, l = colorsys.rgb_to_hls(r, g, b)
+    if l < 0.2: l = 0.2
+    if l > 0.8: l = 0.8
+    r, g, b = colorsys.hls_to_rgb(h, s, l)
+    return tuple(int(x*255) for x in (r, g, b))
+
+def smart_adjust_color(rgb):
+    rgb = adjust_color_saturation(rgb)
+    rgb = adjust_color_lightness(rgb)
+    return rgb
+
+def get_theme_colors(avatar_url, username=''):
+    """从头像图片提取主题色并自动生成 favicon.ico"""
+    if username:
+        cached = get_cached_colors(username)
+        if cached:
+            return cached
+
+    try:
+        response = session.get(avatar_url, timeout=10)
+        img_data = response.content
+        
+        # 提取颜色
+        color_thief = ColorThief(io.BytesIO(img_data))
+        palette = color_thief.get_palette(color_count=6)
+        
+        # 生成favicon
+        try:
+            img = Image.open(io.BytesIO(img_data))
+            img = img.resize((32, 32), Image.Resampling.LANCZOS)
+            favicon_path = os.path.join('static', 'favicon.ico')
+            img.save(favicon_path, format='ICO')
+        except Exception as e:
+            print(f"Favicon generation failed: {e}")
+
+        colors = []
+        for p in palette[:4]:
+            adj = smart_adjust_color(p)
+            colors.append(f'rgb({adj[0]}, {adj[1]}, {adj[2]})')
+            
+        if username:
+            save_colors_to_cache(username, colors)
+        return colors
+    except Exception as e:
+        print(f"Error extracting colors: {e}")
+        return ['rgb(52, 152, 219)', 'rgb(46, 204, 113)', 'rgb(155, 89, 182)', 'rgb(241, 196, 15)']
