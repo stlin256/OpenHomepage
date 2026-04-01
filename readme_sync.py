@@ -243,6 +243,8 @@ def sync_readme(owner, repo):
     # 保存到本地
     import json
     import markdown
+    # 规范化行尾符号，避免 Windows CRLF 导致解析问题
+    content = content.replace('\r\n', '\n').replace('\r', '\n')
     html_content = markdown.markdown(content, extensions=['extra', 'tables', 'nl2br', 'fenced_code'])
     
     cache_data = {
