@@ -1495,6 +1495,8 @@
                     
                         
                     
+                        
+                    
                 
                 <div class="contribution-grid">
                     
@@ -2420,6 +2422,8 @@
                         
                         <div class="contribution-day c0" data-date="2026-04-12" data-title="2026-04-12: 0 contributions"></div>
                         
+                        <div class="contribution-day c0" data-date="2026-04-13" data-title="2026-04-13: 0 contributions"></div>
+                        
                     </div>
                     
                 </div>
@@ -2759,6 +2763,58 @@
         
 
         <!-- RSS Feed -->
+        
+        <section>
+            <h2 class="section-title animate-on-scroll">Blog Feed</h2>
+            <div class="rss-list">
+                
+                <div class="rss-item animate-on-scroll" onclick="showRssModal('https%3A//blog.realpics.cn/archives/570')">
+                    <div class="rss-header">
+                        <span class="rss-title">我的龙虾当起了赛博包工头</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">AgentCrew &amp;#124; Enterprise Multi-Agent Collaboration Framew [&amp;#8230;]</div>
+                    <div class="rss-date">Wed, 11 Ma</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick="showRssModal('https%3A//blog.realpics.cn/archives/502')">
+                    <div class="rss-header">
+                        <span class="rss-title">ThinkPad X1 Carbon Gen8 in 2025</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">ThinkPad is a classic series of laptop during the past  [&amp;#8230;]</div>
+                    <div class="rss-date">Fri, 26 De</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick="showRssModal('https%3A//blog.realpics.cn/archives/518')">
+                    <div class="rss-header">
+                        <span class="rss-title">对Tesla V100的理论性能测评和与5060Ti的对比</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">首先先简要介绍一下今天的主角： NVIDIA Tesla V100 SXM2 16G 此GPU发布于2017年 [&amp;#8230;]</div>
+                    <div class="rss-date">Sun, 14 De</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick="showRssModal('https%3A//blog.realpics.cn/archives/459')">
+                    <div class="rss-header">
+                        <span class="rss-title">技术指标之外——对A股市场建立预测模型的思考</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">本文持续更新&amp;#8230;&amp;#8230; 引言 若干月前，我使用Gemini2.5pro辅助建立了一套基于日线 [&amp;#8230;]</div>
+                    <div class="rss-date">Wed, 22 Oc</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick="showRssModal('https%3A//blog.realpics.cn/archives/468')">
+                    <div class="rss-header">
+                        <span class="rss-title">对几块SSD的测试</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">下面是测试机配置 CPU Ryzen 7 5700X@PBO+200 RAM 32G DDR4 3000 C1 [&amp;#8230;]</div>
+                    <div class="rss-date">Wed, 15 Oc</div>
+                </div>
+                
+            </div>
+        </section>
         
 
         <!-- Footer --><!-- Modal for Project README -->
@@ -3190,7 +3246,19 @@
         
 
         
-        var rssData = [];
+        var rssData = [
+            
+            { link: 'https://blog.realpics.cn/archives/570' },
+            
+            { link: 'https://blog.realpics.cn/archives/502' },
+            
+            { link: 'https://blog.realpics.cn/archives/518' },
+            
+            { link: 'https://blog.realpics.cn/archives/459' },
+            
+            { link: 'https://blog.realpics.cn/archives/468' },
+            
+        ];
         
 
         function contentHash(str) {
