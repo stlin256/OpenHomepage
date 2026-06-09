@@ -33,7 +33,6 @@ Edit `config.yaml`:
 
 ```yaml
 github_username: "your-github-username"
-github_token: "ghp_xxxxxxxxxxxxxxxxxxxx"
 port: 8004
 
 rss_feeds:
@@ -69,23 +68,34 @@ Visit http://localhost:8004
 
 ## GitHub Token
 
-### Why Token?
+### How Token Handling Works
 
-- Without token: 60 requests/hour limit
-- With token: 5000 requests/hour limit
+- Public GitHub user info, repository lists, avatars, and README sync work without a token through the GitHub REST API.
+- Without a token, anonymous REST requests are limited to 60 requests/hour.
+- The official contribution graph uses GitHub GraphQL, which requires authentication.
+- In GitHub Actions, the bundled workflow automatically uses the built-in `GITHUB_TOKEN`; you do not need to create or maintain a personal `GH_TOKEN` secret.
 
-### Generate Token
+### Local Token Is Optional
 
-1. Login to GitHub
-2. Go to Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-3. Click "Generate new token (classic)"
-4. Select `repo` permission
-5. Add the token to `config.yaml`
+For local runs, you can omit `github_token`. The site will still show public user/repository data, and the contribution graph will be hidden unless cached data is available.
+
+If you want the contribution graph locally, either set an environment variable:
+
+```bash
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
+python app.py
+```
+
+or add an optional token to `config.yaml`:
+
+```yaml
+github_token: "ghp_xxxxxxxxxxxxxxxxxxxx"
+```
 
 ### Note
 
-- Token is saved in `config.yaml`, which is in `.gitignore` and won't be committed
-- **Token is required to display contribution graph** (GitHub GraphQL API needs authentication, without token the contribution graph will not show)
+- `config.yaml` is in `.gitignore`, so a local token there will not be committed.
+- A personal token is only needed for local contribution graph rendering or private contribution data. Public GitHub Pages deployment uses the Actions built-in token automatically.
 
 ## Environment Variables (Optional)
 
@@ -166,7 +176,7 @@ openhome/
 | Config | Description |
 |--------|-------------|
 | `github_username` | GitHub username |
-| `github_token` | GitHub Token (optional) |
+| `github_token` | Optional local GitHub token for GraphQL contribution graph |
 | `port` | Server port, default 8004 |
 | `rss_feeds` | RSS feed list |
 | `bio.name` | Your name |
@@ -192,7 +202,6 @@ Add these secrets in repository Settings -> Secrets and variables -> Actions:
 | Secret/Variable | Type | Description |
 |--------|------|-------------|
 | `GH_USERNAME` | Secret | GitHub username |
-| `GH_TOKEN` | Secret | GitHub Token with repo permission |
 | `RSS_URL` | Secret | RSS feed URL |
 | `BIO_NAME` | Secret | Your name |
 | `BIO_TITLE` | Secret | Title/Position |
@@ -204,7 +213,7 @@ Add these secrets in repository Settings -> Secrets and variables -> Actions:
 ### Deploy Steps
 
 1. Set Source to "Deploy from a branch" in Settings -> Pages
-2. Add the secrets above
+2. Add the secrets above. No `GH_TOKEN` secret is required; the workflow uses the built-in Actions token automatically.
 3. Push to main branch or manually trigger workflow
 4. Visit `https://yourusername.github.io/OpenHomepage/`
 

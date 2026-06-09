@@ -33,7 +33,6 @@ cp config.example.yaml config.yaml
 
 ```yaml
 github_username: "your-github-username"
-github_token: "ghp_xxxxxxxxxxxxxxxxxxxx"
 port: 8004
 
 rss_feeds:
@@ -69,23 +68,34 @@ python app.py
 
 ## GitHub Token 配置
 
-### 为什么需要 Token？
+### Token 使用方式
 
-- 无 Token：每小时 60 次请求限制
-- 有 Token：每小时 5000 次请求限制
+- GitHub 用户信息、公开仓库列表、头像和 README 同步可以不配置 Token，走 GitHub REST API 匿名请求。
+- 匿名 REST API 每小时限制 60 次请求。
+- 官方贡献图使用 GitHub GraphQL，需要认证。
+- GitHub Actions 部署时，项目 workflow 会自动使用 Actions 内置的 `GITHUB_TOKEN`，不需要创建或维护个人 `GH_TOKEN` secret。
 
-### 如何生成 Token？
+### 本地 Token 是可选项
 
-1. 登录 GitHub
-2. 进入 Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-3. 点击 "Generate new token (classic)"
-4. 勾选 `repo` 权限
-5. 生成后将 Token 添加到 `config.yaml`
+本地运行时可以不写 `github_token`。页面仍会显示公开用户信息、公开仓库和 README；贡献图会在无认证时隐藏，除非本地已有缓存。
+
+如果希望本地也显示贡献图，可以设置环境变量：
+
+```bash
+export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
+python app.py
+```
+
+也可以在 `config.yaml` 里添加可选 token：
+
+```yaml
+github_token: "ghp_xxxxxxxxxxxxxxxxxxxx"
+```
 
 ### 注意
 
-- Token 会保存在 `config.yaml` 中，该文件已加入 `.gitignore`，不会提交到 Git
-- **配置 Token 后才能显示贡献图**（GitHub GraphQL API 需要认证，不配置 Token 将无法显示贡献图）
+- `config.yaml` 已加入 `.gitignore`，本地 token 不会提交到 Git。
+- 个人 token 只用于本地贡献图或私有贡献数据；GitHub Pages 自动部署使用 Actions 内置 token。
 
 ## 环境变量（可选）
 
@@ -170,7 +180,7 @@ openhome/
 | 配置项 | 说明 |
 |--------|------|
 | `github_username` | GitHub 用户名，用于获取公开仓库 |
-| `github_token` | GitHub Token（可选），提高 API 限制 |
+| `github_token` | 可选，本地 GraphQL 贡献图使用的 GitHub Token |
 | `port` | 服务端口号，默认 8004 |
 | `rss_feeds` | RSS 订阅源列表 |
 | `bio.name` | 你的名字 |
@@ -196,7 +206,6 @@ openhome/
 | Secret/Variable 名称 | 类型 | 说明 |
 |------------|------|------|
 | `GH_USERNAME` | Secret | GitHub 用户名 |
-| `GH_TOKEN` | Secret | GitHub Token（需要 repo 权限） |
 | `RSS_URL` | Secret | RSS 订阅地址 |
 | `BIO_NAME` | Secret | 你的名字 |
 | `BIO_TITLE` | Secret | 标题/职位 |
@@ -208,7 +217,7 @@ openhome/
 ### 部署步骤
 
 1. 在仓库 Settings -> Pages 中设置 Source 为 "Deploy from a branch"
-2. 添加上述 Secrets
+2. 添加上述 Secrets。无需添加 `GH_TOKEN`，workflow 会自动使用 Actions 内置 Token
 3. 推送代码到 main 分支，或手动触发 workflow
 4. 访问 `https://yourusername.github.io/OpenHomepage/`
 

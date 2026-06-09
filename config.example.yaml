@@ -4,10 +4,11 @@
 # GitHub username (for fetching public repository info)
 github_username: "octocat"
 
-# GitHub Token (required for contribution graph display)
-# Generate at GitHub Settings -> Developer settings -> Personal access tokens
-# Without token: 60 requests/hour limit, contribution graph will NOT display
-# With token: 5000 requests/hour limit, full features available
+# Optional GitHub token for local runs.
+# Public user/repository/README data works without a token, but the official
+# contribution graph uses GitHub GraphQL and needs authentication.
+# GitHub Actions automatically provides GITHUB_TOKEN; no personal token is
+# needed for the bundled deployment workflow.
 # github_token: "ghp_xxxxxxxxxxxx"
 
 # Server port

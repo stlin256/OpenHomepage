@@ -46,8 +46,11 @@ def load_config():
 
 def get_github_token():
     """获取GitHub Token"""
+    env_token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
+    if env_token:
+        return env_token.strip()
     config = load_config()
-    return config.get('github_token', '')
+    return (config.get('github_token', '') or '').strip()
 
 def get_repo_info(owner, repo):
     """获取仓库信息（最后commit时间）"""

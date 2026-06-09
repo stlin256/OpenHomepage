@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,7 +35,6 @@ jobs:
         run: |
           cat > config.yaml << EOF
           github_username: "${{ secrets.GH_USERNAME }}"
-          github_token: "${{ secrets.GH_TOKEN }}"
           repo_sort_by: "${{ vars.REPO_SORT_BY }}"
           port: 8004
 
@@ -73,7 +74,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           publish_dir: ./dist
           publish_branch: gh-pages
           user_name: 'github-actions[bot]'

@@ -54,6 +54,15 @@ def load_config():
 
 config = load_config()
 
+def get_configured_github_token():
+    """Return a GitHub token from the runtime environment or optional config."""
+    return (
+        os.environ.get('GITHUB_TOKEN')
+        or os.environ.get('GH_TOKEN')
+        or config.get('github_token', '')
+        or ''
+    ).strip()
+
 # 缓存管理
 # 这些函数现在主要从 readme_sync 导入，但在 app.py 中保留对特定逻辑的支持
 from readme_sync import (
@@ -122,7 +131,7 @@ def get_github_user(username):
     
     url = f"https://api.github.com/users/{username}"
     headers = {}
-    token = os.environ.get('GITHUB_TOKEN', '')
+    token = get_configured_github_token()
     if token:
         headers['Authorization'] = f"Bearer {token}"
         
@@ -152,7 +161,7 @@ def get_github_repos(username):
         return cached_data
     
     headers = {}
-    token = os.environ.get('GITHUB_TOKEN', '')
+    token = get_configured_github_token()
     if token:
         headers['Authorization'] = f"Bearer {token}"
         
@@ -201,13 +210,14 @@ def get_github_repos(username):
 def get_github_contributions(username):
     """使用GitHub GraphQL API获取用户的贡献数据"""
     # 先检查缓存
-    cached_data, cached_time = get_github_cache(f'contrib_{username}')
+    cache_key = f'contrib_{username}'
+    cached_data, cached_time = get_github_cache(cache_key)
     if cached_data and is_cache_valid(cached_time):
         print(f"Using cached contributions for {username}")
         return cached_data
     
     url = "https://api.github.com/graphql"
-    token = os.environ.get('GITHUB_TOKEN', '')
+    token = get_configured_github_token()
     
     query = """
     {
@@ -228,23 +238,42 @@ def get_github_contributions(username):
     """ % username
     
     try:
-        if token:
-            headers = {"Authorization": f"Bearer {token}"}
-            response = requests.post(url, json={"query": query}, headers=headers, timeout=10)
-            if response.status_code == 200:
-                data = response.json()
-                if 'data' in data and data['data'].get('user'):
-                    calendar = data['data']['user']['contributionsCollection']['contributionCalendar']
+        if not token:
+            print("GitHub token not configured; contribution graph is disabled for this run")
+            if cached_data:
+                print(f"Using stale cached contributions for {username} because no token is available")
+                return cached_data
+            save_github_cache(cache_key, None, error='missing GitHub token')
+            return None
+
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.post(url, json={"query": query}, headers=headers, timeout=10)
+        if response.status_code == 200:
+            data = response.json()
+            if data.get('errors'):
+                print(f"GitHub GraphQL returned errors for {username}: {data.get('errors')}")
+                if not cached_data:
+                    save_github_cache(cache_key, None, error='graphql errors')
+            else:
+                user_data = data.get('data', {}).get('user') if isinstance(data.get('data'), dict) else None
+                if user_data:
+                    calendar = user_data['contributionsCollection']['contributionCalendar']
                     result = {
                         'total': calendar.get('totalContributions', 0),
                         'weeks': calendar.get('weeks', [])
                     }
-                    save_github_cache(f'contrib_{username}', result)
+                    save_github_cache(cache_key, result)
                     return result
+                if not cached_data:
+                    save_github_cache(cache_key, None, error='user not found')
+        else:
+            print(f"Failed to fetch GitHub contributions. Status code: {response.status_code}")
+            if not cached_data:
+                save_github_cache(cache_key, None, error=f'status {response.status_code}')
     except Exception as e:
         print(f"Error fetching GitHub contributions: {e}")
     
-    if cached_data and is_cache_valid(cached_time, retry=True):
+    if cached_data:
         print(f"Using stale cache for contributions {username}")
         return cached_data
     return None
@@ -256,7 +285,7 @@ def get_github_contributions(username):
 @app.route('/')
 def index():
     github_username = config.get('github_username', '')
-    github_token = config.get('github_token', '')
+    github_token = get_configured_github_token()
     if github_token:
         os.environ['GITHUB_TOKEN'] = github_token
     
@@ -430,7 +459,7 @@ def get_rss_content(url):
 if __name__ == '__main__':
     # 启动时预热缓存
     github_username = config.get('github_username', '')
-    github_token = config.get('github_token', '')
+    github_token = get_configured_github_token()
     if github_token:
         os.environ['GITHUB_TOKEN'] = github_token
 
