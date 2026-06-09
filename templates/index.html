@@ -1180,8 +1180,11 @@
             var match;
             while ((match = imgRegex.exec(html)) !== null) {
                 var src = match[1];
-                // Skip data URIs and external URLs
-                if (src && !src.startsWith('data:') && !src.startsWith('http') && !preloadedImages[src]) {
+                var lowerSrc = (src || '').toLowerCase();
+                var isRemote = lowerSrc.startsWith('http:') || lowerSrc.startsWith('https:') || lowerSrc.startsWith('//');
+                var isUnsupported = lowerSrc.startsWith('data:') || lowerSrc.startsWith('blob:') || lowerSrc.startsWith('#');
+                // Preload only generated local assets.
+                if (src && !isRemote && !isUnsupported && !preloadedImages[src]) {
                     preloadedImages[src] = true;
                     var img = new Image();
                     img.src = src;

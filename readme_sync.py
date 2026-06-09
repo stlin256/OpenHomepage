@@ -395,6 +395,22 @@ def download_rss_image(img_url, article_url):
         
     return None
 
+def localize_rss_images(container, article_url):
+    """Download usable RSS images and remove browser-local blob references."""
+    for img in container.find_all('img'):
+        src = img.get('data-src') or img.get('data-original') or img.get('src')
+        if not src:
+            continue
+        if src.startswith('blob:') or src.startswith('#'):
+            img.decompose()
+            continue
+        local_src = download_rss_image(src, article_url)
+        if local_src:
+            img['src'] = local_src
+            for attr in ['data-src', 'srcset', 'data-original']:
+                if img.has_attr(attr):
+                    del img[attr]
+
 def fetch_and_cache_rss(url):
     """获取并缓存RSS文章"""
     from bs4 import BeautifulSoup
@@ -412,31 +428,14 @@ def fetch_and_cache_rss(url):
             for tag in article.find_all(['script', 'style', 'nav', 'footer', 'header']):
                 tag.decompose()
             # 提取并替换所有图片
-            for img in article.find_all('img'):
-                src = img.get('data-src') or img.get('data-original') or img.get('src')
-                if src:
-                    local_src = download_rss_image(src, url)
-                    if local_src:
-                        img['src'] = local_src
-                        # 移除可能导致防盗链或延迟加载的属性
-                        for attr in ['data-src', 'srcset', 'data-original']:
-                            if img.has_attr(attr):
-                                del img[attr]
+            localize_rss_images(article, url)
             html_content = str(article)
         else:
             body = soup.find('body')
             if body:
                 for tag in body.find_all(['script', 'style', 'nav', 'footer', 'header']):
                     tag.decompose()
-                for img in body.find_all('img'):
-                    src = img.get('data-src') or img.get('data-original') or img.get('src')
-                    if src:
-                        local_src = download_rss_image(src, url)
-                        if local_src:
-                            img['src'] = local_src
-                            for attr in ['data-src', 'srcset', 'data-original']:
-                                if img.has_attr(attr):
-                                    del img[attr]
+                localize_rss_images(body, url)
                 html_content = str(body)
             else:
                 html_content = response.text[:5000]
