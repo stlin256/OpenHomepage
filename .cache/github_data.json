@@ -36,7 +36,7 @@
       "updated_at": "2026-04-01T16:45:59Z"
     },
     "error": null,
-    "timestamp": 1781409967.31913
+    "timestamp": 1781497121.8368409
   },
   "repos_stlin256": {
     "data": [
@@ -715,14 +715,14 @@
         "releases_url": "https://api.github.com/repos/stlin256/GPU-Fleet/releases{/id}",
         "deployments_url": "https://api.github.com/repos/stlin256/GPU-Fleet/deployments",
         "created_at": "2026-06-05T03:09:44Z",
-        "updated_at": "2026-06-13T18:41:29Z",
-        "pushed_at": "2026-06-13T18:48:05Z",
+        "updated_at": "2026-06-14T16:29:30Z",
+        "pushed_at": "2026-06-14T16:29:27Z",
         "git_url": "git://github.com/stlin256/GPU-Fleet.git",
         "ssh_url": "git@github.com:stlin256/GPU-Fleet.git",
         "clone_url": "https://github.com/stlin256/GPU-Fleet.git",
         "svn_url": "https://github.com/stlin256/GPU-Fleet",
         "homepage": "",
-        "size": 12962,
+        "size": 13570,
         "stargazers_count": 5,
         "watchers_count": 5,
         "language": "Go",
@@ -921,7 +921,7 @@
           "site_admin": false
         },
         "html_url": "https://github.com/stlin256/IPMI_WEB",
-        "description": "IPMI硬件资源监控WEB程序，适合homelab玩家。利用ipmitools和sensors来监控系统各项参数并记录，同时设置系统风扇曲线。支持获取虚拟机中的直通GPU阵列信息，支持区间概览，支持邮件通知。完整安全功能，防爆破防攻击。",
+        "description": "Self-hosted web dashboard for IPMI-capable servers, combining hardware telemetry, fan control, system resource charts, NVIDIA GPU monitoring, audit logs, alerts, and email reports.",
         "fork": false,
         "url": "https://api.github.com/repos/stlin256/IPMI_WEB",
         "forks_url": "https://api.github.com/repos/stlin256/IPMI_WEB/forks",
@@ -961,14 +961,14 @@
         "releases_url": "https://api.github.com/repos/stlin256/IPMI_WEB/releases{/id}",
         "deployments_url": "https://api.github.com/repos/stlin256/IPMI_WEB/deployments",
         "created_at": "2025-12-01T04:24:23Z",
-        "updated_at": "2026-06-01T12:11:28Z",
-        "pushed_at": "2026-06-14T00:44:32Z",
+        "updated_at": "2026-06-14T17:37:47Z",
+        "pushed_at": "2026-06-14T17:25:20Z",
         "git_url": "git://github.com/stlin256/IPMI_WEB.git",
         "ssh_url": "git@github.com:stlin256/IPMI_WEB.git",
         "clone_url": "https://github.com/stlin256/IPMI_WEB.git",
         "svn_url": "https://github.com/stlin256/IPMI_WEB",
         "homepage": "",
-        "size": 6895,
+        "size": 7164,
         "stargazers_count": 4,
         "watchers_count": 4,
         "language": "HTML",
@@ -990,18 +990,26 @@
         "has_pull_requests": true,
         "pull_request_creation_policy": "all",
         "topics": [
+          "audit-logs",
+          "bmc",
           "chartjs",
           "dashboard",
-          "devops",
+          "dell-poweredge",
           "fan-control",
           "flask",
-          "hardware",
+          "gpu-monitoring",
+          "hardware-monitoring",
           "homelab",
           "ipmi",
           "ipmitool",
-          "monitoring",
+          "linux",
+          "lm-sensors",
+          "nvidia-smi",
           "python",
-          "server-monitoring"
+          "self-hosted",
+          "server-management",
+          "server-monitoring",
+          "sqlite"
         ],
         "visibility": "public",
         "forks": 1,
@@ -1487,11 +1495,11 @@
       }
     ],
     "error": null,
-    "timestamp": 1781409967.8374612
+    "timestamp": 1781497122.3684773
   },
   "contrib_stlin256": {
     "data": {
-      "total": 1933,
+      "total": 1995,
       "weeks": [
         {
           "contributionDays": [
@@ -3152,7 +3160,7 @@
               "date": "2026-06-12"
             },
             {
-              "contributionCount": 13,
+              "contributionCount": 21,
               "date": "2026-06-13"
             }
           ]
@@ -3160,55 +3168,18 @@
         {
           "contributionDays": [
             {
-              "contributionCount": 8,
+              "contributionCount": 54,
               "date": "2026-06-14"
+            },
+            {
+              "contributionCount": 9,
+              "date": "2026-06-15"
             }
           ]
         }
       ]
     },
     "error": null,
-    "timestamp": 1781409968.300968
-  },
-  "rss_feeds": {
-    "data": [
-      {
-        "title": "残念です",
-        "link": "https://blog.realpics.cn/archives/577",
-        "published": "Tue, 09 Jun 2026 17:39:52 +0000",
-        "summary": "不要执念无望的追求，不必惋惜失败的尝试",
-        "source": "Blog"
-      },
-      {
-        "title": "我的龙虾当起了赛博包工头",
-        "link": "https://blog.realpics.cn/archives/570",
-        "published": "Wed, 11 Mar 2026 16:47:18 +0000",
-        "summary": "AgentCrew &#124; Enterprise Multi-Agent Collaboration Framew [&#8230;]",
-        "source": "Blog"
-      },
-      {
-        "title": "ThinkPad X1 Carbon Gen8 in 2025",
-        "link": "https://blog.realpics.cn/archives/502",
-        "published": "Fri, 26 Dec 2025 06:50:57 +0000",
-        "summary": "ThinkPad is a classic series of laptop during the past  [&#8230;]",
-        "source": "Blog"
-      },
-      {
-        "title": "对Tesla V100的理论性能测评和与5060Ti的对比",
-        "link": "https://blog.realpics.cn/archives/518",
-        "published": "Sun, 14 Dec 2025 16:31:04 +0000",
-        "summary": "首先先简要介绍一下今天的主角： NVIDIA Tesla V100 SXM2 16G 此GPU发布于2017年 [&#8230;]",
-        "source": "Blog"
-      },
-      {
-        "title": "技术指标之外——对A股市场建立预测模型的思考",
-        "link": "https://blog.realpics.cn/archives/459",
-        "published": "Wed, 22 Oct 2025 16:05:00 +0000",
-        "summary": "本文持续更新&#8230;&#8230; 引言 若干月前，我使用Gemini2.5pro辅助建立了一套基于日线 [&#8230;]",
-        "source": "Blog"
-      }
-    ],
-    "error": null,
-    "timestamp": 1781410025.175309
+    "timestamp": 1781497122.6873646
   }
 }
