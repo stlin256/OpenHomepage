@@ -56,20 +56,23 @@ jobs:
             text: "${{ secrets.FOOTER_TEXT }}"
           EOF
 
-      - name: Install playwright for static generation
-        run: |
-          pip install playwright
-          playwright install chromium
-
       - name: Generate static site
         run: python generate.py
 
       - name: Copy cache to dist
         run: |
+          set -euo pipefail
+          test -s dist/index.html
           mkdir -p dist/readmes dist/.cache dist/static
           cp -r readmes/* dist/readmes/ 2>/dev/null || true
           cp -r .cache/* dist/.cache/ 2>/dev/null || true
           cp -r static/* dist/static/ 2>/dev/null || true
+
+      - name: Validate static site
+        run: |
+          set -euo pipefail
+          test -s dist/index.html
+          grep -qi '<html' dist/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

@@ -340,7 +340,8 @@ def index():
                          rss_items=rss_items[:10],
                          theme_colors=theme_colors,
                          contributions=contributions,
-                         saved_scheme=saved_scheme)
+                         saved_scheme=saved_scheme,
+                         static_build=os.environ.get('OPENHOMEPAGE_STATIC_BUILD', '').lower() in {'1', 'true', 'yes', 'on'})
 
 @app.route('/api/repos')
 def api_repos():
@@ -456,6 +457,49 @@ def get_rss_content(url):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
 
+
+@app.route('/healthz')
+def healthz():
+    """Lightweight readiness endpoint for local and static build tooling."""
+    return jsonify({'status': 'ok'})
+
+
+def perform_full_sync():
+    """Refresh GitHub, README, and RSS caches used by the static build."""
+    github_username = config.get('github_username', '')
+    if not github_username:
+        return True
+
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 开始执行全量同步...")
+    try:
+        user_info = get_github_user(github_username)
+        repos = get_github_repos(github_username)
+        get_github_contributions(github_username)
+
+        if repos:
+            sync_all_readmes(repos)
+
+        rss_feeds = config.get('rss_feeds', []) or []
+        if rss_feeds:
+            from concurrent.futures import ThreadPoolExecutor
+
+            all_rss_items = []
+            for feed in rss_feeds:
+                items = parse_rss(feed.get('url', ''))
+                for item in items:
+                    item['source'] = feed.get('name', '')
+                all_rss_items.extend(items)
+
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                for item in all_rss_items:
+                    executor.submit(fetch_and_cache_rss, item['link'])
+
+        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 全量同步完成")
+        return True
+    except Exception as e:
+        print(f"同步过程中出错: {e}")
+        return False
+
 if __name__ == '__main__':
     # 启动时预热缓存
     github_username = config.get('github_username', '')
@@ -463,47 +507,14 @@ if __name__ == '__main__':
     if github_token:
         os.environ['GITHUB_TOKEN'] = github_token
 
-    def perform_full_sync():
-        """执行全量同步任务"""
-        if not github_username:
-            return
-        
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 开始执行全量同步...")
-        try:
-            # 1. 获取 GitHub 数据 (自动更新缓存)
-            user_info = get_github_user(github_username)
-            repos = get_github_repos(github_username)
-            get_github_contributions(github_username)
-
-            # 2. 同步 README
-            if repos:
-                from readme_sync import sync_all_readmes
-                sync_all_readmes(repos)
-
-            # 3. 同步 RSS
-            rss_feeds = config.get('rss_feeds', [])
-            if rss_feeds:
-                from readme_sync import fetch_and_cache_rss
-                from concurrent.futures import ThreadPoolExecutor
-                
-                all_rss_items = []
-                for feed in rss_feeds:
-                    items = parse_rss(feed.get('url', ''))
-                    for item in items:
-                        item['source'] = feed.get('name', '')
-                    all_rss_items.extend(items)
-                
-                with ThreadPoolExecutor(max_workers=10) as executor:
-                    for item in all_rss_items:
-                        executor.submit(fetch_and_cache_rss, item['link'])
-            
-            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 全量同步完成")
-        except Exception as e:
-            print(f"同步过程中出错: {e}")
-
-    if github_username:
-        print("🔄 初始预热缓存中...")
+    initial_sync_mode = os.environ.get('OPENHOMEPAGE_INITIAL_SYNC', 'background').lower()
+    if github_username and initial_sync_mode in {'foreground', 'blocking', 'sync'}:
+        print("🔄 前台预热缓存中...")
         perform_full_sync()
+    elif github_username:
+        print("🔄 后台预热缓存中...")
+        import threading
+        threading.Thread(target=perform_full_sync, name='initial-sync', daemon=True).start()
 
         # 启动后台定时同步线程 (每 2 小时)
         def sync_scheduler():
@@ -511,10 +522,10 @@ if __name__ == '__main__':
                 time.sleep(7200)
                 perform_full_sync()
         
-        import threading
         threading.Thread(target=sync_scheduler, daemon=True).start()
         print("🚀 后台同步调度器已启动（每 2 小时自动更新）")
 
-    port = config.get('port', 8004)
+    port = int(os.environ.get('OPENHOMEPAGE_PORT', config.get('port', 8004)))
     print(f"🚀 启动Claude风格个人主页: http://localhost:{port}")
-    app.run(host='0.0.0.0', port=port, debug=True)
+    debug = os.environ.get('FLASK_DEBUG', '').lower() in {'1', 'true', 'yes', 'on'}
+    app.run(host='0.0.0.0', port=port, debug=debug, use_reloader=False)

@@ -1280,11 +1280,13 @@
                 currentScheme = this.dataset.scheme;
                 localStorage.setItem('colorScheme', currentScheme);
                 // Save to server for multi-device sync
+                {% if not static_build %}
                 fetch('/api/save-scheme', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({scheme: currentScheme})
-                });
+                }).catch(function() {});
+                {% endif %}
                 initTheme();
                 triggerGlow();
             });
