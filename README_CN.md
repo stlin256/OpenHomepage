@@ -2,8 +2,29 @@
 
 [![Deploy to GitHub Pages](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml/badge.svg)](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml)
 [![Demo](https://img.shields.io/badge/Demo-Live_Preview-success)](https://stlin256.github.io/OpenHomepage/)
+[![OpenHomepage V2](https://img.shields.io/badge/🚀_重大革新-OpenHomepage_V2-BC52EE?style=flat-square&logo=astro&logoColor=white)](https://github.com/stlin256/OpenHomepage-V2)
 
 [English](README.md) | [中文](README_CN.md)
+
+> [!IMPORTANT]
+> ### 🚀 全新一代 OpenHomepage V2 正式发布 —— 脱胎换骨的彻底重构！
+> 
+> **OpenHomepage V2 不是简单的版本迭代，而是基于全新技术栈从零推倒重构的划时代框架。**
+> 
+> 如果您正在寻找一个排版更加优雅、性能登峰造极、功能远超传统个人主页的现代化站点，请务必直接体验 **[OpenHomepage-V2](https://github.com/stlin256/OpenHomepage-V2)**！
+> 
+> #### 🌟 为什么 V2 是完全不同于 V1 的代际革新？
+> - ⚡ **全新底层架构（Astro 5.x + TypeScript）**：告别 Python/Flask 运行时与服务端依赖，转向极致轻量、极速构建的纯静态（SSG）杂志级生成器，原生支持 GitHub Pages 自动化部署与多级容灾快照。
+> - 🎨 **现代杂志级排版美学**：非对称 12 列杂志网格、首帧防闪烁明暗双主题、自适应头像取色与硬件加速微交互动效。
+> - 🎛️ **专属本地可视化直编后台（`npm run admin`）**：支持在真实渲染页面上所见即所得修改文字、指令参数检查器、区块拖拽重排、自动保存与历史快照（`.snapshots/`）一键回滚。
+> - 📝 **学术科研与超强富媒体套件**：一键 BibTeX 复制的学术成果列表 (`::publications`)、KaTeX 数学公式、交互式防溢出气泡脚注 (`[^1]`)、履历时间线 (`::::timeline`)、LLM 打字机流式组件 (`::stream`)、自渲染音频播放器与 1:1 GitHub 仓库卡片。
+> - 🌐 **零摩擦多语言体系与全局搜索**：开箱即用内置 中 / 英 / 日 / 法 四语完整示例，支持 `Ctrl+K` 快速呼出带中英文分词的全局毛玻璃搜索弹窗。
+> - 🚀 **极致性能与现代媒体管线**：自动生成 WebP / AVIF 多倍率响应式图片，结合空闲预取与 Chromium Speculation Rules 预热，实现真正的“秒开”体验。
+> - 🛡️ **数据隐私彻底解耦**：个人数据与开源代码完全分离（真实 `data/` 目录不入库），保障隐私安全。
+> 
+> 🔗 **[👉 立即探索 OpenHomepage-V2 仓库](https://github.com/stlin256/OpenHomepage-V2)** ｜ **[✨ 访问 V2 在线演示 (Live Demo)](https://stlin256.github.io/OpenHomepage-V2/)**
+
+---
 
 现代化风格的个人主页，基于 Flask 构建，支持展示 GitHub 仓库、贡献图、RSS 订阅和智能主题色。
 

@@ -2,8 +2,29 @@
 
 [![Deploy to GitHub Pages](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml/badge.svg)](https://github.com/stlin256/OpenHomepage/actions/workflows/deploy.yml)
 [![Demo](https://img.shields.io/badge/Demo-Live_Preview-success)](https://stlin256.github.io/OpenHomepage/)
+[![OpenHomepage V2](https://img.shields.io/badge/🚀_Major_Upgrade-OpenHomepage_V2-BC52EE?style=flat-square&logo=astro&logoColor=white)](https://github.com/stlin256/OpenHomepage-V2)
 
 [English](README.md) | [中文](README_CN.md)
+
+> [!IMPORTANT]
+> ### 🚀 OpenHomepage V2 is Officially Released — A Total Architectural Paradigm Shift!
+> 
+> **OpenHomepage V2 is not just an incremental update, but a complete, ground-up architectural rewrite.**
+> 
+> If you are looking for an editorial-grade, ultra-performant, and feature-packed personal homepage generator, we strongly recommend checking out **[OpenHomepage-V2](https://github.com/stlin256/OpenHomepage-V2)**!
+> 
+> #### 🌟 Why V2 is a Generational Leap Over V1:
+> - ⚡ **Re-engineered from Scratch (Astro 5.x + TypeScript)**: Completely replaces the Python/Flask runtime with a modern, ultra-fast static site generator (SSG), deploying smoothly to GitHub Pages with automated snapshot disaster recovery.
+> - 🎨 **Editorial Magazine Typography**: Asymmetric 12-column grid layout, zero-flash dual themes, dynamic accent extraction from avatars, and hardware-accelerated micro-interactions.
+> - 🎛️ **Local Visual WYSIWYG Editor (`npm run admin`)**: Edit live on rendered pages with hover outlines, in-place text editing, directive parameter inspector, block drag-and-drop, autosave, and historical snapshot rollbacks.
+> - 📝 **Academic & Rich Media Directives Suite**: Academic publications with 1-click BibTeX copy (`::publications`), native KaTeX math, collision-aware interactive popover footnotes (`[^1]`), milestone timelines (`::::timeline`), LLM typewriter streaming blocks (`::stream`), custom audio player, and 1:1 GitHub repo cards.
+> - 🌐 **Zero-Friction Multilingual Architecture**: Folder-as-routing shipping with complete English, Chinese, Japanese, and French demo datasets, plus `Ctrl+K` frosted-glass static search with CJK tokenization.
+> - 🚀 **Extreme Performance & Image Pipeline**: Automated responsive AVIF / WebP derivation, aggressive idle prefetching, and Chromium Speculation Rules for sub-second page loads.
+> - 🛡️ **Privacy-First Data Decoupling**: Personal data in `data/` is strictly decoupled from the public codebase for ultimate privacy and security.
+> 
+> 🔗 **[👉 Explore OpenHomepage-V2 Repository](https://github.com/stlin256/OpenHomepage-V2)** ｜ **[✨ View V2 Live Demo](https://stlin256.github.io/OpenHomepage-V2/)**
+
+---
 
 A modern personal homepage built with Flask, featuring GitHub stats, contribution graph, RSS feed, and smart theme colors.
 
