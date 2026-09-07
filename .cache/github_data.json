@@ -30,13 +30,13 @@
       "twitter_username": null,
       "public_repos": 31,
       "public_gists": 0,
-      "followers": 8,
+      "followers": 10,
       "following": 1,
       "created_at": "2025-01-29T07:23:53Z",
       "updated_at": "2026-08-12T07:29:48Z"
     },
     "error": null,
-    "timestamp": 1788148764.420647
+    "timestamp": 1788750651.118738
   },
   "repos_stlin256": {
     "data": [
@@ -108,7 +108,7 @@
         "releases_url": "https://api.github.com/repos/stlin256/AShare-AI-Stock-Picker/releases{/id}",
         "deployments_url": "https://api.github.com/repos/stlin256/AShare-AI-Stock-Picker/deployments",
         "created_at": "2025-03-03T15:55:59Z",
-        "updated_at": "2026-08-28T00:27:25Z",
+        "updated_at": "2026-09-02T23:16:00Z",
         "pushed_at": "2025-05-15T13:08:42Z",
         "git_url": "git://github.com/stlin256/AShare-AI-Stock-Picker.git",
         "ssh_url": "git@github.com:stlin256/AShare-AI-Stock-Picker.git",
@@ -116,8 +116,8 @@
         "svn_url": "https://github.com/stlin256/AShare-AI-Stock-Picker",
         "homepage": "",
         "size": 562,
-        "stargazers_count": 56,
-        "watchers_count": 56,
+        "stargazers_count": 58,
+        "watchers_count": 58,
         "language": "Python",
         "has_issues": true,
         "has_projects": true,
@@ -149,7 +149,7 @@
         "visibility": "public",
         "forks": 10,
         "open_issues": 1,
-        "watchers": 56,
+        "watchers": 58,
         "default_branch": "main",
         "permissions": {
           "admin": false,
@@ -396,6 +396,131 @@
         "open_issues": 0,
         "watchers": 10,
         "default_branch": "main",
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": false
+        }
+      },
+      {
+        "id": 1343019685,
+        "node_id": "R_kgDOUAzapQ",
+        "name": "OpenHomepage-V2",
+        "full_name": "stlin256/OpenHomepage-V2",
+        "private": false,
+        "owner": {
+          "login": "stlin256",
+          "id": 196904574,
+          "node_id": "U_kgDOC7yGfg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/196904574?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/stlin256",
+          "html_url": "https://github.com/stlin256",
+          "followers_url": "https://api.github.com/users/stlin256/followers",
+          "following_url": "https://api.github.com/users/stlin256/following{/other_user}",
+          "gists_url": "https://api.github.com/users/stlin256/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/stlin256/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/stlin256/subscriptions",
+          "organizations_url": "https://api.github.com/users/stlin256/orgs",
+          "repos_url": "https://api.github.com/users/stlin256/repos",
+          "events_url": "https://api.github.com/users/stlin256/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/stlin256/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "html_url": "https://github.com/stlin256/OpenHomepage-V2",
+        "description": "🎓 Modern magazine-style academic & developer homepage generator built with Astro 5. Features BibTeX publications, local WYSIWYG editor, i18n, KaTeX, and privacy-first CI/CD.",
+        "fork": false,
+        "url": "https://api.github.com/repos/stlin256/OpenHomepage-V2",
+        "forks_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/forks",
+        "keys_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/teams",
+        "hooks_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/hooks",
+        "issue_events_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/events",
+        "assignees_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/tags",
+        "blobs_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/languages",
+        "stargazers_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/stargazers",
+        "contributors_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/contributors",
+        "subscribers_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/subscribers",
+        "subscription_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/subscription",
+        "commits_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/merges",
+        "archive_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/downloads",
+        "issues_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/labels{/name}",
+        "releases_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/deployments",
+        "created_at": "2026-08-22T17:21:52Z",
+        "updated_at": "2026-09-06T09:16:30Z",
+        "pushed_at": "2026-09-06T18:28:54Z",
+        "git_url": "git://github.com/stlin256/OpenHomepage-V2.git",
+        "ssh_url": "git@github.com:stlin256/OpenHomepage-V2.git",
+        "clone_url": "https://github.com/stlin256/OpenHomepage-V2.git",
+        "svn_url": "https://github.com/stlin256/OpenHomepage-V2",
+        "homepage": "https://stlin256.github.io/OpenHomepage-V2/",
+        "size": 101518,
+        "stargazers_count": 10,
+        "watchers_count": 10,
+        "language": "TypeScript",
+        "has_issues": true,
+        "has_projects": true,
+        "has_downloads": false,
+        "has_wiki": false,
+        "has_pages": true,
+        "has_discussions": false,
+        "forks_count": 0,
+        "mirror_url": null,
+        "archived": false,
+        "disabled": false,
+        "open_issues_count": 3,
+        "license": {
+          "key": "mit",
+          "name": "MIT License",
+          "spdx_id": "MIT",
+          "url": "https://api.github.com/licenses/mit",
+          "node_id": "MDc6TGljZW5zZTEz"
+        },
+        "allow_forking": true,
+        "is_template": true,
+        "web_commit_signoff_required": false,
+        "has_pull_requests": true,
+        "pull_request_creation_policy": "all",
+        "topics": [
+          "astro",
+          "bilingual",
+          "github-pages",
+          "markdown",
+          "personal-homepage",
+          "portfolio",
+          "rss",
+          "static-site-generator"
+        ],
+        "visibility": "public",
+        "forks": 0,
+        "open_issues": 3,
+        "watchers": 10,
+        "default_branch": "master",
         "permissions": {
           "admin": false,
           "maintain": false,
@@ -1382,157 +1507,15 @@
           "triage": false,
           "pull": false
         }
-      },
-      {
-        "id": 1066935015,
-        "node_id": "R_kgDOP5gi5w",
-        "name": "cst_checker",
-        "full_name": "stlin256/cst_checker",
-        "private": false,
-        "owner": {
-          "login": "stlin256",
-          "id": 196904574,
-          "node_id": "U_kgDOC7yGfg",
-          "avatar_url": "https://avatars.githubusercontent.com/u/196904574?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/stlin256",
-          "html_url": "https://github.com/stlin256",
-          "followers_url": "https://api.github.com/users/stlin256/followers",
-          "following_url": "https://api.github.com/users/stlin256/following{/other_user}",
-          "gists_url": "https://api.github.com/users/stlin256/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/stlin256/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/stlin256/subscriptions",
-          "organizations_url": "https://api.github.com/users/stlin256/orgs",
-          "repos_url": "https://api.github.com/users/stlin256/repos",
-          "events_url": "https://api.github.com/users/stlin256/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/stlin256/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "html_url": "https://github.com/stlin256/cst_checker",
-        "description": "查询计维25一面结果",
-        "fork": false,
-        "url": "https://api.github.com/repos/stlin256/cst_checker",
-        "forks_url": "https://api.github.com/repos/stlin256/cst_checker/forks",
-        "keys_url": "https://api.github.com/repos/stlin256/cst_checker/keys{/key_id}",
-        "collaborators_url": "https://api.github.com/repos/stlin256/cst_checker/collaborators{/collaborator}",
-        "teams_url": "https://api.github.com/repos/stlin256/cst_checker/teams",
-        "hooks_url": "https://api.github.com/repos/stlin256/cst_checker/hooks",
-        "issue_events_url": "https://api.github.com/repos/stlin256/cst_checker/issues/events{/number}",
-        "events_url": "https://api.github.com/repos/stlin256/cst_checker/events",
-        "assignees_url": "https://api.github.com/repos/stlin256/cst_checker/assignees{/user}",
-        "branches_url": "https://api.github.com/repos/stlin256/cst_checker/branches{/branch}",
-        "tags_url": "https://api.github.com/repos/stlin256/cst_checker/tags",
-        "blobs_url": "https://api.github.com/repos/stlin256/cst_checker/git/blobs{/sha}",
-        "git_tags_url": "https://api.github.com/repos/stlin256/cst_checker/git/tags{/sha}",
-        "git_refs_url": "https://api.github.com/repos/stlin256/cst_checker/git/refs{/sha}",
-        "trees_url": "https://api.github.com/repos/stlin256/cst_checker/git/trees{/sha}",
-        "statuses_url": "https://api.github.com/repos/stlin256/cst_checker/statuses/{sha}",
-        "languages_url": "https://api.github.com/repos/stlin256/cst_checker/languages",
-        "stargazers_url": "https://api.github.com/repos/stlin256/cst_checker/stargazers",
-        "contributors_url": "https://api.github.com/repos/stlin256/cst_checker/contributors",
-        "subscribers_url": "https://api.github.com/repos/stlin256/cst_checker/subscribers",
-        "subscription_url": "https://api.github.com/repos/stlin256/cst_checker/subscription",
-        "commits_url": "https://api.github.com/repos/stlin256/cst_checker/commits{/sha}",
-        "git_commits_url": "https://api.github.com/repos/stlin256/cst_checker/git/commits{/sha}",
-        "comments_url": "https://api.github.com/repos/stlin256/cst_checker/comments{/number}",
-        "issue_comment_url": "https://api.github.com/repos/stlin256/cst_checker/issues/comments{/number}",
-        "contents_url": "https://api.github.com/repos/stlin256/cst_checker/contents/{+path}",
-        "compare_url": "https://api.github.com/repos/stlin256/cst_checker/compare/{base}...{head}",
-        "merges_url": "https://api.github.com/repos/stlin256/cst_checker/merges",
-        "archive_url": "https://api.github.com/repos/stlin256/cst_checker/{archive_format}{/ref}",
-        "downloads_url": "https://api.github.com/repos/stlin256/cst_checker/downloads",
-        "issues_url": "https://api.github.com/repos/stlin256/cst_checker/issues{/number}",
-        "pulls_url": "https://api.github.com/repos/stlin256/cst_checker/pulls{/number}",
-        "milestones_url": "https://api.github.com/repos/stlin256/cst_checker/milestones{/number}",
-        "notifications_url": "https://api.github.com/repos/stlin256/cst_checker/notifications{?since,all,participating}",
-        "labels_url": "https://api.github.com/repos/stlin256/cst_checker/labels{/name}",
-        "releases_url": "https://api.github.com/repos/stlin256/cst_checker/releases{/id}",
-        "deployments_url": "https://api.github.com/repos/stlin256/cst_checker/deployments",
-        "created_at": "2025-09-30T06:50:00Z",
-        "updated_at": "2025-12-03T12:59:26Z",
-        "pushed_at": "2025-10-16T11:49:06Z",
-        "git_url": "git://github.com/stlin256/cst_checker.git",
-        "ssh_url": "git@github.com:stlin256/cst_checker.git",
-        "clone_url": "https://github.com/stlin256/cst_checker.git",
-        "svn_url": "https://github.com/stlin256/cst_checker",
-        "homepage": "https://stlin256.github.io/cst_checker/",
-        "size": 269,
-        "stargazers_count": 2,
-        "watchers_count": 2,
-        "language": "JavaScript",
-        "has_issues": true,
-        "has_projects": true,
-        "has_downloads": false,
-        "has_wiki": true,
-        "has_pages": true,
-        "has_discussions": false,
-        "forks_count": 0,
-        "mirror_url": null,
-        "archived": false,
-        "disabled": false,
-        "open_issues_count": 0,
-        "license": null,
-        "allow_forking": true,
-        "is_template": false,
-        "web_commit_signoff_required": false,
-        "has_pull_requests": true,
-        "pull_request_creation_policy": "all",
-        "topics": [],
-        "visibility": "public",
-        "forks": 0,
-        "open_issues": 0,
-        "watchers": 2,
-        "default_branch": "main",
-        "permissions": {
-          "admin": false,
-          "maintain": false,
-          "push": false,
-          "triage": false,
-          "pull": false
-        }
       }
     ],
     "error": null,
-    "timestamp": 1788148764.8563292
+    "timestamp": 1788750651.6263351
   },
   "contrib_stlin256": {
     "data": {
-      "total": 2701,
+      "total": 2830,
       "weeks": [
-        {
-          "contributionDays": [
-            {
-              "contributionCount": 0,
-              "date": "2025-08-31"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-09-01"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-09-02"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-09-03"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-09-04"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-09-05"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-09-06"
-            }
-          ]
-        },
         {
           "contributionDays": [
             {
@@ -3172,14 +3155,46 @@
               "date": "2026-08-30"
             },
             {
-              "contributionCount": 6,
+              "contributionCount": 9,
               "date": "2026-08-31"
+            },
+            {
+              "contributionCount": 10,
+              "date": "2026-09-01"
+            },
+            {
+              "contributionCount": 15,
+              "date": "2026-09-02"
+            },
+            {
+              "contributionCount": 5,
+              "date": "2026-09-03"
+            },
+            {
+              "contributionCount": 25,
+              "date": "2026-09-04"
+            },
+            {
+              "contributionCount": 64,
+              "date": "2026-09-05"
+            }
+          ]
+        },
+        {
+          "contributionDays": [
+            {
+              "contributionCount": 7,
+              "date": "2026-09-06"
+            },
+            {
+              "contributionCount": 0,
+              "date": "2026-09-07"
             }
           ]
         }
       ]
     },
     "error": null,
-    "timestamp": 1788148765.3587248
+    "timestamp": 1788750652.0165417
   }
 }
