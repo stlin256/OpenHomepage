@@ -1491,6 +1491,8 @@
                     
                         
                     
+                        
+                    
                 
                 <div class="contribution-grid">
                     
@@ -2416,7 +2418,9 @@
                         
                         <div class="contribution-day c30" data-date="2026-10-25" data-title="2026-10-25: 30 contributions"></div>
                         
-                        <div class="contribution-day c0" data-date="2026-10-26" data-title="2026-10-26: 0 contributions"></div>
+                        <div class="contribution-day c25" data-date="2026-10-26" data-title="2026-10-26: 25 contributions"></div>
+                        
+                        <div class="contribution-day c17" data-date="2026-10-27" data-title="2026-10-27: 17 contributions"></div>
                         
                     </div>
                     
@@ -2781,6 +2785,58 @@
         
 
         <!-- RSS Feed -->
+        
+        <section>
+            <h2 class="section-title animate-on-scroll">Blog Feed</h2>
+            <div class="rss-list">
+                
+                <div class="rss-item animate-on-scroll" onclick='showRssModal("https://blog.realpics.cn/archives/601")'>
+                    <div class="rss-header">
+                        <span class="rss-title">给家里的服务做次 IPv6 提速，最后发现瓶颈在无线网卡</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">前阵子把家里那台小机器的用途又扩了一圈：虚拟化面板、身份认证、还有给 Agent 用的 Web 入口，全挂在同 [&amp;#8230;]</div>
+                    <div class="rss-date">Mon, 26 Oc</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick='showRssModal("https://blog.realpics.cn/archives/592")'>
+                    <div class="rss-header">
+                        <span class="rss-title">如何对前沿大语言模型进行网络安全方面的“破限”操作</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">近来的前沿模型（本文中的模型，若无明确说明，则均指LLM），大多在安全对齐方面做了很强的工作，以避免其强大的能 [&amp;#8230;]</div>
+                    <div class="rss-date">Mon, 28 Se</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick='showRssModal("https://blog.realpics.cn/archives/577")'>
+                    <div class="rss-header">
+                        <span class="rss-title">残念です</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">不要执念无望的追求，不必惋惜失败的尝试</div>
+                    <div class="rss-date">Tue, 09 Ju</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick='showRssModal("https://blog.realpics.cn/archives/570")'>
+                    <div class="rss-header">
+                        <span class="rss-title">我的龙虾当起了赛博包工头</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">AgentCrew &amp;#124; Enterprise Multi-Agent Collaboration Framew [&amp;#8230;]</div>
+                    <div class="rss-date">Wed, 11 Ma</div>
+                </div>
+                
+                <div class="rss-item animate-on-scroll" onclick='showRssModal("https://blog.realpics.cn/archives/502")'>
+                    <div class="rss-header">
+                        <span class="rss-title">ThinkPad X1 Carbon Gen8 in 2025</span>
+                        <span class="rss-source">Blog</span>
+                    </div>
+                    <div class="rss-summary">ThinkPad is a classic series of laptop during the past  [&amp;#8230;]</div>
+                    <div class="rss-date">Fri, 26 De</div>
+                </div>
+                
+            </div>
+        </section>
         
 
         <!-- Footer --><!-- Modal for Project README -->
@@ -3309,7 +3365,19 @@
         
 
         
-        var rssData = [];
+        var rssData = [
+            
+            { link: "https://blog.realpics.cn/archives/601" },
+            
+            { link: "https://blog.realpics.cn/archives/592" },
+            
+            { link: "https://blog.realpics.cn/archives/577" },
+            
+            { link: "https://blog.realpics.cn/archives/570" },
+            
+            { link: "https://blog.realpics.cn/archives/502" },
+            
+        ];
         
 
         function contentHash(str) {
