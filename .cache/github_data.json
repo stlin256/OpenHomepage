@@ -36,7 +36,7 @@
       "updated_at": "2026-10-16T17:16:00Z"
     },
     "error": null,
-    "timestamp": 1794027144.6892676
+    "timestamp": 1794113049.4486861
   },
   "repos_stlin256": {
     "data": [
@@ -345,13 +345,13 @@
         "deployments_url": "https://api.github.com/repos/stlin256/OpenHomepage-V2/deployments",
         "created_at": "2026-08-22T17:21:52Z",
         "updated_at": "2026-11-02T08:11:51Z",
-        "pushed_at": "2026-11-06T21:42:23Z",
+        "pushed_at": "2026-11-07T20:23:16Z",
         "git_url": "git://github.com/stlin256/OpenHomepage-V2.git",
         "ssh_url": "git@github.com:stlin256/OpenHomepage-V2.git",
         "clone_url": "https://github.com/stlin256/OpenHomepage-V2.git",
         "svn_url": "https://github.com/stlin256/OpenHomepage-V2",
         "homepage": "https://stlin256.github.io/OpenHomepage-V2/",
-        "size": 138197,
+        "size": 171160,
         "stargazers_count": 13,
         "watchers_count": 13,
         "language": "TypeScript",
@@ -773,6 +773,140 @@
         }
       },
       {
+        "id": 1436804057,
+        "node_id": "R_kgDOVaPj2Q",
+        "name": "DSH-Harmony",
+        "full_name": "stlin256/DSH-Harmony",
+        "private": false,
+        "owner": {
+          "login": "stlin256",
+          "id": 196904574,
+          "node_id": "U_kgDOC7yGfg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/196904574?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/stlin256",
+          "html_url": "https://github.com/stlin256",
+          "followers_url": "https://api.github.com/users/stlin256/followers",
+          "following_url": "https://api.github.com/users/stlin256/following{/other_user}",
+          "gists_url": "https://api.github.com/users/stlin256/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/stlin256/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/stlin256/subscriptions",
+          "organizations_url": "https://api.github.com/users/stlin256/orgs",
+          "repos_url": "https://api.github.com/users/stlin256/repos",
+          "events_url": "https://api.github.com/users/stlin256/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/stlin256/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "html_url": "https://github.com/stlin256/DSH-Harmony",
+        "description": "DeepSeek Harness 的 HarmonyOS 客户端：流畅、简洁、功能完备，支持 Passkey、鸿蒙通知与桌面服务卡片。 快速迭代中，bug较多请见谅",
+        "fork": false,
+        "url": "https://api.github.com/repos/stlin256/DSH-Harmony",
+        "forks_url": "https://api.github.com/repos/stlin256/DSH-Harmony/forks",
+        "keys_url": "https://api.github.com/repos/stlin256/DSH-Harmony/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/stlin256/DSH-Harmony/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/stlin256/DSH-Harmony/teams",
+        "hooks_url": "https://api.github.com/repos/stlin256/DSH-Harmony/hooks",
+        "issue_events_url": "https://api.github.com/repos/stlin256/DSH-Harmony/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/stlin256/DSH-Harmony/events",
+        "assignees_url": "https://api.github.com/repos/stlin256/DSH-Harmony/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/stlin256/DSH-Harmony/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/stlin256/DSH-Harmony/tags",
+        "blobs_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/stlin256/DSH-Harmony/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/stlin256/DSH-Harmony/languages",
+        "stargazers_url": "https://api.github.com/repos/stlin256/DSH-Harmony/stargazers",
+        "contributors_url": "https://api.github.com/repos/stlin256/DSH-Harmony/contributors",
+        "subscribers_url": "https://api.github.com/repos/stlin256/DSH-Harmony/subscribers",
+        "subscription_url": "https://api.github.com/repos/stlin256/DSH-Harmony/subscription",
+        "commits_url": "https://api.github.com/repos/stlin256/DSH-Harmony/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/stlin256/DSH-Harmony/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/stlin256/DSH-Harmony/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/stlin256/DSH-Harmony/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/stlin256/DSH-Harmony/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/stlin256/DSH-Harmony/merges",
+        "archive_url": "https://api.github.com/repos/stlin256/DSH-Harmony/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/stlin256/DSH-Harmony/downloads",
+        "issues_url": "https://api.github.com/repos/stlin256/DSH-Harmony/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/stlin256/DSH-Harmony/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/stlin256/DSH-Harmony/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/stlin256/DSH-Harmony/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/stlin256/DSH-Harmony/labels{/name}",
+        "releases_url": "https://api.github.com/repos/stlin256/DSH-Harmony/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/stlin256/DSH-Harmony/deployments",
+        "created_at": "2026-10-28T08:28:16Z",
+        "updated_at": "2026-11-08T03:51:40Z",
+        "pushed_at": "2026-11-07T17:49:45Z",
+        "git_url": "git://github.com/stlin256/DSH-Harmony.git",
+        "ssh_url": "git@github.com:stlin256/DSH-Harmony.git",
+        "clone_url": "https://github.com/stlin256/DSH-Harmony.git",
+        "svn_url": "https://github.com/stlin256/DSH-Harmony",
+        "homepage": "",
+        "size": 62182,
+        "stargazers_count": 6,
+        "watchers_count": 6,
+        "language": "JavaScript",
+        "has_issues": true,
+        "has_projects": true,
+        "has_downloads": false,
+        "has_wiki": false,
+        "has_pages": false,
+        "has_discussions": false,
+        "forks_count": 0,
+        "mirror_url": null,
+        "archived": false,
+        "disabled": false,
+        "open_issues_count": 0,
+        "license": {
+          "key": "agpl-3.0",
+          "name": "GNU Affero General Public License v3.0",
+          "spdx_id": "AGPL-3.0",
+          "url": "https://api.github.com/licenses/agpl-3.0",
+          "node_id": "MDc6TGljZW5zZTE="
+        },
+        "allow_forking": true,
+        "is_template": false,
+        "web_commit_signoff_required": false,
+        "has_pull_requests": true,
+        "pull_request_creation_policy": "all",
+        "topics": [
+          "arkts",
+          "arkui",
+          "deepseek",
+          "deepseek-harness",
+          "harmonyos",
+          "harmonyos-7",
+          "harmonyos-next",
+          "huawei-appgallery",
+          "mobile-client",
+          "native-ui",
+          "passkey",
+          "push-notifications",
+          "remote-development",
+          "self-hosted",
+          "service-widgets",
+          "web-compatibility",
+          "webauthn"
+        ],
+        "visibility": "public",
+        "forks": 0,
+        "open_issues": 0,
+        "watchers": 6,
+        "default_branch": "main",
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": false
+        }
+      },
+      {
         "id": 1259964899,
         "node_id": "R_kgDOSxmJ4w",
         "name": "GPU-Fleet",
@@ -886,140 +1020,6 @@
         "forks": 0,
         "open_issues": 0,
         "watchers": 6,
-        "default_branch": "main",
-        "permissions": {
-          "admin": false,
-          "maintain": false,
-          "push": false,
-          "triage": false,
-          "pull": false
-        }
-      },
-      {
-        "id": 1436804057,
-        "node_id": "R_kgDOVaPj2Q",
-        "name": "DSH-Harmony",
-        "full_name": "stlin256/DSH-Harmony",
-        "private": false,
-        "owner": {
-          "login": "stlin256",
-          "id": 196904574,
-          "node_id": "U_kgDOC7yGfg",
-          "avatar_url": "https://avatars.githubusercontent.com/u/196904574?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/stlin256",
-          "html_url": "https://github.com/stlin256",
-          "followers_url": "https://api.github.com/users/stlin256/followers",
-          "following_url": "https://api.github.com/users/stlin256/following{/other_user}",
-          "gists_url": "https://api.github.com/users/stlin256/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/stlin256/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/stlin256/subscriptions",
-          "organizations_url": "https://api.github.com/users/stlin256/orgs",
-          "repos_url": "https://api.github.com/users/stlin256/repos",
-          "events_url": "https://api.github.com/users/stlin256/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/stlin256/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "html_url": "https://github.com/stlin256/DSH-Harmony",
-        "description": "DeepSeek Harness 的 HarmonyOS 客户端：兼容与原生双模式，流畅、简洁、功能完备，支持 Passkey、鸿蒙通知与桌面服务卡片。 快速迭代中，bug较多请见谅",
-        "fork": false,
-        "url": "https://api.github.com/repos/stlin256/DSH-Harmony",
-        "forks_url": "https://api.github.com/repos/stlin256/DSH-Harmony/forks",
-        "keys_url": "https://api.github.com/repos/stlin256/DSH-Harmony/keys{/key_id}",
-        "collaborators_url": "https://api.github.com/repos/stlin256/DSH-Harmony/collaborators{/collaborator}",
-        "teams_url": "https://api.github.com/repos/stlin256/DSH-Harmony/teams",
-        "hooks_url": "https://api.github.com/repos/stlin256/DSH-Harmony/hooks",
-        "issue_events_url": "https://api.github.com/repos/stlin256/DSH-Harmony/issues/events{/number}",
-        "events_url": "https://api.github.com/repos/stlin256/DSH-Harmony/events",
-        "assignees_url": "https://api.github.com/repos/stlin256/DSH-Harmony/assignees{/user}",
-        "branches_url": "https://api.github.com/repos/stlin256/DSH-Harmony/branches{/branch}",
-        "tags_url": "https://api.github.com/repos/stlin256/DSH-Harmony/tags",
-        "blobs_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/blobs{/sha}",
-        "git_tags_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/tags{/sha}",
-        "git_refs_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/refs{/sha}",
-        "trees_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/trees{/sha}",
-        "statuses_url": "https://api.github.com/repos/stlin256/DSH-Harmony/statuses/{sha}",
-        "languages_url": "https://api.github.com/repos/stlin256/DSH-Harmony/languages",
-        "stargazers_url": "https://api.github.com/repos/stlin256/DSH-Harmony/stargazers",
-        "contributors_url": "https://api.github.com/repos/stlin256/DSH-Harmony/contributors",
-        "subscribers_url": "https://api.github.com/repos/stlin256/DSH-Harmony/subscribers",
-        "subscription_url": "https://api.github.com/repos/stlin256/DSH-Harmony/subscription",
-        "commits_url": "https://api.github.com/repos/stlin256/DSH-Harmony/commits{/sha}",
-        "git_commits_url": "https://api.github.com/repos/stlin256/DSH-Harmony/git/commits{/sha}",
-        "comments_url": "https://api.github.com/repos/stlin256/DSH-Harmony/comments{/number}",
-        "issue_comment_url": "https://api.github.com/repos/stlin256/DSH-Harmony/issues/comments{/number}",
-        "contents_url": "https://api.github.com/repos/stlin256/DSH-Harmony/contents/{+path}",
-        "compare_url": "https://api.github.com/repos/stlin256/DSH-Harmony/compare/{base}...{head}",
-        "merges_url": "https://api.github.com/repos/stlin256/DSH-Harmony/merges",
-        "archive_url": "https://api.github.com/repos/stlin256/DSH-Harmony/{archive_format}{/ref}",
-        "downloads_url": "https://api.github.com/repos/stlin256/DSH-Harmony/downloads",
-        "issues_url": "https://api.github.com/repos/stlin256/DSH-Harmony/issues{/number}",
-        "pulls_url": "https://api.github.com/repos/stlin256/DSH-Harmony/pulls{/number}",
-        "milestones_url": "https://api.github.com/repos/stlin256/DSH-Harmony/milestones{/number}",
-        "notifications_url": "https://api.github.com/repos/stlin256/DSH-Harmony/notifications{?since,all,participating}",
-        "labels_url": "https://api.github.com/repos/stlin256/DSH-Harmony/labels{/name}",
-        "releases_url": "https://api.github.com/repos/stlin256/DSH-Harmony/releases{/id}",
-        "deployments_url": "https://api.github.com/repos/stlin256/DSH-Harmony/deployments",
-        "created_at": "2026-10-28T08:28:16Z",
-        "updated_at": "2026-11-05T16:28:34Z",
-        "pushed_at": "2026-11-05T16:28:29Z",
-        "git_url": "git://github.com/stlin256/DSH-Harmony.git",
-        "ssh_url": "git@github.com:stlin256/DSH-Harmony.git",
-        "clone_url": "https://github.com/stlin256/DSH-Harmony.git",
-        "svn_url": "https://github.com/stlin256/DSH-Harmony",
-        "homepage": "",
-        "size": 34960,
-        "stargazers_count": 5,
-        "watchers_count": 5,
-        "language": "JavaScript",
-        "has_issues": true,
-        "has_projects": true,
-        "has_downloads": false,
-        "has_wiki": false,
-        "has_pages": false,
-        "has_discussions": false,
-        "forks_count": 0,
-        "mirror_url": null,
-        "archived": false,
-        "disabled": false,
-        "open_issues_count": 0,
-        "license": {
-          "key": "agpl-3.0",
-          "name": "GNU Affero General Public License v3.0",
-          "spdx_id": "AGPL-3.0",
-          "url": "https://api.github.com/licenses/agpl-3.0",
-          "node_id": "MDc6TGljZW5zZTE="
-        },
-        "allow_forking": true,
-        "is_template": false,
-        "web_commit_signoff_required": false,
-        "has_pull_requests": true,
-        "pull_request_creation_policy": "all",
-        "topics": [
-          "arkts",
-          "arkui",
-          "deepseek",
-          "deepseek-harness",
-          "harmonyos",
-          "harmonyos-7",
-          "harmonyos-next",
-          "huawei-appgallery",
-          "mobile-client",
-          "native-ui",
-          "passkey",
-          "push-notifications",
-          "remote-development",
-          "self-hosted",
-          "service-widgets",
-          "web-compatibility",
-          "webauthn"
-        ],
-        "visibility": "public",
-        "forks": 0,
-        "open_issues": 0,
-        "watchers": 5,
         "default_branch": "main",
         "permissions": {
           "admin": false,
@@ -1527,44 +1527,12 @@
       }
     ],
     "error": null,
-    "timestamp": 1794027145.413729
+    "timestamp": 1794113050.1642714
   },
   "contrib_stlin256": {
     "data": {
-      "total": 4001,
+      "total": 4019,
       "weeks": [
-        {
-          "contributionDays": [
-            {
-              "contributionCount": 0,
-              "date": "2025-11-02"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-11-03"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-11-04"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-11-05"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-11-06"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-11-07"
-            },
-            {
-              "contributionCount": 0,
-              "date": "2025-11-08"
-            }
-          ]
-        },
         {
           "contributionDays": [
             {
@@ -3224,15 +3192,23 @@
               "date": "2026-11-06"
             },
             {
-              "contributionCount": 4,
+              "contributionCount": 18,
               "date": "2026-11-07"
+            }
+          ]
+        },
+        {
+          "contributionDays": [
+            {
+              "contributionCount": 4,
+              "date": "2026-11-08"
             }
           ]
         }
       ]
     },
     "error": null,
-    "timestamp": 1794027145.9010687
+    "timestamp": 1794113050.7464442
   },
   "rss_feeds": {
     "data": [
@@ -3273,6 +3249,6 @@
       }
     ],
     "error": null,
-    "timestamp": 1794027199.6901908
+    "timestamp": 1794113107.3001163
   }
 }
